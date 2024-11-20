@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerObj : MonoBehaviour
 {
-    public SPUM_Prefabs _prefabs;
-    public float _charMS;
+    public enum ObjType { Player, Enemy }
+    public ObjType objType;
+
     public enum PlayerState
     {
         idle,
@@ -14,6 +15,10 @@ public class PlayerObj : MonoBehaviour
         death,
     }
     public PlayerState _playerState = PlayerState.idle;
+
+
+    public SPUM_Prefabs _prefabs;
+    public float _charMS;
     public Vector3 _goalPos;
     // Start is called before the first frame update
 

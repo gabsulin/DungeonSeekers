@@ -17,6 +17,6 @@ public class HpSystem : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

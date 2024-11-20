@@ -5,9 +5,12 @@ using UnityEngine;
 public class Damage : MonoBehaviour
 {
     private PlayerObj player;
+    private EnemyMovement enemy;
+    [SerializeField] ParticleSystem boomParticles;
     void Start()
     {
-        player = FindAnyObjectByType(typeof(PlayerObj)) as PlayerObj;
+        player = FindAnyObjectByType<PlayerObj>();
+        enemy = FindAnyObjectByType<EnemyMovement>();
     }
 
     // Update is called once per frame
@@ -18,12 +21,15 @@ public class Damage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy") && player._playerState == PlayerObj.PlayerState.attack)
+        //enemy ma taky PlayerObj a tim padem je playerstate na attack a nefunguje podminka tak jak ma
+        if(collision.CompareTag("Enemy") && player._playerState == PlayerObj.PlayerState.attack && player.objType == PlayerObj.ObjType.Player) 
         {
             HpSystem enemy = collision.GetComponent<HpSystem>();
             if(enemy != null )
             {
                 enemy.TakeDamage(50);
+                boomParticles.transform.position = enemy.transform.position;
+                boomParticles.Play();
             }
         }
     }
