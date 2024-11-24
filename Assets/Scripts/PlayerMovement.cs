@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Tilemap collisionTilemap;
     public Vector3 startPos;
     public PlayerObj player;
     //public GameObject goalPos;
@@ -32,7 +34,11 @@ public class PlayerMovement : MonoBehaviour
                 if (player != null)
                 {
                     Vector2 goalPos = hit.point;
-                    player.SetMovePos(goalPos);
+                    if (IsPathClear(goalPos))
+                    {
+                        player.SetMovePos(goalPos);
+                    }
+
                 }
             }
         }
@@ -48,5 +54,18 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    private bool IsPathClear(Vector2 goalPos)
+    {
+        Vector3 direction = goalPos - (Vector2)transform.position;
+        float distance = direction.magnitude;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction.normalized, distance);
 
+        foreach (var hit in hits)
+        {
+            if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Collision"))
+                return false;
+        }
+
+        return true;
+    }
 }
