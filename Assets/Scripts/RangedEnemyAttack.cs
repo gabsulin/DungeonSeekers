@@ -6,7 +6,7 @@ public class RangedEnemyAttack : MonoBehaviour
 {
     EnemyMovement enemyDistance;
     PlayerObj enemy;
-    HpSystem enemyHp;
+    EnemyHpSystem enemyHp;
 
     [SerializeField] public Rigidbody2D bulletPrefab;
     [SerializeField] public int damage;
@@ -17,7 +17,7 @@ public class RangedEnemyAttack : MonoBehaviour
     {
         enemyDistance = GetComponent<EnemyMovement>();
         enemy = GetComponent<PlayerObj>();
-        enemyHp = GetComponent<HpSystem>();
+        enemyHp = GetComponent<EnemyHpSystem>();
 
         StartCoroutine(ShootingRoutine());
     }
@@ -29,7 +29,7 @@ public class RangedEnemyAttack : MonoBehaviour
 
     IEnumerator ShootingRoutine()
     {
-        while (enemyHp.health > 0)
+        while (enemyHp.currentHealth > 0)
         {
             Shoot();
             yield return new WaitForSeconds(0.8f);
