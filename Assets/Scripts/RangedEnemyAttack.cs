@@ -31,16 +31,19 @@ public class RangedEnemyAttack : MonoBehaviour
 
     IEnumerator ShootingRoutine()
     {
-        while (enemyHp.currentHealth > 0 && playerHp.currentHp > 0)
+        while (enemyHp.currentHealth > 0)
         {
-            Shoot();
+            if(playerHp.currentHp > 0)
+            {
+                Shoot();
+            }
             yield return new WaitForSeconds(0.8f);
         }
     }
 
     private void Shoot()
     {
-        if (enemyDistance.distance <= 3)
+        if (enemyDistance.distance <= 5)
         {
             var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
             Vector2 direction = (player.position - bulletSpawnPoint.position).normalized;

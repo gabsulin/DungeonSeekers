@@ -9,6 +9,7 @@ public class EnemyMovement : MonoBehaviour
     public PlayerObj enemy;
     public float distance;
     EnemyHpSystem enemyHp;
+    PlayerHpSystem playerHp;
 
     private SPUM_Prefabs anim;
     void Start()
@@ -16,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
         enemy = GetComponent<PlayerObj>();
         anim = GetComponent<SPUM_Prefabs>();
         enemyHp = GetComponent<EnemyHpSystem>();
+        playerHp = FindAnyObjectByType<PlayerHpSystem>();
     }
 
     void Update()
@@ -45,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
                     }
                 }
 
-                if (distance <= 3)
+                if (distance <= 3 && playerHp.currentHp > 0)
                 {
                     enemy._playerState = PlayerObj.PlayerState.attack;
                     anim.PlayAnimation(6);

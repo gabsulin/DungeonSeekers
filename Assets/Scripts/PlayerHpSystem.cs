@@ -20,6 +20,9 @@ public class PlayerHpSystem : MonoBehaviour
     [HideInInspector] public float currentHp;
     [HideInInspector] public float currentShields;
 
+    private float wasntHit = 0f;
+    private bool isRegeneratingShields = false;
+
     private float shieldRegenTime = 5f;
     void Start()
     {
@@ -29,9 +32,23 @@ public class PlayerHpSystem : MonoBehaviour
         currentShields = maxShields;
     }
 
+    private void Update()
+    {
+        // Increment wasntHit every frame
+        wasntHit += Time.deltaTime;
+
+        // Trigger shield regeneration if conditions are met
+        if (currentShields < maxShields && wasntHit >= shieldRegenTime && !isRegeneratingShields)
+        {
+            StartCoroutine(RegenerateShields());
+        }
+    }
+
     public void TakeHit(int damage)
     {
-        if(currentShields > 0)
+        wasntHit = 0;
+
+        if (currentShields > 0)
         {
             currentShields -= damage;
             shieldsBar.fillAmount = currentShields / 5;
@@ -41,7 +58,8 @@ public class PlayerHpSystem : MonoBehaviour
                 currentShields = 0;
                 shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
             }
-        } else
+        }
+        else
         {
             currentHp -= damage;
             hpBar.fillAmount = currentHp / 5;
@@ -53,7 +71,7 @@ public class PlayerHpSystem : MonoBehaviour
                 Die();
             }
         }
-        
+
     }
 
     private void Die()
@@ -81,5 +99,22 @@ public class PlayerHpSystem : MonoBehaviour
 
         anim._anim.speed = 1;
         yield return new WaitForSeconds(animationLength / 2f);
+    }
+
+    private IEnumerator RegenerateShields()
+    {
+        isRegeneratingShields = true;
+
+        while (currentShields < maxShields)
+        {
+            currentShields += 1;
+            shieldsBar.fillAmount = currentShields / maxShields;
+            shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
+
+            yield return new WaitForSeconds(2);
+        }
+
+        currentShields = Mathf.Min(currentShields, maxShields);
+        isRegeneratingShields = false;
     }
 }
