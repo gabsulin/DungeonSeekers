@@ -44,9 +44,9 @@ GameObject:
   - component: {fileID: 6689181151996125251}
   - component: {fileID: 6689181151996125250}
   - component: {fileID: -207936269338635562}
-  - component: {fileID: 8175090350856492921}
   - component: {fileID: 2559663367921002077}
   - component: {fileID: 6876907526305331825}
+  - component: {fileID: 226851829756624149}
   m_Layer: 6
   m_Name: 28
   m_TagString: Enemy
@@ -101,11 +101,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &6689181151996125250
 MonoBehaviour:
@@ -139,19 +139,6 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 6689181151996125250}
   distance: 0
---- !u!114 &8175090350856492921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689181151996125248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cfac91e08b55184d999c300b7fdfe3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
 --- !u!114 &2559663367921002077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +169,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditChk: 0
   _anim: {fileID: 3234508774522447742}
+--- !u!114 &226851829756624149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689181151996125248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfac91e08b55184d999c300b7fdfe3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
 --- !u!1001 &7526505458211270886
 PrefabInstance:
   m_ObjectHideFlags: 0

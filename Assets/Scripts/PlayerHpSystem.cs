@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,25 +12,48 @@ public class PlayerHpSystem : MonoBehaviour
 
     [SerializeField] Image hpBar;
     [SerializeField] Image shieldsBar;
+    [SerializeField] TMP_Text hpTMP;
+    [SerializeField] TMP_Text shieldsTMP;
+
     [SerializeField] private float maxHp = 5;
-    private float currentHp;
+    [SerializeField] private float maxShields = 5;
+    [HideInInspector] public float currentHp;
+    [HideInInspector] public float currentShields;
+
+    private float shieldRegenTime = 5f;
     void Start()
     {
         player = GetComponent<PlayerObj>();
         anim = GetComponent<SPUM_Prefabs>();
         currentHp = maxHp;
+        currentShields = maxShields;
     }
 
     public void TakeHit(int damage)
     {
-        currentHp -= damage;
-        hpBar.fillAmount = currentHp / 5;
-        Debug.Log(currentHp);
-        Debug.Log(hpBar.fillAmount);
-        if (currentHp <= 0)
+        if(currentShields > 0)
         {
-            Die();
+            currentShields -= damage;
+            shieldsBar.fillAmount = currentShields / 5;
+            shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
+            if (currentShields <= 0)
+            {
+                currentShields = 0;
+                shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
+            }
+        } else
+        {
+            currentHp -= damage;
+            hpBar.fillAmount = currentHp / 5;
+            hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
+            if (currentHp <= 0)
+            {
+                currentHp = 0;
+                hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
+                Die();
+            }
         }
+        
     }
 
     private void Die()
