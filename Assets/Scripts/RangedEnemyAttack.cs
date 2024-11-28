@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangedEnemyAttack : MonoBehaviour
@@ -9,10 +10,11 @@ public class RangedEnemyAttack : MonoBehaviour
     EnemyHpSystem enemyHp;
     PlayerHpSystem playerHp;
 
-    [SerializeField] float offsetAngle = 50f;
     [SerializeField] public Rigidbody2D bulletPrefab;
-    [SerializeField] public Transform bulletSpawnPoint;
+    GameObject bullets;
+    [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] public Transform player;
+    [SerializeField] private Transform aimTarget;
 
     void Start()
     {
@@ -26,42 +28,53 @@ public class RangedEnemyAttack : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     IEnumerator ShootingRoutine()
     {
         while (enemyHp.currentHealth > 0)
         {
-            if(playerHp.currentHp > 0)
+            if (playerHp.currentHp > 0)
             {
-                Shoot();
+                if(CanSeePlayer())
+                {
+                    Shoot();
+                }
             }
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.75f);
         }
+    }
+
+    private bool CanSeePlayer()
+    {
+        Vector2 direction = ((Vector2)aimTarget.position - (Vector2)bulletSpawnPoint.position).normalized;
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, direction.normalized);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Collision"))
+            {
+                Debug.Log("nevidi");
+                return false;
+            }
+        }
+        Debug.Log("vidi");
+        return true;
     }
 
     private void Shoot()
     {
-        if (enemyDistance.distance <= 5)
+        if (enemyDistance.distance <= 6)
         {
             var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
-            Vector2 direction = (player.position - bulletSpawnPoint.position).normalized;
-            Vector2 offsetDirection = RotateVector2(direction, offsetAngle);
-            bullet.AddForce(offsetDirection * 5, ForceMode2D.Impulse);
-            Destroy(bullet.gameObject, 2);
+            if (bullet != null)
+            {
+                Vector2 direction = ((Vector2)aimTarget.position - (Vector2)bulletSpawnPoint.position).normalized;
+                bullet.AddForce(direction * 5, ForceMode2D.Impulse);
+                Destroy(bullet.gameObject, 2);
+            }
+
         }
-    }
-
-    private Vector2 RotateVector2(Vector2 vector, float angleDegrees)
-    {
-        float angleRadians = angleDegrees * Mathf.Deg2Rad;
-        float cos = Mathf.Cos(angleRadians);
-        float sin = Mathf.Sin(angleRadians);
-
-        return new Vector2(
-            vector.x * cos - vector.y * sin,
-            vector.x * sin + vector.y * cos
-        );
     }
 }

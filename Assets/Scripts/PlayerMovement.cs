@@ -7,15 +7,15 @@ using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Tilemap collisionTilemap;
     public Vector3 startPos;
     public PlayerObj player;
-    //public GameObject goalPos;
     private SPUM_Prefabs anim;
-    //Vector2 offset = new Vector2(0, 0.2f);
+    private PlayerHpSystem playerHp;
+    
     void Start()
     {
         player = GetComponent<PlayerObj>();
+        playerHp = GetComponent<PlayerHpSystem>();
         anim = GetComponent<SPUM_Prefabs>();
     }
 
@@ -24,17 +24,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            /*Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = goalPos.transform.position.z;
-            goalPos.transform.position = mousePosition;*/
-
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Walking"))
             {
-                if (player != null)
+                if (player != null && playerHp.currentHp > 0)
                 {
                     Vector2 goalPos = hit.point;
-                    if (IsPathClear(goalPos))
+                    if (IsPathClear())
                     {
                         player.SetMovePos(goalPos);
                     }
@@ -47,25 +43,24 @@ public class PlayerMovement : MonoBehaviour
             player._playerState = PlayerObj.PlayerState.attack;
             if (player._playerState == PlayerObj.PlayerState.attack)
             {
-
+                anim._anim.SetFloat("RunState", 0f);
                 anim.PlayAnimation(4);
             }
         }
 
     }
-
-    private bool IsPathClear(Vector2 goalPos)
+    private bool IsPathClear()
     {
-        Vector3 direction = goalPos - (Vector2)transform.position;
-        float distance = direction.magnitude;
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction.normalized, distance);
+        RaycastHit2D raycastHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        RaycastHit2D[] linecastHits = Physics2D.LinecastAll(player.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
-        foreach (var hit in hits)
+        foreach(RaycastHit2D hit in linecastHits)
         {
-            if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Collision"))
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Collision"))
+            {
                 return false;
+            }
         }
-
         return true;
     }
 }

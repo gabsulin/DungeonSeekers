@@ -28,7 +28,7 @@ public class EnemyMovement : MonoBehaviour
         {
             if (enemyHp.currentHealth > 0)
             {
-                if (distance > 2 && distance < 4)
+                if (distance > 2 && distance <= 8)
                 {
                     Vector2 goalPos = player.transform.position;
                     enemy.SetMovePos(goalPos);
@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
                     }
                 }
 
-                if (distance <= 3 && playerHp.currentHp > 0)
+                if (distance <= 6 && playerHp.currentHp > 0)
                 {
                     enemy._playerState = PlayerObj.PlayerState.attack;
                     anim.PlayAnimation(6);

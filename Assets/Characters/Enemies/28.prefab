@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7523c59464994ef4ab45dbfc91182c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 663476997954893667, guid: a45cc9a26c8c71543b6e1ead0ea220b8, type: 3}
   enemy: {fileID: 6689181151996125250}
   distance: 0
 --- !u!114 &2559663367921002077
@@ -151,10 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8da45e14c1d50e947ac421e902cc1ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
-  damage: 0
+  bulletPrefab: {fileID: 7507005522528888930, guid: cb540c84a86df824da41bef6a7469a74,
+    type: 3}
   bulletSpawnPoint: {fileID: 5226277744210486415}
-  player: {fileID: 0}
+  player: {fileID: 663476997954893676, guid: a45cc9a26c8c71543b6e1ead0ea220b8, type: 3}
+  aimTarget: {fileID: 663476997954893676, guid: a45cc9a26c8c71543b6e1ead0ea220b8,
+    type: 3}
 --- !u!114 &6876907526305331825
 MonoBehaviour:
   m_ObjectHideFlags: 0

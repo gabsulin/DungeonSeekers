@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerDamage : MonoBehaviour
 {
     PlayerObj player;
+    [SerializeField] ParticleSystem particles;
     void Start()
     {
         player = FindAnyObjectByType<PlayerObj>();
@@ -18,7 +19,9 @@ public class PlayerDamage : MonoBehaviour
             if (playerHp != null)
             {
                 playerHp.TakeHit(1);
-                Debug.Log("hit");
+                Destroy(gameObject);
+                particles.transform.position = player.transform.position;
+                particles.Play();
             }
         }
     }
