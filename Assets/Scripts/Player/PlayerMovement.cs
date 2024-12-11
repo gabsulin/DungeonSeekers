@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public Vector3 startPos;
     public PlayerObj player;
-    private SPUM_Prefabs anim;
     private PlayerHpSystem playerHp;
+    private SPUM_Prefabs anim;
     
     void Start()
     {

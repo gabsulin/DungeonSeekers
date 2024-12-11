@@ -6,6 +6,7 @@ public class EnemyDamage : MonoBehaviour
 {
     private PlayerObj player;
     [SerializeField] ParticleSystem boomParticles;
+    bool isHit = false;
     void Start()
     {
         player = FindAnyObjectByType<PlayerObj>();
@@ -14,20 +15,25 @@ public class EnemyDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //enemy ma taky PlayerObj a tim padem je playerstate na attack a nefunguje podminka tak jak ma
-        if(collision.CompareTag("Enemy") && player._playerState == PlayerObj.PlayerState.attack && player.objType == PlayerObj.ObjType.Player) 
+        if (collision.CompareTag("Enemy") && player.objType == PlayerObj.ObjType.Player && player._playerState == PlayerObj.PlayerState.attack)
         {
             EnemyHpSystem enemyHp = collision.GetComponent<EnemyHpSystem>();
-            if(enemyHp != null )
+            if (enemyHp != null)
             {
-                enemyHp.TakeDamage(50);
-                boomParticles.transform.position = enemyHp.transform.position;
-                boomParticles.Play();
+                if (isHit == false)
+                {
+                    enemyHp.TakeDamage(50);
+                    boomParticles.transform.position = enemyHp.transform.position;
+                    boomParticles.Play();
+                    isHit = true;
+                }
+                isHit = false;
             }
         }
     }

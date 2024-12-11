@@ -13,8 +13,6 @@ public class PlayerDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (player.objType == PlayerObj.ObjType.Player)
-        {
             PlayerHpSystem playerHp = collision.GetComponent<PlayerHpSystem>();
             if (playerHp != null)
             {
@@ -23,6 +21,5 @@ public class PlayerDamage : MonoBehaviour
                 particles.transform.position = player.transform.position;
                 particles.Play();
             }
-        }
     }
 }

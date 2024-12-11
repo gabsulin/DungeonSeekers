@@ -9,6 +9,7 @@ public class RangedEnemyAttack : MonoBehaviour
     PlayerObj enemy;
     EnemyHpSystem enemyHp;
     PlayerHpSystem playerHp;
+    SPUM_Prefabs anim;
 
     [SerializeField] public Rigidbody2D bulletPrefab;
     GameObject bullets;
@@ -22,6 +23,7 @@ public class RangedEnemyAttack : MonoBehaviour
         enemy = GetComponent<PlayerObj>();
         enemyHp = GetComponent<EnemyHpSystem>();
         playerHp = FindAnyObjectByType<PlayerHpSystem>();
+        anim = FindAnyObjectByType<SPUM_Prefabs>();
 
         StartCoroutine(ShootingRoutine());
     }
@@ -37,16 +39,13 @@ public class RangedEnemyAttack : MonoBehaviour
         {
             if (playerHp.currentHp > 0)
             {
-                if(CanSeePlayer())
-                {
-                    Shoot();
-                }
+                Shoot();
             }
             yield return new WaitForSeconds(0.75f);
         }
     }
 
-    private bool CanSeePlayer()
+    /*private bool CanSeePlayer()
     {
         Vector2 direction = ((Vector2)aimTarget.position - (Vector2)bulletSpawnPoint.position).normalized;
         RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, direction.normalized);
@@ -61,7 +60,8 @@ public class RangedEnemyAttack : MonoBehaviour
         }
         Debug.Log("vidi");
         return true;
-    }
+    }*/
+
 
     private void Shoot()
     {
@@ -74,7 +74,6 @@ public class RangedEnemyAttack : MonoBehaviour
                 bullet.AddForce(direction * 5, ForceMode2D.Impulse);
                 Destroy(bullet.gameObject, 2);
             }
-
         }
     }
 }
