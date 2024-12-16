@@ -14,7 +14,7 @@ public class GetCameraBoundary : MonoBehaviour
     {
         gameObjectCameraBoundary = GameObject.FindGameObjectWithTag("CameraBoundary");
         cameraBoundary = gameObjectCameraBoundary.GetComponent<CompositeCollider2D>();
-
+        confiner = FindAnyObjectByType<CinemachineConfiner2D>();
         confiner.BoundingShape2D = cameraBoundary;
     }
 

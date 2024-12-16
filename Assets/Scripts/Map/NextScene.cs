@@ -9,6 +9,7 @@ public class NextScene : MonoBehaviour
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene().buildIndex;
+        Debug.Log(currentScene);
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
