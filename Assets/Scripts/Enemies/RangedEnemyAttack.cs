@@ -37,7 +37,7 @@ public class RangedEnemyAttack : MonoBehaviour
     {
         while (enemyHp.currentHealth > 0)
         {
-            if (playerHp.currentHp > 0)
+            if (playerHp.currentHp > 0 &&CanSeePlayer())
             {
                 Shoot();
             }
@@ -45,34 +45,39 @@ public class RangedEnemyAttack : MonoBehaviour
         }
     }
 
-    /*private bool CanSeePlayer()
+    public bool CanSeePlayer()
     {
-        Vector2 direction = ((Vector2)aimTarget.position - (Vector2)bulletSpawnPoint.position).normalized;
-        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, direction.normalized);
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, aimTarget.position);
+
 
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Collision"))
             {
-                Debug.Log("nevidi");
                 return false;
             }
+            if (hit.collider.gameObject.CompareTag("Player"))
+            {
+                return true;
+            }
         }
-        Debug.Log("vidi");
-        return true;
-    }*/
+        return false;
+    }
 
 
     private void Shoot()
     {
         if (enemyDistance.distance <= 6)
         {
-            var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
-            if (bullet != null)
+            if(CanSeePlayer())
             {
-                Vector2 direction = ((Vector2)aimTarget.position - (Vector2)bulletSpawnPoint.position).normalized;
-                bullet.AddForce(direction * 5, ForceMode2D.Impulse);
-                Destroy(bullet.gameObject, 2);
+                var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
+                if (bullet != null)
+                {
+                    Vector2 direction = ((Vector2)aimTarget.position - (Vector2)bulletSpawnPoint.position).normalized;
+                    bullet.AddForce(direction * 5, ForceMode2D.Impulse);
+                    Destroy(bullet.gameObject, 2);
+                }
             }
         }
     }
