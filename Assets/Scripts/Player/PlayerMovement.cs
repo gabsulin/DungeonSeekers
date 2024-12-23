@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 public class PlayerMovement : MonoBehaviour
 {
     public Vector3 startPos;
-    public PlayerObj player;
+    private PlayerObj player;
     private PlayerHpSystem playerHp;
     private SPUM_Prefabs anim;
     
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     {
         player = GetComponent<PlayerObj>();
         playerHp = GetComponent<PlayerHpSystem>();
-        anim = GetComponent<SPUM_Prefabs>();
+        anim = GetComponentInChildren<SPUM_Prefabs>();
     }
 
     // Update is called once per frame

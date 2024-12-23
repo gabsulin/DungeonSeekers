@@ -6,30 +6,34 @@ using UnityEngine;
 public class RangedEnemyAttack : MonoBehaviour
 {
     EnemyMovement enemyDistance;
-    PlayerObj enemy;
     EnemyHpSystem enemyHp;
     PlayerHpSystem playerHp;
-    SPUM_Prefabs anim;
 
     [SerializeField] public Rigidbody2D bulletPrefab;
-    GameObject bullets;
     [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] public Transform player;
-    [SerializeField] private Transform aimTarget;
+    private Transform aimTarget;
 
     void Start()
     {
         enemyDistance = GetComponent<EnemyMovement>();
-        enemy = GetComponent<PlayerObj>();
         enemyHp = GetComponent<EnemyHpSystem>();
-        playerHp = FindAnyObjectByType<PlayerHpSystem>();
-        anim = FindAnyObjectByType<SPUM_Prefabs>();
+        playerHp = FindFirstObjectByType<PlayerHpSystem>();
 
+        if (enemyHp != null)
+        {
+            Debug.Log("EnemyHpSystem found: currentHealth = " + enemyHp.currentHealth);
+        }
+        else
+        {
+            Debug.LogError("EnemyHpSystem component not found!");
+        }
+
+        if (playerHp != null)
+        {
+            Transform aimTargetTransform = playerHp.transform;
+            aimTarget = aimTargetTransform.Find("4/UnitRoot/Root/AimTarget");
+        }
         StartCoroutine(ShootingRoutine());
-    }
-
-    void Update()
-    {
 
     }
 
@@ -37,7 +41,7 @@ public class RangedEnemyAttack : MonoBehaviour
     {
         while (enemyHp.currentHealth > 0)
         {
-            if (playerHp.currentHp > 0 &&CanSeePlayer())
+            if (playerHp.currentHp > 0 && CanSeePlayer())
             {
                 Shoot();
             }
@@ -69,7 +73,7 @@ public class RangedEnemyAttack : MonoBehaviour
     {
         if (enemyDistance.distance <= 6)
         {
-            if(CanSeePlayer())
+            if (CanSeePlayer())
             {
                 var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
                 if (bullet != null)

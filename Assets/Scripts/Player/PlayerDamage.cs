@@ -18,8 +18,8 @@ public class PlayerDamage : MonoBehaviour
             {
                 playerHp.TakeHit(1);
                 Destroy(gameObject);
-                particles.transform.position = player.transform.position;
-                particles.Play();
+                //particles.transform.position = player.transform.position;
+                //particles.Play();
             }
     }
 }

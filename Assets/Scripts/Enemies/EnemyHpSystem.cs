@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class EnemyHpSystem : MonoBehaviour
 {
-    PlayerObj enemy;
+    private MapFunctionality manager;
+
+    EnemyObj enemy;
     SPUM_Prefabs anim;
 
     public int maxHealth = 100;
     public int currentHealth;
 
+
+    private void Awake()
+    {
+        currentHealth = maxHealth;
+    }
     private void Start()
     {
-        enemy = GetComponent<PlayerObj>();
-        anim = GetComponent<SPUM_Prefabs>();
-        currentHealth = maxHealth;
+        enemy = GetComponent<EnemyObj>();
+        anim = GetComponentInChildren<SPUM_Prefabs>();
     }
     public void TakeDamage(int damage)
     {
@@ -27,20 +33,35 @@ public class EnemyHpSystem : MonoBehaviour
 
     private void Die()
     {
-        if (enemy._playerState != PlayerObj.PlayerState.death)
+        if (enemy._enemyState != EnemyObj.EnemyState.death)
         {
             anim._anim.ResetTrigger("Attack");
             anim._anim.SetFloat("RunState", 0f);
             anim._anim.SetFloat("AttackState", 0f);
             anim._anim.SetFloat("SkillState", 0f);
 
-            enemy._playerState = PlayerObj.PlayerState.death;
+            enemy._enemyState = EnemyObj.EnemyState.death;
 
             StartCoroutine(PlayDeathAnimation());
-
         }
 
+        RemoveFromList();
         Destroy(gameObject, 1);
+    }
+
+    private void RemoveFromList()
+    {
+        MapFunctionality manager = FindFirstObjectByType<MapFunctionality>();
+
+        if (manager != null && manager.enemies.Contains(this))
+        {
+            manager.enemies.Remove(this);
+        }
+    }
+
+    public void SetManager(MapFunctionality manager)
+    {
+        this.manager = manager;
     }
 
     private IEnumerator PlayDeathAnimation()

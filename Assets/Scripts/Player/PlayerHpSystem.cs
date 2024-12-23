@@ -27,7 +27,7 @@ public class PlayerHpSystem : MonoBehaviour
     void Start()
     {
         player = GetComponent<PlayerObj>();
-        anim = GetComponent<SPUM_Prefabs>();
+        anim = GetComponentInChildren<SPUM_Prefabs>();
         currentHp = maxHp;
         currentShields = maxShields;
     }

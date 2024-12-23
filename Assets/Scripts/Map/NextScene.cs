@@ -11,10 +11,10 @@ public class NextScene : MonoBehaviour
         currentScene = SceneManager.GetActiveScene().buildIndex;
         Debug.Log(currentScene);
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             SceneManager.LoadScene(currentScene + 1);
         }

@@ -1,30 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public PlayerObj player;
-    public PlayerObj enemy;
-    public float distance;
+    private PlayerObj player;
+    private EnemyObj enemy;
+    [HideInInspector] public float distance;
     EnemyHpSystem enemyHp;
     PlayerHpSystem playerHp;
 
     private SPUM_Prefabs anim;
     void Start()
     {
-        enemy = GetComponent<PlayerObj>();
-        anim = GetComponent<SPUM_Prefabs>();
+        player = FindAnyObjectByType<PlayerObj>();
+        enemy = GetComponent<EnemyObj>();
+        anim = GetComponentInChildren<SPUM_Prefabs>();
         enemyHp = GetComponent<EnemyHpSystem>();
         playerHp = FindAnyObjectByType<PlayerHpSystem>();
     }
 
     void Update()
     {
-        distance = Vector2.Distance(transform.position, player.transform.position);
+        if(player != null)
+        {
+            distance = Vector2.Distance(transform.position, player.transform.position);
+        }
+        
 
-        if (enemy != null)
+        if (enemy != null && player != null)
         {
             if (enemyHp.currentHealth > 0)
             {
@@ -32,24 +38,24 @@ public class EnemyMovement : MonoBehaviour
                 {
                     Vector2 goalPos = player.transform.position;
                     enemy.SetMovePos(goalPos);
-                    if (enemy._playerState != PlayerObj.PlayerState.move)
+                    if (enemy._enemyState != EnemyObj.EnemyState.move)
                     {
-                        enemy._playerState = PlayerObj.PlayerState.move;
+                        enemy._enemyState = EnemyObj.EnemyState.move;
                         anim.PlayAnimation(1);
                     }
                 }
                 else
                 {
-                    if (enemy._playerState != PlayerObj.PlayerState.idle)
+                    if (enemy._enemyState != EnemyObj.EnemyState.idle)
                     {
-                        enemy._playerState = PlayerObj.PlayerState.idle;
+                        enemy._enemyState = EnemyObj.EnemyState.idle;
                         anim.PlayAnimation(0);
                     }
                 }
 
                 if (distance <= 6 && playerHp.currentHp > 0)
                 {
-                    enemy._playerState = PlayerObj.PlayerState.attack;
+                    enemy._enemyState = EnemyObj.EnemyState.attack;
                     anim.PlayAnimation(6);
                 }
             }
