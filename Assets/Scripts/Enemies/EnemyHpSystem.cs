@@ -46,7 +46,8 @@ public class EnemyHpSystem : MonoBehaviour
         }
 
         RemoveFromList();
-        Destroy(gameObject, 1);
+        if (gameObject != null)
+            Destroy(gameObject, 1);
     }
 
     private void RemoveFromList()

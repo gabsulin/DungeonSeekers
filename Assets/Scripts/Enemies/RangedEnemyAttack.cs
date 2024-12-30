@@ -11,33 +11,41 @@ public class RangedEnemyAttack : MonoBehaviour
 
     [SerializeField] public Rigidbody2D bulletPrefab;
     [SerializeField] private Transform bulletSpawnPoint;
-    private Transform aimTarget;
+    Transform aimTarget;
 
+    Coroutine shootingRoutine;
+
+    private void Awake()
+    {
+        shootingRoutine = null;
+    }
     void Start()
     {
         enemyDistance = GetComponent<EnemyMovement>();
         enemyHp = GetComponent<EnemyHpSystem>();
         playerHp = FindFirstObjectByType<PlayerHpSystem>();
 
-        if (enemyHp != null)
-        {
-            Debug.Log("EnemyHpSystem found: currentHealth = " + enemyHp.currentHealth);
-        }
-        else
-        {
-            Debug.LogError("EnemyHpSystem component not found!");
-        }
-
         if (playerHp != null)
         {
             Transform aimTargetTransform = playerHp.transform;
             aimTarget = aimTargetTransform.Find("4/UnitRoot/Root/AimTarget");
         }
-        StartCoroutine(ShootingRoutine());
-
     }
 
-    IEnumerator ShootingRoutine()
+    private void Update()
+    {
+        StartShooting();
+    }
+
+    public void StartShooting()
+    {
+        if (shootingRoutine == null && enemyHp.currentHealth > 0 && playerHp.currentHp > 0)
+        {
+            shootingRoutine = StartCoroutine(ShootingRoutine());
+        }
+    }
+
+    public IEnumerator ShootingRoutine()
     {
         while (enemyHp.currentHealth > 0)
         {
@@ -47,41 +55,35 @@ public class RangedEnemyAttack : MonoBehaviour
             }
             yield return new WaitForSeconds(0.75f);
         }
+        shootingRoutine = null;
     }
 
     public bool CanSeePlayer()
     {
         RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, aimTarget.position);
 
-
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Collision"))
             {
+                Debug.Log("nevidi");
                 return false;
             }
-            if (hit.collider.gameObject.CompareTag("Player"))
-            {
-                return true;
-            }
         }
-        return false;
+        return true;
     }
 
 
     private void Shoot()
     {
-        if (enemyDistance.distance <= 6)
+        if (enemyDistance.distance <= 8)
         {
-            if (CanSeePlayer())
+            var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
+            if (bullet != null)
             {
-                var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
-                if (bullet != null)
-                {
-                    Vector2 direction = ((Vector2)aimTarget.position - (Vector2)bulletSpawnPoint.position).normalized;
-                    bullet.AddForce(direction * 5, ForceMode2D.Impulse);
-                    Destroy(bullet.gameObject, 2);
-                }
+                Vector2 direction = ((Vector2)playerHp.transform.position - (Vector2)bulletSpawnPoint.position).normalized;
+                bullet.AddForce(direction * 5, ForceMode2D.Impulse);
+                Destroy(bullet.gameObject, 2);
             }
         }
     }

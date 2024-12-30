@@ -8,15 +8,11 @@ public class PlayerManager : MonoBehaviour
     public int _columnNum;
     public List<PlayerObj> _playerList = new List<PlayerObj>();
     public PlayerObj _nowObj;
-    //public Transform _playerObjCircle;
-    //public Transform _goalObjCircle;
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetMouseButtonDown(0))

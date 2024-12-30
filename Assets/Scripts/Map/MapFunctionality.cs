@@ -7,81 +7,92 @@ public class MapFunctionality : MonoBehaviour
 {
     [SerializeField] Tilemap nextScene;
     [SerializeField] Tilemap prevScene;
+    [SerializeField] Tilemap chest;
+    [SerializeField] GameObject areaExit;
+    [SerializeField] GameObject areaEntrance;
 
     [SerializeField] public List<EnemyHpSystem> enemies;
 
     [SerializeField] GameObject enemyPrefab;
-    [SerializeField] Transform enemySpawnpoint;
+    [SerializeField] BoxCollider2D enemySpawnArea;
 
-    bool isCleared;
+    bool isSpawningEnemies = true;
     void Start()
     {
-        //StartCoroutine(WaitForEnemiesSpawn());
-        SpawnEnemies();
+        StartCoroutine(WaitForEnemiesSpawn());
+        chest.gameObject.SetActive(false);
         nextScene.gameObject.SetActive(false);
         prevScene.gameObject.SetActive(false);
+        areaExit.SetActive(false);
     }
     private void SpawnEnemies()
     {
         MapFunctionality manager = this;
         for (int i = 0; i < 5; i++)
         {
-            
-        }
-        GameObject enemy = Instantiate(enemyPrefab, enemySpawnpoint.transform.position, Quaternion.identity);
-        EnemyHpSystem enemyHpSystem = enemy.GetComponent<EnemyHpSystem>();
+            Vector2 randomPositiom = GetRandomPosition();
+            GameObject enemy = Instantiate(enemyPrefab, randomPositiom, Quaternion.identity);
 
-        if (enemyHpSystem != null)
-        {
-            enemies.Add(enemyHpSystem);
-            enemyHpSystem.SetManager(manager);
+            EnemyHpSystem enemyHpSystem = enemy.GetComponent<EnemyHpSystem>();
+            if (enemyHpSystem != null)
+            {
+                enemies.Add(enemyHpSystem);
+                enemyHpSystem.SetManager(manager);
+            }
         }
+
+        isSpawningEnemies = false;
     }
 
     void Update()
     {
-        if (enemies.Count == 0)
+        if (!isSpawningEnemies && enemies.Count == 0)
         {
             nextScene.gameObject.SetActive(true);
             prevScene.gameObject.SetActive(true);
+            chest.gameObject.SetActive(true);
+            areaExit.SetActive(true);
+            areaEntrance.SetActive(true);
         }
     }
-
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        /*
-         if (collision.CompareTag("Player") && !IsClear(currentRoom, false))
-        {
-            CloseRoom();
-            SpawnEnemies();
-        }
-         */
-
-    }
-
-    /*
-    private bool IsClear(currentRoom, isClear)
-    {
-
-    }
-     */
-
 
     private IEnumerator WaitForEnemiesSpawn()
     {
+        yield return new WaitForSeconds(1);
+        areaEntrance.SetActive(false);
+        isSpawningEnemies = true;
         yield return new WaitForSeconds(3);
         SpawnEnemies();
     }
+
+    private Vector2 GetRandomPosition()
+    {
+        if(enemySpawnArea == null)
+        {
+            return Vector2.zero;
+        }
+
+        Bounds bounds = enemySpawnArea.bounds;
+
+        Vector2 spawnPos;
+        do
+        {
+            float randomX = Random.Range(bounds.min.x, bounds.max.x);
+            float randomY = Random.Range(bounds.min.y, bounds.max.y);
+
+            spawnPos = new Vector2(randomX, randomY);
+        }
+        while (!IsValidPosition(spawnPos));
+
+        return spawnPos;
+    }
+
+    private bool IsValidPosition(Vector2 pos)
+    {
+        if (Physics2D.OverlapPoint(pos, LayerMask.GetMask("Collision")))
+        {
+            return false;
+        }
+        return true;
+    }
 }
-
-
-/*
-SpawnEnemies();
-OpenRoom();
-CloseRoom();
-SpawnChest();
-IsClear(currentRoom, bool isClear);
-GetCurrentRoom();
- */

@@ -15,11 +15,6 @@ public class EnemyObj : MonoBehaviour
     public SPUM_Prefabs _prefabs;
     public float _charMS;
     public Vector3 _goalPos;
-
-    void Start()
-    {
-
-    }
     void Update()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.y * 0.01f);
@@ -57,5 +52,14 @@ public class EnemyObj : MonoBehaviour
         _goalPos = pos;
         _enemyState = EnemyState.move;
         _prefabs.PlayAnimation(1);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawSphere(_goalPos, 0.2f);
+
+        Gizmos.DrawLine(transform.position, _goalPos);
     }
 }

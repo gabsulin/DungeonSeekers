@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7534451615192079450}
   - component: {fileID: 1950967397490107424}
   - component: {fileID: 8223694056784456382}
-  m_Layer: 7
+  m_Layer: 19
   m_Name: WizardBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!96 &7534451615192079450
 TrailRenderer:

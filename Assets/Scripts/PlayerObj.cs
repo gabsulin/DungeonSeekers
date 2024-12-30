@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerObj : MonoBehaviour
+public class PlayerObj : Singleton<PlayerObj>
 {
     public enum PlayerState
     {

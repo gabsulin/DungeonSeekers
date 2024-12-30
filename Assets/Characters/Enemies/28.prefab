@@ -24,12 +24,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361873737759730939}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.107, y: 0.451, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.004222178, y: 0.007637147, z: 0.48381248, w: 0.8751282}
+  m_LocalPosition: {x: -0.5652875, y: 0.30987424, z: 0.009867154}
+  m_LocalScale: {x: 0.79999995, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 94342462086476177}
+  m_Father: {fileID: 6689181151996125249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6689181151996125248
 GameObject:
@@ -66,6 +66,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5226277744210486415}
   - {fileID: 8166310225080477259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -103,8 +104,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.018127084, y: 0.2782476}
-  m_Size: {x: 0.46374583, y: 0.55498314}
+  m_Offset: {x: -0.021882772, y: 0.34967634}
+  m_Size: {x: 0.7269224, y: 0.802113}
   m_Direction: 0
 --- !u!50 &6689181151996125251
 Rigidbody2D:
@@ -656,19 +657,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7583128486422692215, guid: 87b6fe54fd8c94643aa3c878aedbb4ec,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5226277744210486415}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87b6fe54fd8c94643aa3c878aedbb4ec, type: 3}
---- !u!4 &94342462086476177 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7583128486422692215, guid: 87b6fe54fd8c94643aa3c878aedbb4ec,
-    type: 3}
-  m_PrefabInstance: {fileID: 7526505458211270886}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7514529235513222878 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 16743710519006776, guid: 87b6fe54fd8c94643aa3c878aedbb4ec,

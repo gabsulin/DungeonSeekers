@@ -15,7 +15,7 @@ public class PlayerHpSystem : MonoBehaviour
     [SerializeField] TMP_Text hpTMP;
     [SerializeField] TMP_Text shieldsTMP;
 
-    [SerializeField] private float maxHp = 5;
+    [SerializeField] private float maxHp = 20;
     [SerializeField] private float maxShields = 5;
     [HideInInspector] public float currentHp;
     [HideInInspector] public float currentShields;
@@ -24,21 +24,32 @@ public class PlayerHpSystem : MonoBehaviour
     private bool isRegeneratingShields = false;
 
     private float shieldRegenTime = 5f;
+
+    public bool isDead;
+
+    private void Awake()
+    {
+        currentHp = maxHp;
+        currentShields = maxShields;
+
+        hpBar.fillAmount = currentHp / maxHp;
+        hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
+        shieldsBar.fillAmount = currentShields / maxShields;
+        shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
+
+        isDead = false;
+    }
     void Start()
     {
         player = GetComponent<PlayerObj>();
         anim = GetComponentInChildren<SPUM_Prefabs>();
-        currentHp = maxHp;
-        currentShields = maxShields;
     }
 
     private void Update()
     {
-        // Increment wasntHit every frame
         wasntHit += Time.deltaTime;
 
-        // Trigger shield regeneration if conditions are met
-        if (currentShields < maxShields && wasntHit >= shieldRegenTime && !isRegeneratingShields)
+        if (currentShields < maxShields && wasntHit >= shieldRegenTime && !isRegeneratingShields && !isDead)
         {
             StartCoroutine(RegenerateShields());
         }
@@ -51,7 +62,7 @@ public class PlayerHpSystem : MonoBehaviour
         if (currentShields > 0)
         {
             currentShields -= damage;
-            shieldsBar.fillAmount = currentShields / 5;
+            shieldsBar.fillAmount = currentShields / maxShields;
             shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
             if (currentShields <= 0)
             {
@@ -62,7 +73,7 @@ public class PlayerHpSystem : MonoBehaviour
         else
         {
             currentHp -= damage;
-            hpBar.fillAmount = currentHp / 5;
+            hpBar.fillAmount = currentHp / maxHp;
             hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
             if (currentHp <= 0)
             {
@@ -87,7 +98,10 @@ public class PlayerHpSystem : MonoBehaviour
 
             StartCoroutine(PlayDeathAnimation());
 
+            anim._anim.SetTrigger("Die");
+            anim._anim.SetBool("EditChk", anim.EditChk);
         }
+        isDead = true;
     }
 
     private IEnumerator PlayDeathAnimation()
@@ -96,7 +110,6 @@ public class PlayerHpSystem : MonoBehaviour
         anim.PlayAnimation(2);
         float animationLength = anim._anim.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(animationLength / 2f / anim._anim.speed);
-
         anim._anim.speed = 1;
         yield return new WaitForSeconds(animationLength / 2f);
     }
