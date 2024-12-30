@@ -21,9 +21,8 @@ public class MapFunctionality : MonoBehaviour
     {
         StartCoroutine(WaitForEnemiesSpawn());
         chest.gameObject.SetActive(false);
-        nextScene.gameObject.SetActive(false);
-        prevScene.gameObject.SetActive(false);
-        areaExit.SetActive(false);
+        nextScene.gameObject.SetActive(true);
+        prevScene.gameObject.SetActive(true);
     }
     private void SpawnEnemies()
     {
@@ -48,8 +47,8 @@ public class MapFunctionality : MonoBehaviour
     {
         if (!isSpawningEnemies && enemies.Count == 0)
         {
-            nextScene.gameObject.SetActive(true);
-            prevScene.gameObject.SetActive(true);
+            nextScene.gameObject.SetActive(false);
+            prevScene.gameObject.SetActive(false);
             chest.gameObject.SetActive(true);
             areaExit.SetActive(true);
             areaEntrance.SetActive(true);
@@ -58,8 +57,9 @@ public class MapFunctionality : MonoBehaviour
 
     private IEnumerator WaitForEnemiesSpawn()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
         areaEntrance.SetActive(false);
+        areaExit.SetActive(false);
         isSpawningEnemies = true;
         yield return new WaitForSeconds(3);
         SpawnEnemies();

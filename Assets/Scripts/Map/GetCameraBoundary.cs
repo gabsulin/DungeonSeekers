@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GetCameraBoundary : MonoBehaviour
 {
-    /*private GameObject gameObjectCameraBoundary;
+    private GameObject gameObjectCameraBoundary;
     public CompositeCollider2D cameraBoundary;
     [SerializeField]
     private CinemachineConfiner2D confiner;
@@ -27,8 +27,5 @@ public class GetCameraBoundary : MonoBehaviour
 
             confiner.BoundingShape2D = cameraBoundary;
         }
-
-
     }
-    */
 }

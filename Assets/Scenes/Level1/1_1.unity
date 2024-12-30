@@ -3436,6 +3436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67883dcece3dd054d94ce40b3d71bf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraBoundary: {fileID: 0}
+  confiner: {fileID: 0}
 --- !u!1 &558668313
 GameObject:
   m_ObjectHideFlags: 0
@@ -8660,6 +8662,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67883dcece3dd054d94ce40b3d71bf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraBoundary: {fileID: 0}
+  confiner: {fileID: 0}
 --- !u!1 &1567078551
 GameObject:
   m_ObjectHideFlags: 0
