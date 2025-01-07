@@ -49,6 +49,16 @@ public class PlayerMovement : MonoBehaviour
                     anim.PlayAnimation(4);
                 }
             }
+            if(Input.GetMouseButtonDown(1))
+            {
+                player._playerState = PlayerObj.PlayerState.stun;
+                if(player._playerState == PlayerObj.PlayerState.stun)
+                {
+                    anim._anim.SetFloat("RunState", 0f);
+                    anim.PlayAnimation(7);
+                    
+                }
+            }
         }
     }
     private bool IsPathClear()

@@ -114,29 +114,34 @@ public class EnemyMovement : MonoBehaviour
 
     private void EnemyBehavior()
     {
-        if (distance > MoveThreshold)
+        if (distance > MoveThreshold && enemyHp.stunned == false)
         {
             if (patrolCoroutine == null)
             {
                 patrolCoroutine = StartCoroutine(Patrol());
             }
         }
-        else if (distance > IdleThreshold && distance <= MoveThreshold && enemyAttack.CanSeePlayer())
+        else if (distance > IdleThreshold && distance <= MoveThreshold && enemyAttack.CanSeePlayer() && enemyHp.stunned == false)
         {
             StopPatrol();
             MoveToPlayer();
         }
-        else if (distance <= AttackThreshold && playerHp.currentHp > 0 && enemyAttack.CanSeePlayer())
+        else if (distance <= AttackThreshold && playerHp.currentHp > 0 && enemyAttack.CanSeePlayer() && enemyHp.stunned == false)
         {
             StopPatrol();
             AttackPlayer();
         }
-        else if (!enemyAttack.CanSeePlayer())
+        else if (!enemyAttack.CanSeePlayer() && enemyHp.stunned == false)
         {
             if (patrolCoroutine == null)
             {
                 patrolCoroutine = StartCoroutine(Patrol());
             }
+        }
+        else if (enemyHp.stunned == true)
+        {
+            StopPatrol();
+            Stun();
         }
     }
 
@@ -181,8 +186,22 @@ public class EnemyMovement : MonoBehaviour
         anim.PlayAnimation(0);
     }
 
+    private void Stun()
+    {
+        enemy._enemyState = EnemyObj.EnemyState.stun;
+        anim.PlayAnimation(3);
+
+        anim._anim.ResetTrigger("Attack");
+        anim._anim.SetFloat("RunState", 0f);
+        anim._anim.SetFloat("AttackState", 0f);
+        anim._anim.SetFloat("SkillState", 0f);
+
+    }
+
     private IEnumerator Patrol()
     {
+        StopPatrol();
+
         if (enemy._enemyState != EnemyObj.EnemyState.move)
         {
             anim._anim.ResetTrigger("Attack");
@@ -191,7 +210,7 @@ public class EnemyMovement : MonoBehaviour
 
             enemy._enemyState = EnemyObj.EnemyState.move;
         }
-        while (true)
+        while (enemyHp.currentHealth > 0) //while (true)
         {
             Vector2 goalPos;
             bool isPathClear;

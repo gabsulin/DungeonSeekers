@@ -35,6 +35,20 @@ public class EnemyDamage : MonoBehaviour
 
             }
         }
+
+        if(collision.collider.CompareTag("Enemy") && player._playerState == PlayerObj.PlayerState.stun && !hasHitEnemy)
+        {
+            EnemyHpSystem enemyHp = collision.collider.GetComponent<EnemyHpSystem>();
+            if (enemyHp != null)
+            {
+                hasHitEnemy = true;
+                enemyHp.Stun(10);
+                StartCoroutine(ResetHitFlag());
+                /*boomParticles.transform.position = enemyHp.transform.position;
+                boomParticles.Play();*/
+
+            }
+        }
     }
 
     private IEnumerator ResetHitFlag()

@@ -10,6 +10,7 @@ public class PlayerObj : Singleton<PlayerObj>
         move,
         attack,
         death,
+        stun
     }
     public PlayerState _playerState = PlayerState.idle;
 

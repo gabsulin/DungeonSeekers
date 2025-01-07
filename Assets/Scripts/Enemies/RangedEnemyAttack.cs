@@ -28,13 +28,16 @@ public class RangedEnemyAttack : MonoBehaviour
         if (playerHp != null)
         {
             Transform aimTargetTransform = playerHp.transform;
-            aimTarget = aimTargetTransform.Find("4/UnitRoot/Root/AimTarget");
+            aimTarget = aimTargetTransform.Find("4/AimTarget");
         }
     }
 
     private void Update()
     {
-        StartShooting();
+        if(aimTarget != null)
+        {
+            StartShooting();
+        }
     }
 
     public void StartShooting()
@@ -45,11 +48,22 @@ public class RangedEnemyAttack : MonoBehaviour
         }
     }
 
+    public void StopShooting()
+    {
+        if(shootingRoutine != null)
+        {
+            StopCoroutine(shootingRoutine);
+            shootingRoutine = null;
+        }
+    }
+
     public IEnumerator ShootingRoutine()
     {
+        StopShooting();
+
         while (enemyHp.currentHealth > 0)
         {
-            if (playerHp.currentHp > 0 && CanSeePlayer())
+            if (playerHp.currentHp > 0 && CanSeePlayer() && enemyHp.stunned == false)
             {
                 Shoot();
             }
@@ -66,7 +80,6 @@ public class RangedEnemyAttack : MonoBehaviour
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Collision"))
             {
-                Debug.Log("nevidi");
                 return false;
             }
         }

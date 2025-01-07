@@ -12,6 +12,8 @@ public class EnemyHpSystem : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
+    public bool stunned;
+
 
     private void Awake()
     {
@@ -50,6 +52,17 @@ public class EnemyHpSystem : MonoBehaviour
             Destroy(gameObject, 1);
     }
 
+    public void Stun(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+
+        StartCoroutine(StunReset());
+    }
+
     private void RemoveFromList()
     {
         MapFunctionality manager = FindFirstObjectByType<MapFunctionality>();
@@ -74,5 +87,15 @@ public class EnemyHpSystem : MonoBehaviour
 
         anim._anim.speed = 1;
         yield return new WaitForSeconds(animationLength / 2f);
+    }
+
+    private IEnumerator StunReset()
+    {
+        stunned = true;
+        anim._anim.speed = 0.75f;
+        anim.PlayAnimation(3);
+        yield return new WaitForSeconds(2);
+        anim._anim.speed = 1f;
+        stunned = false;
     }
 }

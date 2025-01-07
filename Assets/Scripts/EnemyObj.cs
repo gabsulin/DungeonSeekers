@@ -8,6 +8,7 @@ public class EnemyObj : MonoBehaviour
         move,
         attack,
         death,
+        stun
     }
     public EnemyState _enemyState = EnemyState.idle;
 

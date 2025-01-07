@@ -7,11 +7,13 @@ public class MapFunctionality : MonoBehaviour
 {
     [SerializeField] Tilemap nextScene;
     [SerializeField] Tilemap prevScene;
-    [SerializeField] Tilemap chest;
+    //[SerializeField] Tilemap chest;
+    [SerializeField] GameObject chest;
     [SerializeField] GameObject areaExit;
     [SerializeField] GameObject areaEntrance;
 
     [SerializeField] public List<EnemyHpSystem> enemies;
+    [SerializeField] int enemiesCount;
 
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] BoxCollider2D enemySpawnArea;
@@ -27,7 +29,7 @@ public class MapFunctionality : MonoBehaviour
     private void SpawnEnemies()
     {
         MapFunctionality manager = this;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < enemiesCount; i++)
         {
             Vector2 randomPositiom = GetRandomPosition();
             GameObject enemy = Instantiate(enemyPrefab, randomPositiom, Quaternion.identity);
@@ -67,22 +69,32 @@ public class MapFunctionality : MonoBehaviour
 
     private Vector2 GetRandomPosition()
     {
-        if(enemySpawnArea == null)
+        if (enemySpawnArea == null)
         {
             return Vector2.zero;
         }
 
         Bounds bounds = enemySpawnArea.bounds;
 
+        const int maxAttempts = 100;
+        int attempts = 0;
         Vector2 spawnPos;
+
         do
         {
             float randomX = Random.Range(bounds.min.x, bounds.max.x);
             float randomY = Random.Range(bounds.min.y, bounds.max.y);
 
             spawnPos = new Vector2(randomX, randomY);
+            attempts++;
         }
-        while (!IsValidPosition(spawnPos));
+        while (!IsValidPosition(spawnPos) && attempts < maxAttempts);
+
+        if (attempts >= maxAttempts)
+        {
+            Debug.LogWarning("Could not find a valid position for enemy spawn.");
+            return bounds.center;
+        }
 
         return spawnPos;
     }
