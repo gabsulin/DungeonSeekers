@@ -7,14 +7,13 @@ public class MapFunctionality : MonoBehaviour
 {
     [SerializeField] Tilemap nextScene;
     [SerializeField] Tilemap prevScene;
-    //[SerializeField] Tilemap chest;
     [SerializeField] GameObject chest;
     [SerializeField] GameObject areaExit;
     [SerializeField] GameObject areaEntrance;
 
     [SerializeField] public List<EnemyHpSystem> enemies;
-    [SerializeField] int enemiesCount;
 
+    [SerializeField] int enemiesCount;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] BoxCollider2D enemySpawnArea;
 
@@ -31,8 +30,9 @@ public class MapFunctionality : MonoBehaviour
         MapFunctionality manager = this;
         for (int i = 0; i < enemiesCount; i++)
         {
-            Vector2 randomPositiom = GetRandomPosition();
-            GameObject enemy = Instantiate(enemyPrefab, randomPositiom, Quaternion.identity);
+            Vector2 randomPosition = GetRandomPosition();
+            Vector2 position = new Vector2(0, 0);
+            GameObject enemy = Instantiate(enemyPrefab, randomPosition ,Quaternion.identity);
 
             EnemyHpSystem enemyHpSystem = enemy.GetComponent<EnemyHpSystem>();
             if (enemyHpSystem != null)
@@ -67,6 +67,8 @@ public class MapFunctionality : MonoBehaviour
         SpawnEnemies();
     }
 
+
+    //odstranit do-while a spawnout to jenom na ty jedny poozici a zjistit jestli se neco nespawnuje mimo to frustum a mezitim udelat statické spawnpointy a spawnout na kazdem jednoho enemy aby se mi to neseklo na obhajobe
     private Vector2 GetRandomPosition()
     {
         if (enemySpawnArea == null)
@@ -76,7 +78,7 @@ public class MapFunctionality : MonoBehaviour
 
         Bounds bounds = enemySpawnArea.bounds;
 
-        const int maxAttempts = 100;
+        const int maxAttempts = 2;
         int attempts = 0;
         Vector2 spawnPos;
 
@@ -85,6 +87,8 @@ public class MapFunctionality : MonoBehaviour
             float randomX = Random.Range(bounds.min.x, bounds.max.x);
             float randomY = Random.Range(bounds.min.y, bounds.max.y);
 
+            Debug.Log("x: " + randomX);
+            Debug.Log("x: " + randomY);
             spawnPos = new Vector2(randomX, randomY);
             attempts++;
         }
@@ -92,7 +96,7 @@ public class MapFunctionality : MonoBehaviour
 
         if (attempts >= maxAttempts)
         {
-            Debug.LogWarning("Could not find a valid position for enemy spawn.");
+            Debug.LogWarning("nenasla se zadna pozice pro spawn");
             return bounds.center;
         }
 

@@ -11,6 +11,7 @@ public class ActiveInventory : MonoBehaviour
     public List<Sprite> weaponSprites = new List<Sprite>();
     public Transform weaponParent;
 
+    private GameObject currentWeaponInstance;
     private int activeSlotIndex = 0;
 
     private void Start()
@@ -66,29 +67,71 @@ public class ActiveInventory : MonoBehaviour
 
     private void UpdateWeapon()
     {
-        foreach (Transform child in weaponParent)
+        if (currentWeaponInstance != null)
         {
-            Destroy(child.gameObject);
+            currentWeaponInstance.SetActive(false);
         }
         if (activeSlotIndex >= 0 && activeSlotIndex < weaponPrefabs.Count)
         {
             GameObject newWeaponPrefab = weaponPrefabs[activeSlotIndex];
-            if (newWeaponPrefab != null)
+
+            Transform existingWeapon = weaponParent.Find(newWeaponPrefab.name);
+            if (existingWeapon != null)
             {
-                GameObject newWeapon = Instantiate(newWeaponPrefab, weaponParent);
-                newWeapon.transform.localPosition = Vector3.zero;
-                newWeapon.transform.localRotation = Quaternion.identity;
+                currentWeaponInstance = existingWeapon.gameObject;
+                currentWeaponInstance.SetActive(true);
+            }
+            else
+            {
+                currentWeaponInstance = Instantiate(newWeaponPrefab, weaponParent);
+                currentWeaponInstance.name = newWeaponPrefab.name;
+                currentWeaponInstance.transform.localPosition = Vector3.zero;
+                currentWeaponInstance.transform.localRotation = Quaternion.identity;
             }
         }
     }
 
-    public void PickUpWeapon(GameObject weapon)
+    public void PickUpWeapon(Transform weapon)
+    {
+        if (weaponParent != null)
+        {
+            if (!weaponPrefabs.Contains(weapon.gameObject))
+            {
+                weapon.SetParent(weaponParent);
+
+                weapon.localPosition = Vector3.zero;
+                weapon.localRotation = Quaternion.identity;
+                weapon.localScale = Vector3.one;
+                weaponPrefabs.Add(weapon.gameObject);
+
+                for (int i = 0; i < inventorySlots.Length; i++)
+                {
+                    Transform itemTransform = inventorySlots[i].transform.Find("Item");
+                    if (itemTransform != null)
+                    {
+                        Image itemImage = itemTransform.GetComponent<Image>();
+                        if (itemImage != null && !itemTransform.gameObject.activeSelf)
+                        {
+                            itemImage.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+                            itemTransform.gameObject.SetActive(true);
+                            weaponSprites.Insert(i, itemImage.sprite);
+                            break;
+                        }
+                    }
+                }
+
+                activeSlotIndex = weaponPrefabs.Count - 1;
+                UpdateActiveSlot();
+                UpdateWeapon();
+            }
+        }
+    }
+
+    /*public void PickUpWeapon(GameObject weapon)
     {
         if (!weaponPrefabs.Contains(weapon))
         {
-            GameObject weaponCopy = Instantiate(weapon);
-            Destroy(weapon);
-            weaponPrefabs.Add(weaponCopy);
+            weaponPrefabs.Add(weapon);
 
             for (int i = 0; i < inventorySlots.Length; i++)
             {
@@ -141,5 +184,5 @@ public class ActiveInventory : MonoBehaviour
                 UpdateActiveSlot();
                 UpdateWeapon();
         }
-    }
+    }*/
 }

@@ -26,7 +26,6 @@ public class PlayerManager : MonoBehaviour
                 }
                 else
                 {
-                    //Set move Player object to this point
                     if(_nowObj!=null)
                     {
                         Vector2 goalPos = hit.point;

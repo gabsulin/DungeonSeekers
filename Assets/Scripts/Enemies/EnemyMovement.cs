@@ -192,7 +192,7 @@ public class EnemyMovement : MonoBehaviour
         anim.PlayAnimation(3);
 
         anim._anim.ResetTrigger("Attack");
-        anim._anim.SetFloat("RunState", 0f);
+        anim._anim.SetFloat("RunState", 1f);
         anim._anim.SetFloat("AttackState", 0f);
         anim._anim.SetFloat("SkillState", 0f);
 
