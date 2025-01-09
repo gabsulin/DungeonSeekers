@@ -61,13 +61,28 @@ public class PlayerHpSystem : MonoBehaviour
 
         if (currentShields > 0)
         {
+            int overflowDmg = damage - (int)currentShields;
+
             currentShields -= damage;
+
+            if(currentShields < 0) currentShields = 0;
+
             shieldsBar.fillAmount = currentShields / maxShields;
             shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
-            if (currentShields <= 0)
+
+            if(overflowDmg > 0)
             {
-                currentShields = 0;
-                shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
+                currentHp -= overflowDmg;
+
+                hpBar.fillAmount = currentHp / maxHp;
+                hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
+
+                if(currentHp <= 0)
+                {
+                    currentHp = 0;
+                    hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
+                    Die();
+                }
             }
         }
         else
@@ -82,7 +97,7 @@ public class PlayerHpSystem : MonoBehaviour
                 Die();
             }
         }
-
+        Debug.Log(wasntHit);
     }
 
     private void Die()
@@ -118,7 +133,7 @@ public class PlayerHpSystem : MonoBehaviour
     {
         isRegeneratingShields = true;
 
-        while (currentShields < maxShields)
+        while (currentShields < maxShields && !isDead && wasntHit >= shieldRegenTime)
         {
             currentShields += 1;
             shieldsBar.fillAmount = currentShields / maxShields;

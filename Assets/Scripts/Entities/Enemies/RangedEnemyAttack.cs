@@ -94,7 +94,7 @@ public class RangedEnemyAttack : MonoBehaviour
             var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
             if (bullet != null)
             {
-                Vector2 direction = ((Vector2)playerHp.transform.position - (Vector2)bulletSpawnPoint.position).normalized;
+                Vector2 direction = ((Vector2)aimTarget.transform.position - (Vector2)bulletSpawnPoint.position).normalized;
                 bullet.AddForce(direction * 5, ForceMode2D.Impulse);
                 Destroy(bullet.gameObject, 2);
             }

@@ -32,7 +32,7 @@ public class MapFunctionality : MonoBehaviour
         {
             Vector2 randomPosition = GetRandomPosition();
             Vector2 position = new Vector2(0, 0);
-            GameObject enemy = Instantiate(enemyPrefab, randomPosition ,Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, position ,Quaternion.identity);
 
             EnemyHpSystem enemyHpSystem = enemy.GetComponent<EnemyHpSystem>();
             if (enemyHpSystem != null)

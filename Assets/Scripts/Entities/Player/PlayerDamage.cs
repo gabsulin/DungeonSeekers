@@ -7,6 +7,8 @@ public class PlayerDamage : MonoBehaviour
     PlayerObj player;
     PlayerHpSystem playerHp;
 
+    [SerializeField] int damage;
+
     [SerializeField] ParticleSystem particles;
     void Start()
     {
@@ -27,7 +29,7 @@ public class PlayerDamage : MonoBehaviour
         PlayerHpSystem playerHpCollision = collision.GetComponent<PlayerHpSystem>();
         if (playerHpCollision != null)
         {
-            playerHpCollision.TakeHit(1);
+            playerHpCollision.TakeHit(damage);
             Destroy(gameObject);
             //particles.transform.position = player.transform.position;
             //particles.Play();
