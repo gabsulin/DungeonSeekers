@@ -3701,8 +3701,6 @@ GameObject:
   m_Component:
   - component: {fileID: 508021006}
   - component: {fileID: 508021007}
-  - component: {fileID: 508021008}
-  - component: {fileID: 508021009}
   - component: {fileID: 508021010}
   m_Layer: 0
   m_Name: CM vcam1
@@ -3780,40 +3778,6 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   m_ComponentOwner: {fileID: 912929473}
---- !u!114 &508021008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 508021005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BoundingShape2D: {fileID: 1547505454}
-  Damping: 0
-  SlowingDistance: 5
-  OversizeWindow:
-    Enabled: 0
-    MaxWindowSize: 0
-    Padding: 0
-  m_LegacyMaxWindowSize: -2
---- !u!114 &508021009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 508021005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67883dcece3dd054d94ce40b3d71bf2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraBoundary: {fileID: 0}
-  confiner: {fileID: 0}
 --- !u!114 &508021010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5478,7 +5442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1015496986
 Transform:
   m_ObjectHideFlags: 0
@@ -7897,7 +7861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1288170116
 Transform:
   m_ObjectHideFlags: 0
@@ -7907,7 +7871,7 @@ Transform:
   m_GameObject: {fileID: 1288170115}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.008726557, z: -0, w: 0.9999619}
-  m_LocalPosition: {x: 2.8562927, y: 2.7159128, z: -9.951667}
+  m_LocalPosition: {x: 0.17452449, y: 0, z: -9.998477}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7974,7 +7938,7 @@ Camera:
   m_GameObject: {fileID: 1288170115}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.2, g: 0.1850576, b: 0.18431373, a: 0.8039216}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -9583,7 +9547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1547505453
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9668,17 +9632,7 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1547505453}
-    m_ColliderPaths:
-    - - X: 47203272
-        Y: 104291328
-      - X: -87348040
-        Y: 104291328
-      - X: -87348040
-        Y: -27795430
-      - X: 47203272
-        Y: -27795430
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: 4.7202983, y: -2.779543}

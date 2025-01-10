@@ -97,7 +97,7 @@ public class PlayerHpSystem : MonoBehaviour
                 Die();
             }
         }
-        Debug.Log(wasntHit);
+        //Debug.Log(wasntHit);
     }
 
     private void Die()

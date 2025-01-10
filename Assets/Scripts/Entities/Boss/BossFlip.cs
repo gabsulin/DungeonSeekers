@@ -6,6 +6,11 @@ public class BossFlip : MonoBehaviour
 
     private bool isFlipped = false;
 
+    private void Start()
+    {
+        player = FindFirstObjectByType<PlayerObj>().transform;
+    }
+
     public void LookAtPlayer()
     {
         if (transform.position.x > player.position.x && isFlipped)

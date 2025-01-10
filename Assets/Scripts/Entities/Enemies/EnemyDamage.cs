@@ -34,6 +34,16 @@ public class EnemyDamage : MonoBehaviour
                 boomParticles.Play();*/
 
             }
+        } else if(collision.collider.CompareTag("MiniBoss") && player._playerState == PlayerObj.PlayerState.attack && !hasHitEnemy)
+        {
+            BossHpSystem bossHp = collision.collider.GetComponent<BossHpSystem>();
+            if (bossHp != null)
+            {
+                hasHitEnemy = true;
+                bossHp.TakeDamage(50);
+                StartCoroutine(ResetHitFlag());
+                Debug.Log("hit");
+            }
         }
 
         if(collision.collider.CompareTag("Enemy") && player._playerState == PlayerObj.PlayerState.stun && !hasHitEnemy)
@@ -53,7 +63,7 @@ public class EnemyDamage : MonoBehaviour
 
     private IEnumerator ResetHitFlag()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.35f);
         hasHitEnemy = false;
     }
 }

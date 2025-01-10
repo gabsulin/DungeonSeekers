@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - CameraBoundary
   - Interactable
+  - MiniBoss
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Melee
   - Bullet
   - Layer 1
   - Layer 2
