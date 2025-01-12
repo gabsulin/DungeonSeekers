@@ -14,7 +14,7 @@ public class EnemyObj : MonoBehaviour
 
 
     public SPUM_Prefabs _prefabs;
-    public float _charMS;
+    public float _charMS; // move speed
     public Vector3 _goalPos;
     void Update()
     {

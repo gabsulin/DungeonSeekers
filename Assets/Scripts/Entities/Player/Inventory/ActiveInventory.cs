@@ -88,6 +88,8 @@ public class ActiveInventory : MonoBehaviour
                 currentWeaponInstance.transform.localPosition = Vector3.zero;
                 currentWeaponInstance.transform.localRotation = Quaternion.identity;
             }
+            currentWeaponInstance.tag = "Melee";
+            currentWeaponInstance.layer = 0;
         }
     }
 
@@ -126,63 +128,4 @@ public class ActiveInventory : MonoBehaviour
             }
         }
     }
-
-    /*public void PickUpWeapon(GameObject weapon)
-    {
-        if (!weaponPrefabs.Contains(weapon))
-        {
-            weaponPrefabs.Add(weapon);
-
-            for (int i = 0; i < inventorySlots.Length; i++)
-            {
-                Transform itemTransform = inventorySlots[i].transform.Find("Item");
-                if (itemTransform != null)
-                {
-                    Image itemImage = itemTransform.GetComponent<Image>();
-                    if (itemImage != null && !itemTransform.gameObject.activeSelf)
-                    {
-                        itemImage.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
-                        itemTransform.gameObject.SetActive(true);
-                        weaponSprites.Insert(i, itemImage.sprite);
-                        break;
-                    }
-                }
-            }
-
-            activeSlotIndex = weaponPrefabs.Count - 1;
-            UpdateActiveSlot();
-            UpdateWeapon();
-
-        }
-    }
-
-    public void DropWeapon(GameObject weapon)
-    {
-        int weaponIndex = weaponPrefabs.IndexOf(weapon);
-        if (weaponIndex >= 0 && weaponIndex < weaponPrefabs.Count)
-        {
-            weaponPrefabs.RemoveAt(weaponIndex);
-            weaponSprites.RemoveAt(weaponIndex);
-
-            for (int i = weaponIndex; i < inventorySlots.Length; i++)
-            {
-                Transform itemTransform = inventorySlots[i].transform.Find("Item");
-                if (itemTransform != null)
-                {
-                    Image itemImage = itemTransform.GetComponent<Image>();
-                    if (i < weaponSprites.Count)
-                    {
-                        itemImage.sprite = weaponSprites[i];
-                        itemTransform.gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        itemTransform.gameObject.SetActive(false);
-                    }
-                }
-            }
-                UpdateActiveSlot();
-                UpdateWeapon();
-        }
-    }*/
 }

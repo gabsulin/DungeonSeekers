@@ -6,6 +6,7 @@ public class EnemyDamage : MonoBehaviour
 {
     private PlayerObj player;
     [SerializeField] ParticleSystem boomParticles;
+    [SerializeField] int damage;
 
     private bool hasHitEnemy = false;
     void Start()
@@ -22,13 +23,13 @@ public class EnemyDamage : MonoBehaviour
     {
         if (hasHitEnemy) return;
 
-        if (collision.collider.CompareTag("Enemy") && player._playerState == PlayerObj.PlayerState.attack && !hasHitEnemy)
+        if (player._playerState == PlayerObj.PlayerState.attack && collision.collider.CompareTag("Enemy") && !hasHitEnemy)
         {
             EnemyHpSystem enemyHp = collision.collider.GetComponent<EnemyHpSystem>();
             if (enemyHp != null)
             {
                 hasHitEnemy = true;
-                enemyHp.TakeDamage(50);
+                enemyHp.TakeDamage(damage);
                 StartCoroutine(ResetHitFlag());
                 /*boomParticles.transform.position = enemyHp.transform.position;
                 boomParticles.Play();*/
@@ -40,7 +41,7 @@ public class EnemyDamage : MonoBehaviour
             if (bossHp != null)
             {
                 hasHitEnemy = true;
-                bossHp.TakeDamage(50);
+                bossHp.TakeDamage(damage);
                 StartCoroutine(ResetHitFlag());
                 Debug.Log("hit");
             }

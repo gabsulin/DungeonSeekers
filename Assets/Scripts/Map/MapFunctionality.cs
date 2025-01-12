@@ -31,7 +31,7 @@ public class MapFunctionality : MonoBehaviour
         for (int i = 0; i < enemiesCount; i++)
         {
             Vector2 randomPosition = GetRandomPosition();
-            Vector2 position = new Vector2(0, 0);
+
             GameObject enemy = Instantiate(enemyPrefab, randomPosition ,Quaternion.identity);
 
             EnemyHpSystem enemyHpSystem = enemy.GetComponent<EnemyHpSystem>();
@@ -67,8 +67,6 @@ public class MapFunctionality : MonoBehaviour
         SpawnEnemies();
     }
 
-
-    //odstranit do-while a spawnout to jenom na ty jedny poozici a zjistit jestli se neco nespawnuje mimo to frustum a mezitim udelat statické spawnpointy a spawnout na kazdem jednoho enemy aby se mi to neseklo na obhajobe
     private Vector2 GetRandomPosition()
     {
         if (enemySpawnArea == null)
@@ -78,7 +76,7 @@ public class MapFunctionality : MonoBehaviour
 
         Bounds bounds = enemySpawnArea.bounds;
 
-        const int maxAttempts = 2;
+        const int maxAttempts = 500;
         int attempts = 0;
         Vector2 spawnPos;
 

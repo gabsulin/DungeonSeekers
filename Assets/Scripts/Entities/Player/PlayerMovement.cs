@@ -63,7 +63,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private bool IsPathClear()
     {
-        RaycastHit2D raycastHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         RaycastHit2D[] linecastHits = Physics2D.LinecastAll(player.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
         foreach (RaycastHit2D hit in linecastHits)

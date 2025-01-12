@@ -8,7 +8,7 @@ interface IInteractable
 public class Interactor : MonoBehaviour
 {
     public Transform InteractorSource;
-    public float InteractRange = 0.5f;
+    public float interactRange = 1f;
     void Start()
     {
 
@@ -20,20 +20,16 @@ public class Interactor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Vector2 origin = InteractorSource.position;
-            Vector2 direction = InteractorSource.up;
 
-            RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, InteractRange, LayerMask.GetMask("Collision"));
+            Collider2D hitInfo = Physics2D.OverlapCircle(origin, interactRange, LayerMask.GetMask("Collision"));
 
-            if(hitInfo.collider != null)
+            if (hitInfo != null)
             {
-                if (hitInfo.collider.CompareTag("Interactable"))
+                if (hitInfo.CompareTag("Interactable"))
                 {
-                    if (hitInfo.distance <= InteractRange)
+                    if (hitInfo.GetComponent<Collider2D>().gameObject.TryGetComponent(out IInteractable interactObj))
                     {
-                        if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
-                        {
-                            interactObj.Interact();
-                        }
+                        interactObj.Interact();
                     }
                 }
             }

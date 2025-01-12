@@ -31,67 +31,6 @@ public class EnemyMovement : MonoBehaviour
         enemyAttack = GetComponent<RangedEnemyAttack>();
     }
 
-    /*void Update()
-    {
-        if (player != null)
-        {
-            distance = Vector2.Distance(transform.position, player.transform.position);
-        }
-
-
-        if (enemy != null && player != null)
-        {
-            if (enemyHp.currentHealth > 0)
-            {
-                if (distance > 2 && distance <= 8)
-                {
-                    Vector2 goalPos = player.transform.position;
-                    enemy.SetMovePos(goalPos);
-                    if (enemy._enemyState != EnemyObj.EnemyState.move)
-                    {
-                        enemy._enemyState = EnemyObj.EnemyState.move;
-                        anim.PlayAnimation(1);
-                    }
-                }
-                else if (distance > 8)
-                {
-                    StartCoroutine(Patrol());
-                }
-                else
-                {
-                    if (enemy._enemyState != EnemyObj.EnemyState.idle)
-                    {
-                        enemy._enemyState = EnemyObj.EnemyState.idle;
-                        anim.PlayAnimation(0);
-                    }
-                }
-
-                if (distance <= 6 && playerHp.currentHp > 0)
-                {
-                    enemy._enemyState = EnemyObj.EnemyState.attack;
-                    anim.PlayAnimation(6);
-                }
-            }
-        }
-    }
-
-    private IEnumerator Patrol()
-    {
-        while (true)
-        {
-            float idleTime = Random.Range(0.5f, 3);
-            int randomX = Random.Range(-5, 5);
-            int randomY = Random.Range(-5, 5);
-
-            Vector2 goalPos = new Vector2(randomX, randomY);
-            enemy.SetMovePos(goalPos);
-
-            yield return new WaitForSeconds(idleTime);
-        }
-    }*/
-
-    //mozna misto player.transform.position dat aimtarget.transform.position
-
     void Update()
     {
         if (player != null)
@@ -210,26 +149,39 @@ public class EnemyMovement : MonoBehaviour
 
             enemy._enemyState = EnemyObj.EnemyState.move;
         }
-        while (enemyHp.currentHealth > 0) //while (true)
+        Vector2 goalPos;
+        bool isPathClear;
+        const int maxAttempts = 500;
+        while (playerHp.currentHp > 0)
         {
-            Vector2 goalPos;
-            bool isPathClear;
+            int attempts = 0;
+
             do
             {
-                int randomX = Random.Range(-3, 3);
-                int randomY = Random.Range(-3, 3);
+                int randomX = Random.Range(-10, 10);
+                int randomY = Random.Range(-10, 10);
                 goalPos = new Vector2(randomX, randomY);
 
-
                 isPathClear = IsValidPosition(goalPos) && Physics2D.Linecast(transform.position, goalPos, LayerMask.GetMask("Collision")) == false;
+                yield return new WaitForSeconds(0.1f);
+
+                attempts += 1;
             }
-            while (!isPathClear);
+            while (!isPathClear && enemyHp.currentHealth > 0 && attempts < maxAttempts);
+
+            if (maxAttempts == attempts)
+            {
+                enemy.SetMovePos(Vector2.zero);
+                yield return new WaitForSeconds(2);
+                continue;
+            }
 
             enemy.SetMovePos(goalPos);
 
             float idleTime = Random.Range(0.5f, 4f);
             yield return new WaitForSeconds(idleTime);
         }
+        
     }
 
     private void StopPatrol()
