@@ -95,6 +95,8 @@ public class RangedEnemyAttack : MonoBehaviour
             if (bullet != null)
             {
                 Vector2 direction = ((Vector2)aimTarget.transform.position - (Vector2)bulletSpawnPoint.position).normalized;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
                 bullet.AddForce(direction * 5, ForceMode2D.Impulse);
                 Destroy(bullet.gameObject, 2);
             }

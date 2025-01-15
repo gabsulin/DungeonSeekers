@@ -6,6 +6,7 @@ public class PlayerDamage : MonoBehaviour
 {
     PlayerObj player;
     PlayerHpSystem playerHp;
+    Animator anim;
 
     [SerializeField] int damage;
 
@@ -14,6 +15,7 @@ public class PlayerDamage : MonoBehaviour
     {
         player = FindAnyObjectByType<PlayerObj>();
         playerHp = FindFirstObjectByType<PlayerHpSystem>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -30,7 +32,9 @@ public class PlayerDamage : MonoBehaviour
         if (playerHpCollision != null)
         {
             playerHpCollision.TakeHit(damage);
-            Destroy(gameObject);
+            anim.SetBool("Hit", true);
+            gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
+            Destroy(gameObject, 1);
             //particles.transform.position = player.transform.position;
             //particles.Play();
         }
