@@ -4,7 +4,22 @@ using UnityEngine;
 
 public class BulletCollision : MonoBehaviour
 {
-    public List<GameObject> bulletPrefabs = new List<GameObject>();
-    
-     
+    Animator anim;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Collision"))
+        {
+            Debug.Log("collision");
+            //anim.SetBool("Hit", true);
+            gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
+            //Destroy(gameObject, 1);
+            Destroy(gameObject);
+        }
+    }
 }

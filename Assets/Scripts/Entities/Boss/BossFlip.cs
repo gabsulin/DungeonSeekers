@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BossFlip : MonoBehaviour
 {
-    public Transform player;
+    Transform player;
 
     private bool isFlipped = false;
 

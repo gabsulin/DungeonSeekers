@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public Vector3 _startPos;
+    /*public Vector3 _startPos;
     public int _columnNum;
     public List<PlayerObj> _playerList = new List<PlayerObj>();
     public PlayerObj _nowObj;
@@ -40,5 +40,5 @@ public class PlayerManager : MonoBehaviour
         {
             //_playerObjCircle.transform.position = _nowObj.transform.position;
         }
-    }
+    }*/
 }

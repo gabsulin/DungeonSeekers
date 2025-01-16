@@ -11,7 +11,6 @@ public class TilemapRandomizer : MonoBehaviour
 
     void Start()
     {
-
         FillTilemapWithRandomTiles();
     }
 

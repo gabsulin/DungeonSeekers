@@ -9,7 +9,7 @@ public class ChestInteraction : MonoBehaviour, IInteractable
     public void Interact()
     {
         anim.SetBool("ChestOpen", true);
-        StartCoroutine(SpawnWeapon());
+        //StartCoroutine(SpawnWeapon());
     }
 
     public IEnumerator SpawnWeapon()

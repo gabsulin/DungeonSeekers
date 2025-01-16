@@ -1,16 +1,23 @@
+using System.Collections;
 using UnityEngine;
 
 public class MiniBossSpawn : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] GameObject miniBossPrefab;
+    [SerializeField] GameObject areaExit;
     void Start()
     {
+        areaExit.SetActive(true);
+        StartCoroutine(WaitForClosingExitAndSpawnMiniBoss());
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator WaitForClosingExitAndSpawnMiniBoss()
     {
-        
+        yield return new WaitForSeconds(0.1f);
+        areaExit.SetActive(false);
+        yield return new WaitForSeconds(1.5f);
+        Instantiate(miniBossPrefab, Vector2.zero, Quaternion.identity);
+
     }
 }

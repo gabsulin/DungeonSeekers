@@ -9,64 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Level1/1_1.unity
     guid: 2ece7a04a34648f4bb5faa3312bcf50c
   - enabled: 1
-    path: Assets/Scenes/Level1/1_Chest1.unity
-    guid: 3553e221fa189454c91af2dab45ee8ef
-  - enabled: 1
     path: Assets/Scenes/Level1/1_2.unity
     guid: 637f1e92b1b7a494ab69319f93f6e02c
   - enabled: 1
-    path: Assets/Scenes/Level1/1_3.unity
-    guid: 49107f9c561a1fd4183bca98c7cfddc1
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_4.unity
-    guid: 64fe3a24543cf4d4e8628695edc80185
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_Shop1.unity
-    guid: c20ce8b91dfc9634eaa7fd582196ce57
-  - enabled: 1
     path: Assets/Scenes/Level1/1_5_MiniBoss.unity
     guid: 56b21c9133a335f4aad16b2665372847
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_6.unity
-    guid: c7405f3bb62fccb4a94e06c4ef842a98
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_7.unity
-    guid: 60bc8237a264d864bad7b6490b3612d3
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_Chest2.unity
-    guid: fe1084171596b9e4ba81eecd741451b0
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_8.unity
-    guid: 2de0b082c7bdc0443957ccfa5920267b
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_9.unity
-    guid: 49ca414ad7956df45b05a27d18e13c2e
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_Shop2.unity
-    guid: 6d9202d6c36437d4f8cfe2587b01b4de
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_10_MiniBoss.unity
-    guid: 675338317f29d7f48a797c336df87b43
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_11.unity
-    guid: b5d6bb5fb2817b248a3c8ba67c06795c
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_12.unity
-    guid: 1105881af24a9084da2e67b03117b887
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_13.unity
-    guid: f869e67da6eebeb4387ce0b71db2cc65
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_Chest3.unity
-    guid: 853a4383c79152a4382aa3c400056123
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_14.unity
-    guid: ec5a89b23d2b66148be99a3603cf53db
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_Shop3.unity
-    guid: 9d79b1db77d39094d9169a1cb67965b3
-  - enabled: 1
-    path: Assets/Scenes/Level1/1_15_Boss.unity
-    guid: c77a064a1b45fc24f8382e10f6f7996e
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

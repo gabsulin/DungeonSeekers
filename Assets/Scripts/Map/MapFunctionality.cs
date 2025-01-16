@@ -85,8 +85,6 @@ public class MapFunctionality : MonoBehaviour
             float randomX = Random.Range(bounds.min.x, bounds.max.x);
             float randomY = Random.Range(bounds.min.y, bounds.max.y);
 
-            Debug.Log("x: " + randomX);
-            Debug.Log("x: " + randomY);
             spawnPos = new Vector2(randomX, randomY);
             attempts++;
         }

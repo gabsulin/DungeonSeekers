@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7534451615192079450}
   - component: {fileID: 1950967397490107424}
   - component: {fileID: 8223694056784456382}
+  - component: {fileID: -8149372425923472855}
   m_Layer: 19
   m_Name: WizardBullet
   m_TagString: Untagged
@@ -300,3 +301,15 @@ PolygonCollider2D:
       - {x: 0, y: -0.25}
       - {x: 0.5, y: 0}
   m_UseDelaunayMesh: 0
+--- !u!114 &-8149372425923472855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8159402408164109447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d285c9684307dd44caf576bb44f8ac47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

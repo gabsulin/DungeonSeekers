@@ -4762,8 +4762,8 @@ MonoBehaviour:
   shieldsBar: {fileID: 2029387940}
   hpTMP: {fileID: 570142471}
   shieldsTMP: {fileID: 1508557738}
-  maxHp: 20
-  maxShields: 5
+  maxHp: 10
+  maxShields: 10
   currentHp: 0
   currentShields: 0
   isDead: 0
@@ -12422,7 +12422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boomParticles: {fileID: 0}
-  damage: 30
+  damage: 60
 --- !u!61 &2428337967277272984
 BoxCollider2D:
   m_ObjectHideFlags: 0

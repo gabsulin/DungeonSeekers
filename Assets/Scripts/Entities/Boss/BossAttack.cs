@@ -8,7 +8,7 @@ public class BossAttack : MonoBehaviour
     private Animator anim;
     public Rigidbody2D bulletPrefab;
     [SerializeField] GameObject enemyPrefab;
-    [SerializeField] Transform enemySpawnPoint;
+    //[SerializeField] Transform enemySpawnPoint;
 
     PlayerObj player;
     PlayerHpSystem playerHp;
@@ -50,8 +50,6 @@ public class BossAttack : MonoBehaviour
             fireball.transform.rotation = Quaternion.Euler(0, 0, angle + 180);
 
             fireball.AddForce(direction * 5, ForceMode2D.Impulse);
-
-            Destroy(fireball, 3f);
         }
     }
 
@@ -59,14 +57,28 @@ public class BossAttack : MonoBehaviour
     {
         if (!hasSpawnedEnemies)
         {
-            for(int i = 0; i < 6;  i++)
+            for (int i = 0; i < 1; i++)
             {
-                Instantiate(enemyPrefab, enemySpawnPoint.position, Quaternion.identity);
+                Instantiate(enemyPrefab, Vector2.zero, Quaternion.identity);
             }
-            
+
             hasSpawnedEnemies = true;
         }
         StartCoroutine(EnragedShootingRoutine());
+    }
+
+    public bool CanSeePlayer()
+    {
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, aimTarget.position);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Collision"))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     IEnumerator EnragedShootingRoutine()
@@ -84,7 +96,6 @@ public class BossAttack : MonoBehaviour
             fireball.transform.rotation = Quaternion.Euler(0, 0, angle + 180);
 
             fireball.linearVelocity = direction * 5;
-            Destroy(fireball, 3f);
 
             currentAngle += angleStep;
 
