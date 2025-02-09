@@ -32,12 +32,9 @@ public class PlayerDamage : MonoBehaviour
         if (playerHpCollision != null)
         {
             playerHpCollision.TakeHit(damage);
-            //anim.SetBool("Hit", true);
+            anim.SetBool("Hit", true);
             gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
-            //Destroy(gameObject, 1);
-            Destroy(gameObject);
-            //particles.transform.position = player.transform.position;
-            //particles.Play();
+            Destroy(gameObject, 0.3f);
         }
     }
 }

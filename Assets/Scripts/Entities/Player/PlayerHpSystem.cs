@@ -115,6 +115,10 @@ public class PlayerHpSystem : MonoBehaviour
             anim._anim.SetBool("EditChk", anim.EditChk);
         }
         isDead = true;
+
+        /*
+         deathScreen.SetActive(true);
+         */
     }
 
     private IEnumerator PlayDeathAnimation()

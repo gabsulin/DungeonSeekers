@@ -535,7 +535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3cebe44ddfa984e960c9ca7c967737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1792561200}
 --- !u!114 &122190575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,6 +550,7 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 281638777}
   bulletPrefab: {fileID: 2695176857922301148, guid: 6091a7a43bbce1344a2e266e73f64d50,
     type: 3}
+  enemyPrefab: {fileID: 0}
 --- !u!61 &122190576
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -803,6 +803,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WizardEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689181151996125248, guid: 0407bc38635bfa149bfd822f44da491c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6689181151996125249, guid: 0407bc38635bfa149bfd822f44da491c,
         type: 3}
@@ -3361,7 +3366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractorSource: {fileID: 798195407}
-  InteractRange: 0.5
+  interactRange: 1
 --- !u!114 &798195409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5270,10 +5275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11b11817daa5435f92b04440958b38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startPos: {x: 0, y: 0, z: 0}
-  _columnNum: 0
-  _playerList: []
-  _nowObj: {fileID: 0}
 --- !u!4 &1288584411
 Transform:
   m_ObjectHideFlags: 0
@@ -12782,6 +12783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boomParticles: {fileID: 0}
+  damage: 0
 --- !u!50 &1636296786
 Rigidbody2D:
   serializedVersion: 5
@@ -13943,7 +13945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractorSource: {fileID: 1862197657}
-  InteractRange: 2
+  interactRange: 1
 --- !u!1 &1871737035
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,11 +15,9 @@ public class BulletCollision : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Collision"))
         {
-            Debug.Log("collision");
-            //anim.SetBool("Hit", true);
+            anim.SetBool("Hit", true);
             gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
-            //Destroy(gameObject, 1);
-            Destroy(gameObject);
+            Destroy(gameObject, 1);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerObj : Singleton<PlayerObj>
@@ -18,6 +19,10 @@ public class PlayerObj : Singleton<PlayerObj>
     public SPUM_Prefabs _prefabs;
     public float _charMS;
     public Vector3 _goalPos;
+    private bool isSetGoalPos = false;
+    //public GameObject goalPos;
+    //public GameObject notGoalPos;
+
     void Start()
     {
 
@@ -57,6 +62,16 @@ public class PlayerObj : Singleton<PlayerObj>
     public void SetMovePos(Vector2 pos)
     {
         _goalPos = pos;
+        /*if(!isSetGoalPos)
+        {
+            goalPos.SetActive(true);
+            goalPos.transform.position = pos;
+        }
+        if(isSetGoalPos)
+        {
+            goalPos.transform.position = pos;
+        }*/
+        
         _playerState = PlayerState.move;
         _prefabs.PlayAnimation(1);
     }
