@@ -9,6 +9,7 @@ TagManager:
   - CameraBoundary
   - Interactable
   - MiniBoss
+  - Coin
   layers:
   - Default
   - TransparentFX

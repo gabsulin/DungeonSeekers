@@ -9,8 +9,8 @@ public class CursorManager : MonoBehaviour
     private Vector2 cursorHotspot;
     void Start()
     {
-        cursorHotspot = new Vector2(cursorTexture.width / 2, cursorTexture.height / 2);
-        Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
+        cursorHotspot = new Vector2(cursorTextureCollision.width / 2, cursorTextureCollision.height / 2);
+        Cursor.SetCursor(cursorTextureCollision, cursorHotspot, CursorMode.Auto);
     }
 
     // Update is called once per frame
@@ -18,15 +18,15 @@ public class CursorManager : MonoBehaviour
     {
         Vector2 worldCursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Collider2D hit = Physics2D.OverlapPoint(worldCursorPos, LayerMask.GetMask("Collision"));
+        Collider2D hit = Physics2D.OverlapPoint(worldCursorPos, LayerMask.GetMask("Walking"));
 
         if (hit)
         {
-            Cursor.SetCursor(cursorTextureCollision, cursorHotspot, CursorMode.Auto);
+            Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
         }
         else
         {
-            Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
+            Cursor.SetCursor(cursorTextureCollision, cursorHotspot, CursorMode.Auto);
         }
     }
 }

@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuScene : MonoBehaviour
 {
-    [SerializeField] PlayerObj player;
+    [SerializeField] EnemyObj player;
     [SerializeField] EnemyObj enemy;
     [SerializeField] Animator playerAnim;
     [SerializeField] Animator enemyAnim;
@@ -12,6 +13,8 @@ public class MenuScene : MonoBehaviour
 
     Vector2 playerGoal;
     Vector2 enemyGoal;
+
+    int nextScene = 1;
     void Start()
     {
         playerGoal = new Vector2 (-1.8f, -2);
@@ -24,12 +27,12 @@ public class MenuScene : MonoBehaviour
     {
         if (Mathf.Abs(player.transform.position.x - playerGoal.x) < 0.5f)
         {
-            playerAnim.SetBool("isOnPosition", true);
+            StartCoroutine(PlayAttackAnimation(playerAnim));
         }
 
         if (Mathf.Abs(enemy.transform.position.x - enemyGoal.x) < 0.5f)
         {
-            enemyAnim.SetBool("isOnPosition", true);
+            StartCoroutine(PlayAttackAnimation(enemyAnim));
         }
     }
 
@@ -37,13 +40,12 @@ public class MenuScene : MonoBehaviour
     {
         anim.SetBool("isOnPosition", true);
 
-        anim.speed = 2f;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 2);
 
-        anim.speed = 0.5f;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / anim.speed - 0.1f);
+        anim.speed = 0.2f;
 
-        //anim.speed = 1f;
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length * 3.15f);
+        SceneManager.LoadScene(nextScene);
     }
 
 }
