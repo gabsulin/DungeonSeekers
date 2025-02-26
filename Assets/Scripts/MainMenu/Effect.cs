@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Effect : MonoBehaviour
 {
     [SerializeField] Image square;
-    float fadeDuration = 0.25f;
+    float fadeDuration = 0.5f;
     void Start()
     {
         StartCoroutine(FadeOut());

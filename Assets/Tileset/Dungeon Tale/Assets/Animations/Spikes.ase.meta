@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 59b073febc42ec44aafa6820848164f4
+AssetOrigin:
+  serializedVersion: 1
+  productId: 296458
+  packageName: Dungeon Tale - Fantasy RPG Sprites FX Tileset
+  packageVersion: 1.0
+  assetPath: Assets/Tileset/Dungeon Tale/Assets/Animations/Spikes.ase
+  uploadId: 693043
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}

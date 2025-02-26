@@ -10,6 +10,7 @@ TagManager:
   - Interactable
   - MiniBoss
   - Coin
+  - Character
   layers:
   - Default
   - TransparentFX

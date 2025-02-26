@@ -4614,7 +4614,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinText: {fileID: 2141677756}
-  coinTarget: {fileID: 363593898}
 --- !u!1 &691477758
 GameObject:
   m_ObjectHideFlags: 0
@@ -11226,10 +11225,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1827286174}
-  weaponPrefab: {fileID: 3243500549786670276, guid: 256c31dc24a347b478b4da6ae343be46,
-    type: 3}
   coinPrefab: {fileID: 179157823112342523, guid: 5c9742279d057ca46bbd5697c76645f9,
     type: 3}
+  coinTarget: {fileID: 206027267}
 --- !u!1 &1827701819
 GameObject:
   m_ObjectHideFlags: 0
@@ -11789,8 +11787,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  weaponPrefab: {fileID: 0}
   coinPrefab: {fileID: 0}
+  coinTarget: {fileID: 0}
 --- !u!1 &1917352848
 GameObject:
   m_ObjectHideFlags: 0

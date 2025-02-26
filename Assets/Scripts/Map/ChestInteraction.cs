@@ -1,11 +1,12 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class ChestInteraction : MonoBehaviour, IInteractable
 {
     public Animator anim;
-    [SerializeField] GameObject weaponPrefab;
     [SerializeField] GameObject coinPrefab;
+    [SerializeField] Transform coinTarget;
 
     int minCoins = 5;
     int maxCoins = 15;
@@ -16,24 +17,22 @@ public class ChestInteraction : MonoBehaviour, IInteractable
     {
         anim.SetBool("ChestOpen", true);
         StartCoroutine(SpawnCoins());
-        //StartCoroutine(SpawnWeapon());
-    }
-
-    public IEnumerator SpawnWeapon()
-    {
-        yield return new WaitForSeconds(1);
-        Instantiate(weaponPrefab, transform.position, Quaternion.AngleAxis(90, Vector3.forward));
     }
 
     IEnumerator SpawnCoins()
     {
         int coinsAmount = Random.Range(minCoins, maxCoins);
-        Debug.Log(coinsAmount);
         yield return new WaitForSeconds(0.85f);
 
         for (int i = 0; i < coinsAmount; i++)
         {
             GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            Coin coinScript = coin.GetComponent<Coin>();
+
+            if (coinScript != null)
+            {
+                coinScript.SetTarget(coinTarget);
+            }
 
             Rigidbody2D rb = coin.GetComponent<Rigidbody2D>();
             if (rb == null)
@@ -50,23 +49,13 @@ public class ChestInteraction : MonoBehaviour, IInteractable
 
         foreach (GameObject coin in GameObject.FindGameObjectsWithTag("Coin"))
         {
-            Rigidbody2D rb = coin.GetComponent<Rigidbody2D>();
-            if (rb != null)
+            Coin coinScript = coin.GetComponent<Coin>();
+            if (coinScript != null)
             {
-                rb.gravityScale = 0;
-                rb.linearVelocity = Vector2.zero;
-            }
-
-            Animator animator = coin.GetComponent<Animator>();
-            if (animator != null)
-            {
-                animator.enabled = true;
-                animator.Play("CoinIdle");
-                StartCoroutine(AnimateCoinMovement(coin));
+                coinScript.MoveToTarget();
             }
         }
     }
-
     IEnumerator AnimateCoinMovement(GameObject coin)
     {
         float duration = 1f;
@@ -99,4 +88,10 @@ public class ChestInteraction : MonoBehaviour, IInteractable
                 coin.transform.position = endPos;
         }
     }
+
+    /*public IEnumerator SpawnWeapon()
+    {
+        yield return new WaitForSeconds(1);
+        Instantiate(weaponPrefab, transform.position, Quaternion.AngleAxis(90, Vector3.forward));
+    }*/
 }

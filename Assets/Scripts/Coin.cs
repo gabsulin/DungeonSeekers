@@ -1,44 +1,34 @@
 using UnityEngine;
 using DG.Tweening;
-using System.Collections;
-using TMPro;
 
 public class Coin : MonoBehaviour
 {
-    public float moveDuration = 2f;
-    public Ease easeType = Ease.InQuad;
-    Vector3 targetPosition;
-    bool hasStartedMoving = false;
+    private Transform _target;
+    private Rigidbody2D rb;
+    private bool isMoving = false;
 
-    private void Start()
+    public void SetTarget(Transform target)
     {
-        CollectCoin();
+        this._target = target;
     }
 
-    void CollectCoin()
+    public void MoveToTarget()
     {
-        if (CoinManager.instance == null || CoinManager.instance.coinTarget == null)
+        if (_target == null || isMoving) return;
+
+        isMoving = true;
+        rb = GetComponent<Rigidbody2D>();
+
+        if (rb != null)
         {
-            Debug.LogError("Coin Target UI is missing!");
-            Destroy(gameObject);
-            return;
+            Debug.Log("rigidbody");
+            rb.gravityScale = 0;
+            rb.linearVelocity = Vector2.zero;
+
+            Vector3 screenPos = Camera.main.ScreenToWorldPoint(transform.position);
+            Vector3 targetPos = _target.position;
+
+            transform.DOMove(targetPos, 3f).SetEase(Ease.InQuad).OnComplete(() => Destroy(gameObject));
         }
-
-        
-
-        hasStartedMoving = true;
-
-        transform.DOMove(targetPosition, moveDuration)
-            .SetEase(easeType)
-            .SetDelay(0.5f)
-            .OnComplete(() =>
-            {
-                CoinManager.instance.AddCoin(1);
-            });
-
-        GetComponent<Collider2D>().enabled = false;
-        GetComponent<Animator>().enabled = false;
     }
-
-    
 }
