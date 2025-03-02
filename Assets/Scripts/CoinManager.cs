@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using DG.Tweening;
 
 public class CoinManager : MonoBehaviour
 {
@@ -10,23 +9,39 @@ public class CoinManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
     }
 
     private void Start()
     {
-        coinText.text = coinCount.ToString();
+        UpdateUI();
     }
 
     public void AddCoin(int amount)
     {
         coinCount += amount;
-        coinText.text = coinCount.ToString();
+        UpdateUI();
+    }
+
+    public bool CanAfford(int amount)
+    {
+        return coinCount >= amount;
     }
 
     public void Buy(int amount)
     {
-        coinCount -= amount;
+        if (CanAfford(amount))
+        {
+            coinCount -= amount;
+            UpdateUI();
+        }
+    }
+
+    private void UpdateUI()
+    {
         coinText.text = coinCount.ToString();
     }
 }

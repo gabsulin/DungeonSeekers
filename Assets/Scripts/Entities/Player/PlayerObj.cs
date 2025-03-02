@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerObj : Singleton<PlayerObj>
+public class PlayerObj : MonoBehaviour
 {
     public enum PlayerState
     {
@@ -19,7 +19,6 @@ public class PlayerObj : Singleton<PlayerObj>
     public SPUM_Prefabs _prefabs;
     public float _charMS;
     public Vector3 _goalPos;
-    private bool isSetGoalPos = false;
     //public GameObject goalPos;
     //public GameObject notGoalPos;
 

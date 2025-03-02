@@ -28,7 +28,7 @@ public class RangedEnemyAttack : MonoBehaviour
         if (playerHp != null)
         {
             Transform aimTargetTransform = playerHp.transform;
-            aimTarget = aimTargetTransform.Find("4/AimTarget");
+            aimTarget = aimTargetTransform.Find("AimTarget");
         }
     }
 

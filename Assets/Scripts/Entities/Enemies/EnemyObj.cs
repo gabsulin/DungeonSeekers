@@ -54,13 +54,4 @@ public class EnemyObj : MonoBehaviour
         _enemyState = EnemyState.move;
         _prefabs.PlayAnimation(1);
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-
-        Gizmos.DrawSphere(_goalPos, 0.2f);
-
-        Gizmos.DrawLine(transform.position, _goalPos);
-    }
 }
