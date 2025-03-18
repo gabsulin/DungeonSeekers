@@ -22,12 +22,25 @@ public class Interactor : MonoBehaviour
             Vector2 origin = InteractorSource.position;
 
             Collider2D hitInfo = Physics2D.OverlapCircle(origin, interactRange, LayerMask.GetMask("Collision"));
+            Collider2D hitInfoWeapon = Physics2D.OverlapCircle(origin, interactRange, LayerMask.GetMask("Interactable"));
+
 
             if (hitInfo != null)
             {
                 if (hitInfo.CompareTag("Interactable"))
                 {
                     if (hitInfo.GetComponent<Collider2D>().gameObject.TryGetComponent(out IInteractable interactObj))
+                    {
+                        interactObj.Interact();
+                    }
+                }
+            }
+
+            if (hitInfoWeapon != null)
+            {
+                if (hitInfoWeapon.CompareTag("Interactable"))
+                {
+                    if (hitInfoWeapon.GetComponent<Collider2D>().gameObject.TryGetComponent(out IInteractable interactObj))
                     {
                         interactObj.Interact();
                     }

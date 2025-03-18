@@ -8,13 +8,17 @@ public class ChestInteraction : MonoBehaviour, IInteractable
     [SerializeField] GameObject coinPrefab;
     [SerializeField] Transform coinTarget;
 
+    bool isOpen = false;
+
     int minCoins = 5;
     int maxCoins = 15;
-    float forceMin = 1;
-    float forceMax = 3;
+    float forceMin = 1.5f;
+    float forceMax = 2;
 
     public void Interact()
     {
+        if (isOpen) return;
+        isOpen = true;
         anim.SetBool("ChestOpen", true);
         StartCoroutine(SpawnCoins());
     }
@@ -24,14 +28,18 @@ public class ChestInteraction : MonoBehaviour, IInteractable
         int coinsAmount = Random.Range(minCoins, maxCoins);
         yield return new WaitForSeconds(0.85f);
 
+        List<Rigidbody2D> coinRigidbodies = new List<Rigidbody2D>();
+        List<Coin> coinObjects = new List<Coin>();
+
         for (int i = 0; i < coinsAmount; i++)
         {
             GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
-            Coin coinScript = coin.GetComponent<Coin>();
+            Coin coinObj = coin.GetComponent<Coin>();
 
-            if (coinScript != null)
+            if (coinObj != null)
             {
-                coinScript.SetTarget(coinTarget);
+                coinObj.SetTarget(coinTarget);
+                coinObjects.Add(coinObj);
             }
 
             Rigidbody2D rb = coin.GetComponent<Rigidbody2D>();
@@ -39,59 +47,30 @@ public class ChestInteraction : MonoBehaviour, IInteractable
                 rb = coin.AddComponent<Rigidbody2D>();
 
             rb.gravityScale = 1.0f;
+            coinRigidbodies.Add(rb);
 
             Vector2 randomDirection = Random.insideUnitCircle + Vector2.up;
             float randomForce = Random.Range(forceMin, forceMax);
             rb.AddForce(randomDirection * randomForce, ForceMode2D.Impulse);
-        }
-
-        yield return new WaitForSeconds(0.75f);
-
-        foreach (GameObject coin in GameObject.FindGameObjectsWithTag("Coin"))
-        {
-            Coin coinScript = coin.GetComponent<Coin>();
-            if (coinScript != null)
-            {
-                coinScript.MoveToTarget();
-            }
-        }
-    }
-    IEnumerator AnimateCoinMovement(GameObject coin)
-    {
-        float duration = 1f;
-
-        while (coin != null)
-        {
-            float elapsedTime = 0f;
-            Vector2 startPos = coin.transform.position;
-            Vector2 midPos = startPos + new Vector2(0, -0.25f);
-            Vector2 endPos = startPos;
-
-            while (elapsedTime < duration)
-            {
-                float t = elapsedTime / duration;
-
-                if (coin == null)
-                    yield break;
-
-                if (t < 0.5f)
-                    coin.transform.position = Vector3.Lerp(startPos, midPos, t * 2);
-                else
-                    coin.transform.position = Vector3.Lerp(midPos, endPos, (t - 0.5f) * 2);
-
-                elapsedTime += Time.deltaTime;
-                yield return null;
-
-            }
-
-            if (coin != null)
-                coin.transform.position = endPos;
+            StartCoroutine(DisablePhysicsWithDelay(rb, coinObj, Random.Range(0.3f, 1.0f)));
         }
     }
 
-    /*public IEnumerator SpawnWeapon()
+    IEnumerator DisablePhysicsWithDelay(Rigidbody2D rb, Coin coin, float delay)
     {
-        yield return new WaitForSeconds(1);
-        Instantiate(weaponPrefab, transform.position, Quaternion.AngleAxis(90, Vector3.forward));
-    }*/
+        yield return new WaitForSeconds(delay);
+
+        if (rb != null)
+        {
+            rb.gravityScale = 0;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0;
+        }
+
+        if (coin != null)
+        {
+            coin.StartFloatingAnimation();
+        }
+    }
+
 }

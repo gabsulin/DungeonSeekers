@@ -16,6 +16,13 @@ public class ActiveInventory : MonoBehaviour
 
     private void Start()
     {
+        if (weaponParent.childCount > 0)
+        {
+            GameObject defaultWeapon = weaponParent.GetChild(0).gameObject;
+            weaponPrefabs.Add(defaultWeapon);
+            currentWeaponInstance = defaultWeapon;
+        }
+
         UpdateActiveSlot();
         UpdateWeapon();
     }
@@ -73,7 +80,13 @@ public class ActiveInventory : MonoBehaviour
         }
         if (activeSlotIndex >= 0 && activeSlotIndex < weaponPrefabs.Count)
         {
-            GameObject newWeaponPrefab = weaponPrefabs[activeSlotIndex];
+            currentWeaponInstance = weaponPrefabs[activeSlotIndex];
+
+            if (currentWeaponInstance != null)
+            {
+                currentWeaponInstance.SetActive(true);
+            }
+            /*GameObject newWeaponPrefab = weaponPrefabs[activeSlotIndex];
 
             Transform existingWeapon = weaponParent.Find(newWeaponPrefab.name);
             if (existingWeapon != null)
@@ -89,11 +102,11 @@ public class ActiveInventory : MonoBehaviour
                 currentWeaponInstance.transform.localRotation = Quaternion.identity;
             }
             currentWeaponInstance.tag = "Melee";
-            currentWeaponInstance.layer = 0;
+            currentWeaponInstance.layer = 0;*/
         }
     }
 
-    public void PickUpWeapon(Transform weapon)
+    /*public void PickUpWeapon(Transform weapon)
     {
         if (weaponParent != null)
         {
@@ -127,5 +140,57 @@ public class ActiveInventory : MonoBehaviour
                 UpdateWeapon();
             }
         }
+    }*/
+
+    public void PickUpWeapon(GameObject weapon)
+    {
+        if (weaponParent == null || weapon == null) return;
+
+        if (weaponPrefabs.Any(w => w.name == weapon.name)) return;
+
+        if (currentWeaponInstance != null)
+        {
+            currentWeaponInstance.SetActive(false);
+        }
+
+        GameObject newWeapon = Instantiate(weapon, weaponParent);
+        newWeapon.name = weapon.name;
+        newWeapon.transform.localPosition = Vector3.zero;
+        newWeapon.transform.localRotation = Quaternion.identity;
+        newWeapon.SetActive(false);
+
+        weaponPrefabs.Add(newWeapon);
+
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            Transform itemTransform = inventorySlots[i].transform.Find("Item");
+            if (itemTransform != null)
+            {
+                Image itemImage = itemTransform.GetComponent<Image>();
+                if (itemImage != null && !itemTransform.gameObject.activeSelf)
+                {
+                    SpriteRenderer spriteRenderer = weapon.GetComponentInChildren<SpriteRenderer>();
+                    if (spriteRenderer != null)
+                    {
+                        itemImage.sprite = spriteRenderer.sprite;
+                        weaponSprites.Insert(i, spriteRenderer.sprite);
+                    }
+
+                    itemTransform.gameObject.SetActive(true);
+                    break;
+                }
+            }
+        }
+
+        activeSlotIndex = weaponPrefabs.Count - 1;
+        UpdateActiveSlot();
+        UpdateWeapon();
+
+        newWeapon.tag = "Melee";
+        newWeapon.layer = 0;
+
+        Destroy(weapon);
     }
+
+
 }

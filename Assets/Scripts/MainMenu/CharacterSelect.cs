@@ -18,7 +18,7 @@ public class CharacterSelect : MonoBehaviour
     private float zoom;
     private float velocity = 0;
     private float smoothTime = 0.35f;
-    private float minZoom = 1;
+    private float minZoom = 1.5f;
     private float maxZoom = 6;
     private bool isZooming = false;
     //private bool isZoomed = false;
@@ -95,6 +95,7 @@ public class CharacterSelect : MonoBehaviour
         isZooming = true;
         zoom = minZoom;
         targetPosition = characterPosition;
+        targetPosition.y += 0.25f;
         targetPosition.z = camera.transform.position.z;
         canvas.gameObject.SetActive(false);
     }

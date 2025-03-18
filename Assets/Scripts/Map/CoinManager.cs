@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
+    public Transform target;
     public static CoinManager instance;
     public TMP_Text coinText;
-    private int coinCount = 30;
+    private int coinCount;
 
     private void Awake()
     {

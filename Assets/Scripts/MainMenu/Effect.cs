@@ -24,6 +24,7 @@ public class Effect : MonoBehaviour
             square.color = color;
             yield return null;
         }
+        square.gameObject.SetActive(false);
     }
 }
 

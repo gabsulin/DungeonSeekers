@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 957707227716571787}
   - component: {fileID: -942706080686141508}
   - component: {fileID: 3589997255946331410}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Coin
   m_TagString: Coin
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179157823112342523}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3b0653b83069fd740bb94579ebd9f23d, type: 2}
   m_CullingMode: 0

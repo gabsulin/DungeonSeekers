@@ -7,8 +7,7 @@ public class WeaponPickup : MonoBehaviour, IInteractable
         ActiveInventory playerInventory = FindFirstObjectByType<ActiveInventory>();
         if (playerInventory != null)
         {
-            playerInventory.PickUpWeapon(gameObject.transform);
-            gameObject.SetActive(true);
+            playerInventory.PickUpWeapon(gameObject);
         }
     }
 }
