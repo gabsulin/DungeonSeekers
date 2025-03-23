@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class CharacterSelect : MonoBehaviour
 {
     [SerializeField] private Camera camera;
-    [SerializeField] private Canvas canvas;
+    [SerializeField] private GameObject canvas;
     [SerializeField] private TMP_Text characterNameText, healthText, shieldsText, speedText, description;
     [SerializeField] private Button actionButton;
     [SerializeField] private TMP_Text actionButtonText;
@@ -126,12 +126,52 @@ public class CharacterSelect : MonoBehaviour
     private void PlayCharacter(CharacterData data)
     {
         Debug.Log("Selected: " + data.characterName);
+
         selectedCharacter.AddComponent<PlayerMovement>();
-        selectedCharacter.AddComponent<PlayerHpSystem>().enabled = true;
+
+        PlayerHpSystem hpSystem = selectedCharacter.GetComponent<PlayerHpSystem>();
+
+        if (hpSystem == null)
+        {
+            hpSystem = selectedCharacter.AddComponent<PlayerHpSystem>();
+        }
+
+        hpSystem.enabled = true;
+        hpSystem.characterData = data;
+
         Transform cameras = selectedCharacter.transform.Find("Cameras");
         cameras.gameObject.SetActive(true);
+
+        AudioListener[] listeners = FindObjectsByType<AudioListener>(FindObjectsSortMode.None);
+        if (listeners.Length > 1)
+        {
+            for (int i = 1; i < listeners.Length; i++) // Keep the first one, disable the rest
+            {
+                listeners[i].enabled = false;
+            }
+        }
         selectedCharacter.tag = "Player";
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         SceneManager.LoadScene(3);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayerHpSystem hpSystem = FindFirstObjectByType<PlayerHpSystem>();
+
+        if (hpSystem != null)
+        {
+            hpSystem.AssignUIElements();
+            hpSystem.UpdateUI();
+        }
+        else
+        {
+            Debug.LogError("PlayerHpSystem not found in the scene!");
+        }
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void BuyCharacter(CharacterData data)

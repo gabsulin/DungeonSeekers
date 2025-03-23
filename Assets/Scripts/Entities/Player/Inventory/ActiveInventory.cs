@@ -16,6 +16,7 @@ public class ActiveInventory : MonoBehaviour
 
     private void Start()
     {
+        weaponParent = GameObject.Find("P_WeaponP").transform;
         if (weaponParent.childCount > 0)
         {
             GameObject defaultWeapon = weaponParent.GetChild(0).gameObject;
@@ -86,23 +87,6 @@ public class ActiveInventory : MonoBehaviour
             {
                 currentWeaponInstance.SetActive(true);
             }
-            /*GameObject newWeaponPrefab = weaponPrefabs[activeSlotIndex];
-
-            Transform existingWeapon = weaponParent.Find(newWeaponPrefab.name);
-            if (existingWeapon != null)
-            {
-                currentWeaponInstance = existingWeapon.gameObject;
-                currentWeaponInstance.SetActive(true);
-            }
-            else
-            {
-                currentWeaponInstance = Instantiate(newWeaponPrefab, weaponParent);
-                currentWeaponInstance.name = newWeaponPrefab.name;
-                currentWeaponInstance.transform.localPosition = Vector3.zero;
-                currentWeaponInstance.transform.localRotation = Quaternion.identity;
-            }
-            currentWeaponInstance.tag = "Melee";
-            currentWeaponInstance.layer = 0;*/
         }
     }
 
@@ -191,6 +175,4 @@ public class ActiveInventory : MonoBehaviour
 
         Destroy(weapon);
     }
-
-
 }

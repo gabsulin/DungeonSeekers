@@ -6,7 +6,7 @@ public class CoinManager : MonoBehaviour
     public Transform target;
     public static CoinManager instance;
     public TMP_Text coinText;
-    private int coinCount;
+    private int coinCount = 30;
 
     private void Awake()
     {

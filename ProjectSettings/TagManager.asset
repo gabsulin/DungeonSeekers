@@ -11,6 +11,10 @@ TagManager:
   - MiniBoss
   - Coin
   - Character
+  - Health
+  - HealthBar
+  - Shields
+  - ShieldsBar
   layers:
   - Default
   - TransparentFX

@@ -38,10 +38,13 @@ public class Interactor : MonoBehaviour
 
             if (hitInfoWeapon != null)
             {
+                Debug.Log("Neni null");
                 if (hitInfoWeapon.CompareTag("Interactable"))
                 {
+                    Debug.Log("Ma tag");
                     if (hitInfoWeapon.GetComponent<Collider2D>().gameObject.TryGetComponent(out IInteractable interactObj))
                     {
+                        Debug.Log("Interakce");
                         interactObj.Interact();
                     }
                 }
