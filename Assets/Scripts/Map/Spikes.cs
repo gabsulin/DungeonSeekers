@@ -2,26 +2,56 @@ using UnityEngine;
 
 public class Spikes : MonoBehaviour
 {
-    bool canDamage = false;
-    float damageCooldown = 1f;
-    float lastDamageTime = 0f;
+    public float damageInterval = 0.75f;
+    public int damageAmount = 1;
+    private bool isDamageEnabled = false;
+    private float damageTimer = 0f;
+    private GameObject player;
+
+    void Update()
+    {
+        if (isDamageEnabled && player != null)
+        {
+            damageTimer += Time.deltaTime;
+            if (damageTimer >= damageInterval)
+            {
+                damageTimer = 0f;
+                DealDamage();
+            }
+        }
+    }
 
     public void EnableDamage()
     {
-        canDamage = true;
+        isDamageEnabled = true;
     }
 
     public void DisableDamage()
     {
-        canDamage = false;
+        isDamageEnabled = false;
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (canDamage && collision.CompareTag("Player") && Time.time > lastDamageTime + damageCooldown)
+        if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerHpSystem>().TakeHit(1);
-            lastDamageTime = Time.time;
+            player = collision.gameObject;
+        }
+    }
+
+    private void DealDamage()
+    {
+        if (player != null)
+        {
+            player.GetComponent<PlayerHpSystem>().TakeHit(damageAmount);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            player = null;
         }
     }
 }

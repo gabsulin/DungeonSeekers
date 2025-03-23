@@ -25,6 +25,7 @@ TagManager:
   - Walking
   - Collision
   - Interactable
+  - Weapon
   - 
   - 
   - 
@@ -34,7 +35,6 @@ TagManager:
   - 
   - 
   - 
-  - Melee
   - Bullet
   - Layer 1
   - Layer 2
