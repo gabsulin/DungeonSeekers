@@ -171,8 +171,9 @@ public class ActiveInventory : MonoBehaviour
         UpdateWeapon();
 
         newWeapon.tag = "Melee";
-        newWeapon.layer = 0;
-
+        newWeapon.layer = 9;
+        Collider2D weaponCollider = newWeapon.GetComponent<Collider2D>();
+        weaponCollider.isTrigger = false;
         Destroy(weapon);
     }
 }

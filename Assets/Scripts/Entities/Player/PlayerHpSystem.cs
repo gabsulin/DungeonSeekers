@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHpSystem : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlayerHpSystem : MonoBehaviour
 
     [HideInInspector] public float currentHp;
     [HideInInspector] public float currentShields;
+    public float maxHp;
+    public float maxShields;
 
     private float wasntHit = 0f;
     private bool isRegeneratingShields = false;
@@ -26,10 +29,17 @@ public class PlayerHpSystem : MonoBehaviour
 
     private void Awake()
     {
-        currentHp = characterData.health;
-        currentShields = characterData.shields;
+        maxHp = characterData.health;
+        maxShields = characterData.shields;
+        currentHp = maxHp;
+        currentShields = maxShields;
 
         isDead = false;
+    }
+    void Start()
+    {
+        player = GetComponent<PlayerObj>();
+        anim = GetComponentInChildren<SPUM_Prefabs>();
     }
 
     public void AssignUIElements()
@@ -42,6 +52,7 @@ public class PlayerHpSystem : MonoBehaviour
             hpTMP = canvas.transform.Find("HealthBar/HpAmount").GetComponent<TMP_Text>();
             shieldsBar = canvas.transform.Find("Shieldbar/Shields").GetComponent<Image>();
             shieldsTMP = canvas.transform.Find("Shieldbar/ShieldsAmount").GetComponent<TMP_Text>();
+            Debug.Log("nasel se canvas a priradily se gameobjecty");
         }
         else
         {
@@ -53,27 +64,23 @@ public class PlayerHpSystem : MonoBehaviour
     {
         if (hpBar != null && shieldsBar != null && hpTMP != null && shieldsTMP != null)
         {
-            hpBar.fillAmount = currentHp / characterData.health;
-            hpTMP.text = $"{currentHp}/{characterData.health}";
-            shieldsBar.fillAmount = currentShields / characterData.shields;
-            shieldsTMP.text = $"{currentShields}/{characterData.shields}";
+            hpBar.fillAmount = currentHp / maxHp;
+            hpTMP.text = $"{currentHp}/{maxHp}";
+            shieldsBar.fillAmount = currentShields / maxShields;
+            shieldsTMP.text = $"{currentShields}/{maxShields}";
+            Debug.Log("UI elements updated");
         }
         else
         {
             Debug.LogError("UI Elements are not assigned in PlayerHpSystem!");
         }
     }
-    void Start()
-    {
-        player = GetComponent<PlayerObj>();
-        anim = GetComponentInChildren<SPUM_Prefabs>();
-    }
 
     private void Update()
     {
         wasntHit += Time.deltaTime;
 
-        if (currentShields < characterData.shields && wasntHit >= shieldRegenTime && !isRegeneratingShields && !isDead)
+        if (currentShields < maxShields && wasntHit >= shieldRegenTime && !isRegeneratingShields && !isDead)
         {
             StartCoroutine(RegenerateShields());
         }
@@ -91,20 +98,20 @@ public class PlayerHpSystem : MonoBehaviour
 
             if(currentShields < 0) currentShields = 0;
 
-            shieldsBar.fillAmount = currentShields / characterData.shields;
-            shieldsTMP.text = $"{currentShields.ToString()}/{characterData.shields.ToString()}";
+            shieldsBar.fillAmount = currentShields / maxShields;
+            shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
 
             if(overflowDmg > 0)
             {
                 currentHp -= overflowDmg;
 
-                hpBar.fillAmount = currentHp / characterData.health;
-                hpTMP.text = $"{currentHp.ToString()}/{characterData.health.ToString()}";
+                hpBar.fillAmount = currentHp / maxHp;
+                hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
 
                 if(currentHp <= 0)
                 {
                     currentHp = 0;
-                    hpTMP.text = $"{currentHp.ToString()}/{characterData.health.ToString()}";
+                    hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
                     Die();
                 }
             }
@@ -112,12 +119,12 @@ public class PlayerHpSystem : MonoBehaviour
         else
         {
             currentHp -= damage;
-            hpBar.fillAmount = currentHp / characterData.health;
-            hpTMP.text = $"{currentHp.ToString()}/{characterData.health.ToString()}";
+            hpBar.fillAmount = currentHp / maxHp;
+            hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
             if (currentHp <= 0)
             {
                 currentHp = 0;
-                hpTMP.text = $"{currentHp.ToString()}/{characterData.health.ToString()}";
+                hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
                 Die();
             }
         }
@@ -161,16 +168,16 @@ public class PlayerHpSystem : MonoBehaviour
     {
         isRegeneratingShields = true;
 
-        while (currentShields < characterData.shields && !isDead && wasntHit >= shieldRegenTime)
+        while (currentShields < maxShields && !isDead && wasntHit >= shieldRegenTime)
         {
             currentShields += 1;
-            shieldsBar.fillAmount = currentShields / characterData.shields;
-            shieldsTMP.text = $"{currentShields.ToString()}/{characterData.shields.ToString()}";
+            shieldsBar.fillAmount = currentShields / maxShields;
+            shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
 
             yield return new WaitForSeconds(2);
         }
 
-        currentShields = Mathf.Min(currentShields, characterData.shields);
+        currentShields = Mathf.Min(currentShields, maxShields);
         isRegeneratingShields = false;
     }
 }

@@ -127,9 +127,12 @@ public class CharacterSelect : MonoBehaviour
     {
         Debug.Log("Selected: " + data.characterName);
 
-        selectedCharacter.AddComponent<PlayerMovement>();
+        var player = selectedCharacter.AddComponent<PlayerController>();
+
+        player.moveSpeed = data.speed;
 
         PlayerHpSystem hpSystem = selectedCharacter.GetComponent<PlayerHpSystem>();
+        
 
         if (hpSystem == null)
         {
@@ -145,19 +148,19 @@ public class CharacterSelect : MonoBehaviour
         AudioListener[] listeners = FindObjectsByType<AudioListener>(FindObjectsSortMode.None);
         if (listeners.Length > 1)
         {
-            for (int i = 1; i < listeners.Length; i++) // Keep the first one, disable the rest
+            for (int i = 1; i < listeners.Length; i++)
             {
                 listeners[i].enabled = false;
             }
         }
         selectedCharacter.tag = "Player";
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        //SceneManager.sceneLoaded += OnSceneLoaded;
 
         SceneManager.LoadScene(3);
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    /*private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlayerHpSystem hpSystem = FindFirstObjectByType<PlayerHpSystem>();
 
@@ -171,8 +174,8 @@ public class CharacterSelect : MonoBehaviour
             Debug.LogError("PlayerHpSystem not found in the scene!");
         }
 
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
+        //SceneManager.sceneLoaded -= OnSceneLoaded;
+    }*/
 
     private void BuyCharacter(CharacterData data)
     {

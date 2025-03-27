@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class SpawnPlayer : MonoBehaviour
+public class SceneSpawnManager : MonoBehaviour
 {
     PlayerController player;
-    private void Start()
+    [SerializeField] Transform playerSpawn;
+    void Start()
     {
         player = FindFirstObjectByType<PlayerController>();
         player.transform.position = transform.position;
