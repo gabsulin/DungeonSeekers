@@ -98,6 +98,7 @@ public class RangedEnemyAttack : MonoBehaviour
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
                 bullet.AddForce(direction * 6, ForceMode2D.Impulse);
+                AudioManager.Instance.PlaySFX("MagicLightning");
             }
         }
     }

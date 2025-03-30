@@ -1,12 +1,11 @@
 using System;
 using UnityEngine;
 
-
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
-    public Sound[] musicSounds, sfxSsounds;
+    public Sound[] music, sfx;
     public AudioSource musicSource, sfxSource;
 
     private void Awake()
@@ -21,52 +20,46 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void Start()
     {
-        PlayMusic("Dungeon-Crawler");
+        PlayMusic("Music");
     }
+
     public void PlayMusic(string name)
     {
-        Sound s = Array.Find(musicSounds, x => x.name == name);
+        Sound s = Array.Find(music, x => x.name == name);
 
         if (s == null)
         {
             Debug.Log("Music not found");
+            return;
         }
-        else
-        {
-            musicSource.clip = s.clip;
-            musicSource.Play();
-        }
+
+        musicSource.clip = s.GetRandomClip();
+        musicSource.Play();
     }
 
     public void PlaySFX(string name)
     {
-        Sound s = Array.Find(sfxSsounds, x => x.name == name);
+        Sound s = Array.Find(sfx, x => x.name == name);
 
         if (s == null)
         {
-            Debug.Log("Music not found");
+            Debug.Log("SFX not found: " + name);
+            return;
         }
-        else
+
+        AudioClip clip = s.GetRandomClip();
+        if (clip != null)
         {
-            sfxSource.PlayOneShot(s.clip);
+            sfxSource.PlayOneShot(clip);
         }
     }
-    public void ToggleMusic()
-    {
-        musicSource.mute = !musicSource.mute;
-    }
-    public void ToggleSFX()
-    {
-        sfxSource.mute = !sfxSource.mute;
-    }
-    public void MusicVolume(float volume)
-    {
-        musicSource.volume = volume;
-    }
-    public void SFXVolume(float volume)
-    {
-        sfxSource.volume = volume;
-    }
+
+    public void ToggleMusic() => musicSource.mute = !musicSource.mute;
+    public void ToggleSFX() => sfxSource.mute = !sfxSource.mute;
+    public void MusicVolume(float volume) => musicSource.volume = volume;
+    public void SFXVolume(float volume) => sfxSource.volume = volume;
 }
+

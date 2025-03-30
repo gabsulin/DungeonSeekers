@@ -21,6 +21,7 @@ public class ChestInteraction : MonoBehaviour, IInteractable
         isOpen = true;
         anim.SetBool("ChestOpen", true);
         StartCoroutine(SpawnCoins());
+        AudioManager.Instance.PlaySFX("ChestOpening");
     }
 
     IEnumerator SpawnCoins()
@@ -33,6 +34,7 @@ public class ChestInteraction : MonoBehaviour, IInteractable
 
         for (int i = 0; i < coinsAmount; i++)
         {
+            AudioManager.Instance.PlaySFX("ChestCoin");
             GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
             Coin coinObj = coin.GetComponent<Coin>();
 

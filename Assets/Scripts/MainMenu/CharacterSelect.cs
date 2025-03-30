@@ -142,17 +142,14 @@ public class CharacterSelect : MonoBehaviour
         hpSystem.enabled = true;
         hpSystem.characterData = data;
 
+        CapsuleCollider2D collider = selectedCharacter.GetComponent<CapsuleCollider2D>();
+        collider.direction = CapsuleDirection2D.Horizontal;
+        collider.offset = new Vector2(0, 0.1f);
+        collider.size = new Vector2(0.5f, 0.3f);
+
         Transform cameras = selectedCharacter.transform.Find("Cameras");
         cameras.gameObject.SetActive(true);
 
-        AudioListener[] listeners = FindObjectsByType<AudioListener>(FindObjectsSortMode.None);
-        if (listeners.Length > 1)
-        {
-            for (int i = 1; i < listeners.Length; i++)
-            {
-                listeners[i].enabled = false;
-            }
-        }
         selectedCharacter.tag = "Player";
 
         //SceneManager.sceneLoaded += OnSceneLoaded;
@@ -186,6 +183,7 @@ public class CharacterSelect : MonoBehaviour
             actionButtonText.text = "Select";
             coin.gameObject.SetActive(false);
             Debug.Log("Bought: " + data.characterName);
+            AudioManager.Instance.PlaySFX("BuySell");
         }
         else
         {

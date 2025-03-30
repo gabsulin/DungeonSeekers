@@ -7347,10 +7347,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0d497b1d8b8874eb3d125efd698b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSounds:
-  - name: Dungeon-Crawler
-    clip: {fileID: 8300000, guid: 518fd97474c0a1d44920fb2246b91d0c, type: 3}
-  sfxSsounds: []
+  music:
+  - name: Music
+    clips:
+    - {fileID: 8300000, guid: 518fd97474c0a1d44920fb2246b91d0c, type: 3}
+  sfx:
+  - name: SwordAttack
+    clips:
+    - {fileID: 8300000, guid: 28c2dc86003965d49be2067f18dd2927, type: 3}
+    - {fileID: 8300000, guid: 6396179feddef9a4eadfadcee1157991, type: 3}
+    - {fileID: 8300000, guid: 7b9268e49b0aab04a937b90c1fd2866c, type: 3}
+    - {fileID: 8300000, guid: 9b0e6ec25e069cd40b7650c10f5fd02f, type: 3}
+  - name: SwordSpecialAttack
+    clips:
+    - {fileID: 8300000, guid: 3ee5cf6ce225e4142ba0a5d64d3ac3e4, type: 3}
+    - {fileID: 8300000, guid: 4fbe5ac4e23434f49bcf1cea0d9eb556, type: 3}
+  - name: MagicLightning
+    clips:
+    - {fileID: 8300000, guid: 9d3573e137706fe44977f8b9b4a410f9, type: 3}
+  - name: UIButton
+    clips:
+    - {fileID: 8300000, guid: 688a7de7d84f5664da145e676c850579, type: 3}
+  - name: BuySell
+    clips:
+    - {fileID: 8300000, guid: 71b58c31dd7b9d244b03ef043f7d0ea1, type: 3}
+  - name: Deny
+    clips:
+    - {fileID: 8300000, guid: e116b73733b1703449ba8c4665373931, type: 3}
+  - name: ChestOpening
+    clips:
+    - {fileID: 8300000, guid: 68b49c2a6ff0511479c4856beb039768, type: 3}
+    - {fileID: 8300000, guid: 86fce00cc5c3f7640b41eb2c5c68c8c6, type: 3}
+  - name: Coin
+    clips:
+    - {fileID: 8300000, guid: 257fa2ebabdf73b4e96e84545889110b, type: 3}
+  - name: ChestCoin
+    clips:
+    - {fileID: 8300000, guid: 072ac75942ac2a240af742046913c20b, type: 3}
   musicSource: {fileID: 92163470}
   sfxSource: {fileID: 1618579412}
 --- !u!4 &1399746853
@@ -8203,7 +8236,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

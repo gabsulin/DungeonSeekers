@@ -4,5 +4,16 @@ using UnityEngine;
 public class Sound
 {
     public string name;
-    public AudioClip clip;
+    public AudioClip[] clips;
+
+    public AudioClip GetRandomClip()
+    {
+        if (clips == null || clips.Length == 0)
+        {
+            Debug.LogWarning("No clips assigned for sound: " + name);
+            return null;
+        }
+
+        return clips[Random.Range(0, clips.Length)];
+    }
 }

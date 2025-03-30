@@ -18,6 +18,6 @@ MonoBehaviour:
   characterName: August
   health: 5
   shields: 10
-  isUnlocked: 1
+  isUnlocked: 0
   price: 15
   speed: 10

@@ -57,12 +57,14 @@ public class PlayerController : Singleton<PlayerController>
             isAttacking = true;
             attackTimer = attackCooldown;
             anim.PlayAnimation(4);
+            AudioManager.Instance.PlaySFX("SwordAttack");
         }
 
         if (Input.GetMouseButtonDown(1))
         {
             playerObj._playerState = PlayerObj.PlayerState.stun;
             anim.PlayAnimation(7);
+            AudioManager.Instance.PlaySFX("SwordSpecialAttack");
         }
     }
 
