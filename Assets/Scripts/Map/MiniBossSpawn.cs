@@ -9,7 +9,7 @@ public class MiniBossSpawn : MonoBehaviour
     {
         areaExit.SetActive(true);
         StartCoroutine(WaitForClosingExitAndSpawnMiniBoss());
-        
+        AudioManager.Instance.PlayMusic("Boss1", true);
     }
 
     private IEnumerator WaitForClosingExitAndSpawnMiniBoss()
