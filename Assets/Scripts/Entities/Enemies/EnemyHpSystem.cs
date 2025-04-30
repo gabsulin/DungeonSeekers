@@ -122,14 +122,8 @@ public class EnemyHpSystem : MonoBehaviour
         }
     }
 
-    public void Stun(int damage)
+    public void Stun()
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-
         StartCoroutine(StunReset());
     }
 

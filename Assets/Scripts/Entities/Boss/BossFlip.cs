@@ -6,27 +6,36 @@ public class BossFlip : MonoBehaviour
 
     private bool isFlipped = false;
 
+    [SerializeField]
+    private bool startsFlipped = false;
+
     private void Start()
     {
-        player = FindFirstObjectByType<PlayerObj>().transform;
+        player = FindFirstObjectByType<PlayerController>().transform;
+        isFlipped = startsFlipped;
     }
 
     public void LookAtPlayer()
     {
-        if (transform.position.x > player.position.x && isFlipped)
+        if (transform.position.x > player.position.x && !isFacingLeft())
         {
             Flip();
         }
-        else if (transform.position.x < player.position.x && !isFlipped)
+        else if (transform.position.x < player.position.x && isFacingLeft())
         {
             Flip();
         }
+    }
+
+    private bool isFacingLeft()
+    {
+        return isFlipped;
     }
 
     private void Flip()
     {
         Vector3 flippedScale = transform.localScale;
-        flippedScale.x *= -1f;
+        flippedScale.x *= -1;
         transform.localScale = flippedScale;
 
         isFlipped = !isFlipped;

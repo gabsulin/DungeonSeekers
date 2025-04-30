@@ -4654,8 +4654,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 506225201}
-  weaponPrefab: {fileID: 3243500549786670276, guid: 256c31dc24a347b478b4da6ae343be46,
+  coinPrefab: {fileID: 179157823112342523, guid: 5c9742279d057ca46bbd5697c76645f9,
     type: 3}
+  coinTarget: {fileID: 0}
 --- !u!61 &506225200
 BoxCollider2D:
   m_ObjectHideFlags: 0

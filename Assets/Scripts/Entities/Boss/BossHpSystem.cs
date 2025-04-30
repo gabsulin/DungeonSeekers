@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class BossHpSystem : MonoBehaviour
 {
-    float maxHealth = 200;
+    [SerializeField] float maxHealth;
     public float currentHealth;
 
     public Image hpBar;
@@ -20,16 +20,11 @@ public class BossHpSystem : MonoBehaviour
             hpBar.fillAmount = maxHealth / maxHealth;
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        if( currentHealth < 0 ) currentHealth = 0;
+        anim.ResetTrigger("Attack");
         anim.SetTrigger("Hit");
         hpBar.fillAmount = currentHealth / maxHealth;
 
@@ -40,14 +35,12 @@ public class BossHpSystem : MonoBehaviour
         if(currentHealth <= maxHealth / 2 )
         {
             anim.SetBool("IsEnraged", true);
-            Debug.Log("enraged");
         }
     }
 
     private void Die()
     {
-        Debug.Log("Die");
+        Debug.Log("deda");
         anim.SetBool("Die", true);
-        Destroy(gameObject, 1f);
     }
 }

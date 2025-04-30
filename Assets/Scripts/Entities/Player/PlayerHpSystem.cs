@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 public class PlayerHpSystem : MonoBehaviour
 {
@@ -17,8 +18,8 @@ public class PlayerHpSystem : MonoBehaviour
 
     [HideInInspector] public float currentHp;
     [HideInInspector] public float currentShields;
-    public float maxHp;
-    public float maxShields;
+    [HideInInspector] public float maxHp;
+    [HideInInspector] public float maxShields;
 
     private float wasntHit = 0f;
     private bool isRegeneratingShields = false;
@@ -26,6 +27,12 @@ public class PlayerHpSystem : MonoBehaviour
     private float shieldRegenTime = 5f;
 
     public bool isDead;
+
+    //poison
+    public float poisonDamagePerSecond = 1f;
+    public float poisonDuration = 5f;
+    private bool isPoisoned = false;
+    private Coroutine poisonCoroutine;
 
     private void Awake()
     {
@@ -180,4 +187,30 @@ public class PlayerHpSystem : MonoBehaviour
         currentShields = Mathf.Min(currentShields, maxShields);
         isRegeneratingShields = false;
     }
+
+    public void ApplyPoison()
+    {
+        if(poisonCoroutine != null)
+        {
+            StopCoroutine(poisonCoroutine);
+        }
+        poisonCoroutine = StartCoroutine(PoisonEffect());
+    }
+
+    private IEnumerator PoisonEffect()
+    {
+        isPoisoned = true;
+        float timer = 0f;
+
+        while (timer < poisonDuration)
+        {
+            TakeHit(Mathf.RoundToInt(poisonDamagePerSecond * Time.deltaTime));
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        isPoisoned = false;
+        poisonCoroutine = null;
+    }
+
 }

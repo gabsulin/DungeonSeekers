@@ -145,7 +145,7 @@ public class CharacterSelect : MonoBehaviour
         CapsuleCollider2D collider = selectedCharacter.GetComponent<CapsuleCollider2D>();
         collider.direction = CapsuleDirection2D.Horizontal;
         collider.offset = new Vector2(0, 0.1f);
-        collider.size = new Vector2(0.5f, 0.3f);
+        collider.size = new Vector2(0.5f, 0.4f);
 
         Transform cameras = selectedCharacter.transform.Find("Cameras");
         cameras.gameObject.SetActive(true);

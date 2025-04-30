@@ -7,6 +7,8 @@ public class WeaponPickup : MonoBehaviour, IInteractable
         ActiveInventory playerInventory = FindFirstObjectByType<ActiveInventory>();
         if (playerInventory != null)
         {
+            gameObject.tag = "Untagged";
+            gameObject.layer = 9;
             playerInventory.PickUpWeapon(gameObject);
         }
     }

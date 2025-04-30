@@ -354,7 +354,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSprite: {fileID: 21300000, guid: 6b09e6c9faf75ce4a81ceb0ae4346bad, type: 3}
-  toggledSprite: {fileID: 21300000, guid: 588a0155cba03034985692562ad12cf2, type: 3}
+  toggledSprite: {fileID: -7939213610613310902, guid: 588a0155cba03034985692562ad12cf2,
+    type: 3}
 --- !u!1 &45019087
 GameObject:
   m_ObjectHideFlags: 0

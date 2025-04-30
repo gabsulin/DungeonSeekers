@@ -12,6 +12,10 @@ public class EnemyDamage : MonoBehaviour
     void Start()
     {
         player = GetComponentInParent<PlayerObj>();
+        if(player == null)
+        {
+            player = FindFirstObjectByType<PlayerObj>();
+        }
     }
 
     // Update is called once per frame
@@ -31,8 +35,6 @@ public class EnemyDamage : MonoBehaviour
                 hasHitEnemy = true;
                 enemyHp.TakeDamage(damage);
                 StartCoroutine(ResetHitFlag());
-                /*boomParticles.transform.position = enemyHp.transform.position;
-                boomParticles.Play();*/
 
             }
         } else if(collision.collider.CompareTag("MiniBoss") && player._playerState == PlayerObj.PlayerState.attack && !hasHitEnemy)
@@ -53,11 +55,38 @@ public class EnemyDamage : MonoBehaviour
             if (enemyHp != null)
             {
                 hasHitEnemy = true;
-                enemyHp.Stun(10);
+                enemyHp.Stun();
                 StartCoroutine(ResetHitFlag());
-                /*boomParticles.transform.position = enemyHp.transform.position;
-                boomParticles.Play();*/
 
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (hasHitEnemy) return;
+
+        if (player._playerState == PlayerObj.PlayerState.attack && collision.CompareTag("Enemy") && !hasHitEnemy)
+        {
+            EnemyHpSystem enemyHp = collision.GetComponent<EnemyHpSystem>();
+            if (enemyHp != null)
+            {
+                hasHitEnemy = true;
+                enemyHp.TakeDamage(damage);
+                StartCoroutine(ResetHitFlag());
+                Destroy(gameObject);
+
+            }
+        }
+        else if (collision.CompareTag("MiniBoss") && player._playerState == PlayerObj.PlayerState.attack && !hasHitEnemy)
+        {
+            BossHpSystem bossHp = collision.GetComponent<BossHpSystem>();
+            if (bossHp != null)
+            {
+                hasHitEnemy = true;
+                bossHp.TakeDamage(damage);
+                StartCoroutine(ResetHitFlag());
+                Debug.Log("hit");
             }
         }
     }
