@@ -5,7 +5,7 @@ public class Melee : Weapon
     protected override void Attack()
     {
         Debug.Log("attack");
-        AudioManager.Instance.PlaySFX("SwordAttack");
+        //AudioManager.Instance.PlaySFX("SwordAttack");
     }
 }
 

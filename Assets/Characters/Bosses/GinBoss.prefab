@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1995473677142755484}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MagicSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 411635368705309190}
   - component: {fileID: 3074014604555840732}
   - component: {fileID: 5514711322383600039}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2687490481806051241}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 6085144475569948944}
   - component: {fileID: 104973172453972476}
   - component: {fileID: 978777761904313883}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GinBoss
   m_TagString: MiniBoss
   m_Icon: {fileID: 0}
@@ -182,6 +182,7 @@ Transform:
   m_Children:
   - {fileID: 442168281484988532}
   - {fileID: 1995473677142755484}
+  - {fileID: 6208920698006323649}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5977419454171229523
@@ -351,8 +352,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  enragedColor: {r: 1, g: 0, b: 0.7372549, a: 1}
+  isSpecialBoss: 1
   currentHealth: 0
-  hpBar: {fileID: 0}
+  hpBar: {fileID: 5514711322383600039}
 --- !u!114 &978777761904313883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,10 +368,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c437599aeda58b4fb8c39d5a3121882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 6
+  attackRange: 5
   magicAttack: {fileID: 705303840225113686, guid: 48167791c84d8504aaba827601498af1,
     type: 3}
+  enragedMagicAttack: {fileID: 705303840225113686, guid: bfde332a00e045d4fbc193ea6a3c989a,
+    type: 3}
   magicSpawnPoint: {fileID: 1995473677142755484}
+  enragedMagicSpawnPoint: {fileID: 6208920698006323649}
+--- !u!1 &4821613103257920969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6208920698006323649}
+  m_Layer: 6
+  m_Name: EnragedMagicSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6208920698006323649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4821613103257920969}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.65, y: -0.125, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6427135300733878432}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6939674081619098853
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +417,7 @@ GameObject:
   - component: {fileID: 5856741036412924223}
   - component: {fileID: 3307201505230887026}
   - component: {fileID: 5537059898925078408}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +493,7 @@ GameObject:
   - component: {fileID: 1363813693057389037}
   - component: {fileID: 7737619955716323698}
   - component: {fileID: 6344815320183152063}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

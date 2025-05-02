@@ -11,9 +11,19 @@ public class Destructible : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Melee") && player._playerState == PlayerObj.PlayerState.attack)
+        if (collision.gameObject.CompareTag("Melee") && player._playerState == PlayerObj.PlayerState.attack)
         {
             destroyParticles.transform.position = gameObject.transform.position;
+            destroyParticles.Play();
+            Destroy(gameObject, 0.1f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            destroyParticles.transform.position = transform.position;
             destroyParticles.Play();
             Destroy(gameObject, 0.1f);
         }

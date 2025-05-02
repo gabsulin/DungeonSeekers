@@ -4,7 +4,7 @@ public abstract class Weapon : MonoBehaviour
 {
     public WeaponData data;
 
-    [SerializeField] protected bool allowHoldToFire = false;
+    [SerializeField] public bool allowHoldToFire = false;
 
     protected float attackTimer = 0f;
     public bool IsAttacking => attackTimer > 0;
@@ -15,15 +15,12 @@ public abstract class Weapon : MonoBehaviour
             attackTimer -= Time.deltaTime;
     }
 
-    public void TryAttack(bool isButtonHeld)
+    public void TryAttack(bool trigger)
     {
-        if (attackTimer <= 0f)
+        if (attackTimer <= 0f && trigger)
         {
-            if (allowHoldToFire && isButtonHeld || !allowHoldToFire && isButtonHeld)
-            {
-                Attack();
-                attackTimer = data.attackCooldown;
-            }
+            Attack();
+            attackTimer = data.attackCooldown;
         }
     }
 

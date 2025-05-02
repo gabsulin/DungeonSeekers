@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8886620803834490141}
   - component: {fileID: 6769180791194506857}
   - component: {fileID: 705303840225113686}
-  - component: {fileID: 7278922982813762118}
+  - component: {fileID: -7273105048911659296}
   m_Layer: 18
-  m_Name: GinMagicAttack
+  m_Name: EnragedGinMagicAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: f70ca20aa07e3d449b34333c3c2b4fe0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.7372549, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 6063709728107112550}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8a32ada412dc3fb44ad79c733e36d9e5, type: 2}
+  m_Controller: {fileID: 9100000, guid: ab38396560fc3a84e9f96e9a15a6ee40, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -139,7 +139,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &7278922982813762118
+--- !u!114 &-7273105048911659296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,12 +148,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6063709728107112550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef6d6bc98be25f24aa8ceebbde86fc6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 23c55c3809f162e4e8f9cbcd54fa331c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullSpeed: 3
-  pullDuration: 0.5
-  pullRadius: 6
-  explosionForce: 15
-  explosionRadius: 2.5
-  maxTravelDistance: 4
+  explosionForce: 20
+  explosionRadius: 3.5
+  maxTravelDistance: 3

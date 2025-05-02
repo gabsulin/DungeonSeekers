@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77963a33a1eeab942bec1efc282ce9b0, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  attackCooldown: 1
-  attackSound: {fileID: 0}
-  damage: 0
+  attackCooldown: 0.4
+  attackSound:
+    name: 
+    clips: []

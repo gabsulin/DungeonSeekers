@@ -15,7 +15,7 @@ MonoBehaviour:
   description: he eats ass
   characterName: Asseater
   health: 7
-  shields: 5
+  shields: 30
   isUnlocked: 1
   price: 5
-  speed: 15
+  speed: 8

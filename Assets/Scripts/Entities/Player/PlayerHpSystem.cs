@@ -15,6 +15,7 @@ public class PlayerHpSystem : MonoBehaviour
     [SerializeField] Image shieldsBar;
     [SerializeField] TMP_Text hpTMP;
     [SerializeField] TMP_Text shieldsTMP;
+    [SerializeField] TMP_Text damageNumber;
 
     [HideInInspector] public float currentHp;
     [HideInInspector] public float currentShields;
@@ -102,8 +103,14 @@ public class PlayerHpSystem : MonoBehaviour
             int overflowDmg = damage - (int)currentShields;
 
             currentShields -= damage;
+            /*damageNumber.text = damage.ToString();
 
-            if(currentShields < 0) currentShields = 0;
+            float randX = Random.Range(-0.5f, 0.5f);
+            float randY = Random.Range(-0.5f, 0.5f);
+            Vector2 offSet = new Vector2(randX, randY);
+            Instantiate(damageNumber, (Vector2)transform.position + offSet, Quaternion.identity);*/
+
+            if(currentShields <= 0) currentShields = 0;
 
             shieldsBar.fillAmount = currentShields / maxShields;
             shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";

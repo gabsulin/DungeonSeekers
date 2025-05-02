@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 564370816806122319}
   - component: {fileID: 1728247899756612277}
   - component: {fileID: 5464640153807849082}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8840572815112106328}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 7551154920576948884}
   - component: {fileID: 6789446350255615128}
   - component: {fileID: 8705091783169453421}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.77, y: -8.34, z: 0}
-  m_LocalScale: {x: 3.5, y: 3.5, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1186380542368008901}
@@ -407,6 +407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3cebe44ddfa984e960c9ca7c967737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startsFlipped: 1
 --- !u!114 &8209173036142527651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
+  enragedColor: {r: 1, g: 1, b: 1, a: 1}
   currentHealth: 0
   hpBar: {fileID: 3693105576019430919}
 --- !u!1 &6355391277950352776
@@ -481,7 +483,7 @@ GameObject:
   - component: {fileID: 6590708826926006020}
   - component: {fileID: 1707432514620765757}
   - component: {fileID: 3693105576019430919}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}

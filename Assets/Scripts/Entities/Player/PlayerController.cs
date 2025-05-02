@@ -6,7 +6,7 @@ public class PlayerController : Singleton<PlayerController>
     private PlayerObj playerObj;
     private Rigidbody2D rb;
     private SPUM_Prefabs anim;
-
+    private Animator animator;
 
     public float moveSpeed = 8f;
 
@@ -23,7 +23,9 @@ public class PlayerController : Singleton<PlayerController>
         rb = GetComponent<Rigidbody2D>();
         playerObj = GetComponent<PlayerObj>();
         anim = GetComponentInChildren<SPUM_Prefabs>();
+        animator = anim.GetComponentInChildren<Animator>();
         UpdateCurrentWeapon();
+        Debug.Log(currentWeapon);
     }
 
     private void Update()
@@ -93,9 +95,13 @@ public class PlayerController : Singleton<PlayerController>
                 else if (currentWeapon is Staff)
                     anim.PlayAnimation(6);
             }
+            else
+            {
+                animator.ResetTrigger("Attack");
+            }
         }
 
-        if (Input.GetMouseButtonDown(1) /* && currentWeapon is Melee */)
+        if (Input.GetMouseButtonDown(1) && currentWeapon is Melee)
         {
             playerObj._playerState = PlayerObj.PlayerState.stun;
             anim.PlayAnimation(7);
@@ -134,7 +140,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void FlipCharacter(float directionX)
     {
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);    
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (mouseWorldPos.x > transform.position.x)
         {
@@ -172,16 +178,8 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
-
-
-
-    void OnCollisionEnter2D(Collision2D collision)
+    public Weapon GetCurrentWeapon()
     {
-        Debug.Log("Colliding with: " + collision.gameObject.name);
-    }
-
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        Debug.Log("Triggering with: " + collider.gameObject.name);
+        return currentWeapon;
     }
 }

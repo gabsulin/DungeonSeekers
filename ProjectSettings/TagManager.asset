@@ -15,6 +15,7 @@ TagManager:
   - HealthBar
   - Shields
   - ShieldsBar
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -34,7 +35,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - BossBullet
   - Bullet
   - Layer 1
   - Layer 2
