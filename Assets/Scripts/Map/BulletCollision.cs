@@ -16,9 +16,14 @@ public class BulletCollision : MonoBehaviour
         {
             if(anim != null)
             {
-                anim.SetBool("Hit", true);
-                gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
-                Destroy(gameObject, 1);
+                if(anim.GetBool("Hit") == true)
+                {
+                    anim.SetBool("Hit", true);
+                    gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
+                    Destroy(gameObject, 1);
+                }
+                var spawnedParticles = Instantiate(destroyParticles, transform.position, Quaternion.identity);
+                Destroy(gameObject);
             } else
             {
                 if (destroyParticles != null)

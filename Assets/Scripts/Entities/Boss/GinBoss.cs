@@ -12,6 +12,7 @@ public class GinBoss : MonoBehaviour
     [SerializeField] Rigidbody2D enragedMagicAttack;
     [SerializeField] Transform magicSpawnPoint;
     [SerializeField] Transform enragedMagicSpawnPoint;
+    
     float cooldown;
     void Start()
     {

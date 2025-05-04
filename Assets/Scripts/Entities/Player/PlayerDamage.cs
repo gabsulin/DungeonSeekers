@@ -7,6 +7,7 @@ public class PlayerDamage : MonoBehaviour
     PlayerObj player;
     PlayerHpSystem playerHp;
     Animator anim;
+    Stone stone;
 
     [SerializeField] int damage;
 
@@ -16,11 +17,12 @@ public class PlayerDamage : MonoBehaviour
         player = FindAnyObjectByType<PlayerObj>();
         playerHp = FindFirstObjectByType<PlayerHpSystem>();
         anim = GetComponent<Animator>();
+        stone = FindFirstObjectByType<Stone>();
     }
 
     private void Update()
     {
-        if (playerHp.isDead)
+        if (playerHp != null && playerHp.isDead)
         {
             Destroy(this.gameObject);
         }
@@ -28,13 +30,29 @@ public class PlayerDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerHpSystem playerHpCollision = collision.GetComponent<PlayerHpSystem>();
-        if (playerHpCollision != null)
+        playerHp = collision.GetComponent<PlayerHpSystem>();
+        if (playerHp != null)
         {
-            playerHpCollision.TakeHit(damage);
-            anim.SetBool("Hit", true);
-            gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
-            Destroy(gameObject, 0.3f);
+            if (stone != null && stone.isPetrified)
+            {
+                playerHp.TakeHit(Mathf.RoundToInt(damage / 2));
+                Debug.Log(Mathf.RoundToInt(damage / 2));
+            }
+            playerHp.TakeHit(damage);
+            if (anim != null)
+            {
+                if (anim.GetBool("Hit") == true)
+                {
+                    anim.SetBool("Hit", true);
+                    gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
+                    Destroy(gameObject, 0.3f);
+                } else Destroy(gameObject);
+            }
+            else Destroy(gameObject);
+            if (particles != null)
+            {
+                var spawnedParticles = Instantiate(particles, player.transform.position, Quaternion.identity);
+            }
         }
     }
 }

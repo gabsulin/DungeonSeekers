@@ -439,6 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 500
   enragedColor: {r: 1, g: 1, b: 1, a: 1}
+  isSpecialBoss: 0
   currentHealth: 0
   hpBar: {fileID: 3693105576019430919}
 --- !u!1 &6355391277950352776

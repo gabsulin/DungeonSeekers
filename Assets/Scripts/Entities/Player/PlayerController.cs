@@ -9,6 +9,8 @@ public class PlayerController : Singleton<PlayerController>
     private Animator animator;
 
     public float moveSpeed = 8f;
+    public bool canMove = true;
+    public bool canAttack = true;
 
     private bool isAttacking = false;
     private float attackCooldown = 0.5f;
@@ -30,9 +32,9 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Update()
     {
-        HandleMovement();
+        if(canMove) HandleMovement();
         UpdateCurrentWeapon();
-        HandleActions();
+        if(canAttack) HandleActions();
         HandleAttackCooldown();
         RotateGunTowardsMouse();
 
