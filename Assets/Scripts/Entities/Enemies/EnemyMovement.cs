@@ -9,6 +9,7 @@ public class EnemyMovement : MonoBehaviour
     PlayerHpSystem playerHp;
     SPUM_Prefabs anim;
     RangedEnemyAttack enemyAttack;
+    BossFlip flip;
 
     public float distance;
 
@@ -26,6 +27,7 @@ public class EnemyMovement : MonoBehaviour
         enemyHp = GetComponent<EnemyHpSystem>();
         playerHp = FindAnyObjectByType<PlayerHpSystem>();
         enemyAttack = GetComponent<RangedEnemyAttack>();
+        flip = GetComponent<BossFlip>();
     }
 
     void Update()
@@ -33,6 +35,7 @@ public class EnemyMovement : MonoBehaviour
         if (player != null)
         {
             distance = Vector2.Distance(transform.position, player.transform.position);
+            flip.LookAtPlayer();
         }
 
         if (enemy != null && player != null)

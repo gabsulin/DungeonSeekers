@@ -110,9 +110,9 @@ public class MorphBoss : MonoBehaviour
         //circleCollider.enabled = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if(collision.collider.CompareTag("Player"))
         {
             playerHp.TakeHit(5);
         }

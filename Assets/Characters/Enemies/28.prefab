@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 2559663367921002077}
   - component: {fileID: 226851829756624149}
   - component: {fileID: -5176677955764860702}
+  - component: {fileID: -4115301223835387951}
   m_Layer: 6
   m_Name: 28
   m_TagString: Enemy
@@ -195,6 +196,19 @@ MonoBehaviour:
   _prefabs: {fileID: 7514529235513222878}
   _charMS: 5
   _goalPos: {x: 0, y: 0, z: 0}
+--- !u!114 &-4115301223835387951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689181151996125248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3cebe44ddfa984e960c9ca7c967737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startsFlipped: 1
 --- !u!1001 &7526505458211270886
 PrefabInstance:
   m_ObjectHideFlags: 0

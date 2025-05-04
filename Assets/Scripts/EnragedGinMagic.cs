@@ -48,7 +48,7 @@ public class EnragedGinMagic : MonoBehaviour
                     }
                 }
 
-                //playerHp.TakeHit(damage);
+                playerHp.TakeHit(damage);
             }
         }
     }

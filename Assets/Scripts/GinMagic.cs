@@ -77,7 +77,7 @@ public class GinMagic : MonoBehaviour
                     }
                 }
 
-                //playerHp.TakeHit(damage);
+                playerHp.TakeHit(damage);
             }
         }
     }

@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287073d39d0e11e4bae5f305bf3e08e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 1000
   enragedColor: {r: 1, g: 0, b: 0.7372549, a: 1}
   isSpecialBoss: 1
   currentHealth: 0

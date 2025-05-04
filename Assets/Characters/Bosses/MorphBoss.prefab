@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2603010599551382083}
   - component: {fileID: 4563664098740173799}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PoisonSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,9 +60,9 @@ GameObject:
   - component: {fileID: 5905495499545496062}
   - component: {fileID: 596146156396277285}
   - component: {fileID: 5875449906651638946}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MorphBoss
-  m_TagString: Untagged
+  m_TagString: MiniBoss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,6 +214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  enragedColor: {r: 0, g: 0, b: 0, a: 0}
+  isSpecialBoss: 0
   currentHealth: 0
   hpBar: {fileID: 0}
 --- !u!114 &596146156396277285
@@ -232,8 +234,8 @@ MonoBehaviour:
   attackCooldown: 2
   poisonAttack: {fileID: 5127129019614748421, guid: 70ebea435cb3ac847bee60c0d5e24137,
     type: 3}
-  dashSpeed: 12
-  dashDuration: 0.4
+  dashSpeed: 18
+  dashDuration: 0.6
 --- !u!70 &5875449906651638946
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
