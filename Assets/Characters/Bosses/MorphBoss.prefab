@@ -218,6 +218,8 @@ MonoBehaviour:
   isSpecialBoss: 0
   currentHealth: 0
   hpBar: {fileID: 0}
+  isEnraged: 0
+  isDamagable: 1
 --- !u!114 &596146156396277285
 MonoBehaviour:
   m_ObjectHideFlags: 0

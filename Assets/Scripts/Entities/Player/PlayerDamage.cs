@@ -10,6 +10,7 @@ public class PlayerDamage : MonoBehaviour
     Stone stone;
 
     [SerializeField] int damage;
+    [SerializeField] bool destroy = true;
 
     [SerializeField] ParticleSystem particles;
     void Start()
@@ -22,7 +23,7 @@ public class PlayerDamage : MonoBehaviour
 
     private void Update()
     {
-        if (playerHp != null && playerHp.isDead)
+        if (playerHp != null && playerHp.isDead && destroy)
         {
             Destroy(this.gameObject);
         }
@@ -45,10 +46,11 @@ public class PlayerDamage : MonoBehaviour
                 {
                     anim.SetBool("Hit", true);
                     gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
-                    Destroy(gameObject, 0.3f);
-                } else Destroy(gameObject);
+                    if (destroy) Destroy(gameObject, 0.3f);
+                }
+                else if (destroy) Destroy(gameObject);
             }
-            else Destroy(gameObject);
+            else if (destroy) Destroy(gameObject);
             if (particles != null)
             {
                 var spawnedParticles = Instantiate(particles, player.transform.position, Quaternion.identity);

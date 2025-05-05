@@ -13,7 +13,6 @@ public class PlayerController : Singleton<PlayerController>
     public bool canAttack = true;
 
     private bool isAttacking = false;
-    private float attackCooldown = 0.5f;
     private float attackTimer = 0f;
 
     private Vector2 lastMovementDirection = Vector2.right;

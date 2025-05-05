@@ -9,6 +9,7 @@ public class PlayerHpSystem : MonoBehaviour
 {
     PlayerObj player;
     SPUM_Prefabs anim;
+    PlayerController playerController;
     public CharacterData characterData;
 
     [SerializeField] Image hpBar;
@@ -48,6 +49,7 @@ public class PlayerHpSystem : MonoBehaviour
     {
         player = GetComponent<PlayerObj>();
         anim = GetComponentInChildren<SPUM_Prefabs>();
+        playerController = GetComponent<PlayerController>();
     }
 
     public void AssignUIElements()
@@ -162,6 +164,8 @@ public class PlayerHpSystem : MonoBehaviour
             anim._anim.SetBool("EditChk", anim.EditChk);
         }
         isDead = true;
+        playerController.canMove = false;
+        playerController.canAttack = false;
 
         /*
          deathScreen.SetActive(true);

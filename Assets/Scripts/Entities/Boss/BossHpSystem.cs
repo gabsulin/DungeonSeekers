@@ -11,7 +11,10 @@ public class BossHpSystem : MonoBehaviour
     public Image hpBar;
     Animator anim;
     SpriteRenderer spriteRenderer;
-    bool isEnraged = false;
+
+    public bool isEnraged = false;
+    public bool isDamagable = true;
+    bool isHealing = false;
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -25,6 +28,13 @@ public class BossHpSystem : MonoBehaviour
             hpBar.fillAmount = maxHealth / maxHealth;
         }
     }
+    private void Update()
+    {
+        if (isHealing)
+        {
+            hpBar.fillAmount = currentHealth / maxHealth;
+        }
+    }
     public void TakeDamage(int damage, bool isMelee)
     {
         if (isEnraged && isSpecialBoss && !isMelee)
@@ -33,27 +43,43 @@ public class BossHpSystem : MonoBehaviour
             return;
         }
 
-        currentHealth -= damage;
-        if (currentHealth < 0) currentHealth = 0;
-        anim.ResetTrigger("Attack");
-        anim.SetTrigger("Hit");
-        hpBar.fillAmount = currentHealth / maxHealth;
+        if (isDamagable)
+        {
+            currentHealth -= damage;
+            if (currentHealth < 0) currentHealth = 0;
+            anim.ResetTrigger("Attack");
+            anim.SetTrigger("Hit");
+            hpBar.fillAmount = currentHealth / maxHealth;
 
-        if (currentHealth <= 0)
-        {
-            Die();
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+            if (!isEnraged && currentHealth <= maxHealth / 2)
+            {
+                isEnraged = true;
+                anim.SetBool("IsEnraged", true);
+                spriteRenderer.color = enragedColor;
+            }
         }
-        if (!isEnraged && currentHealth <= maxHealth / 2)
+        else
         {
-            isEnraged = true;
-            anim.SetBool("IsEnraged", true);
-            spriteRenderer.color = enragedColor;
+            return;
         }
     }
-
+    public void Heal(int amount, float time)
+    {
+        currentHealth = Mathf.Lerp(currentHealth, currentHealth + amount, time);
+        isHealing = true;
+    }
+    public void StopHealing()
+    {
+        isHealing = false;
+    }
     private void Die()
     {
         anim.SetBool("Die", true);
+        
     }
 
     public void DestroyBoss()

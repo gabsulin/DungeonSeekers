@@ -16,6 +16,7 @@ TagManager:
   - Shields
   - ShieldsBar
   - Bullet
+  - Missle
   layers:
   - Default
   - TransparentFX

@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7839051679348814731}
   - component: {fileID: 7784856349167185771}
-  - component: {fileID: 2665114166871213927}
-  - component: {fileID: 1731310337915786191}
   - component: {fileID: 1210535669910196678}
+  - component: {fileID: 1731310337915786191}
+  - component: {fileID: 2665114166871213927}
   m_Layer: 9
-  m_Name: Weapon 5
+  m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,24 +91,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2665114166871213927
-MonoBehaviour:
+--- !u!50 &1210535669910196678
+Rigidbody2D:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2827450289234825376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07efc81f21ac3b24a99a2f9c2f9bae8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: efc9db6b78c152f44b96d1b2ce8e11ee, type: 2}
-  allowHoldToFire: 1
-  bulletPrefab: {fileID: 8398269151609417490, guid: 6091a7a43bbce1344a2e266e73f64d50,
-    type: 3}
-  firePoint: {fileID: 135336000484432780}
-  bulletSpeed: 10
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!61 &1731310337915786191
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -139,7 +148,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -155,33 +164,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
---- !u!50 &1210535669910196678
-Rigidbody2D:
-  serializedVersion: 5
+--- !u!114 &2665114166871213927
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2827450289234825376}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07efc81f21ac3b24a99a2f9c2f9bae8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 829d58ced357ef848aefc550801c0d13, type: 2}
+  allowHoldToFire: 0
+  bulletPrefab: {fileID: 5276360105930362109, guid: 3ddfbe3d699557544ae3fc3a5a45d962,
+    type: 3}
+  firePoint: {fileID: 135336000484432780}
+  bulletSpeed: 10
+  isShotgun: 1
 --- !u!1 &7033439349022071126
 GameObject:
   m_ObjectHideFlags: 0

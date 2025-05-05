@@ -12,7 +12,7 @@ public class BulletCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Collision") || collision.CompareTag("Enemy") || collision.CompareTag("MiniBoss"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Collision") || collision.CompareTag("Enemy") || collision.CompareTag("MiniBoss") || collision.CompareTag("Missle"))
         {
             if(anim != null)
             {
