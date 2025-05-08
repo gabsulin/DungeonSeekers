@@ -759,7 +759,33 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Projectile 2 wo blur_0: 8618746633085077760
+      Projectile 2 wo blur_1: 4877756550338911781
+      Projectile 2 wo blur_10: -9001060199833122506
+      Projectile 2 wo blur_11: 7412765181786857624
+      Projectile 2 wo blur_12: 3209325030278929607
+      Projectile 2 wo blur_13: 2059502827358024700
+      Projectile 2 wo blur_14: 7679595581279832333
+      Projectile 2 wo blur_15: -6879999777470826312
+      Projectile 2 wo blur_16: 7628342279430599581
+      Projectile 2 wo blur_17: -961439444074917953
+      Projectile 2 wo blur_18: 8418079899722651370
+      Projectile 2 wo blur_19: -7133139790560037152
+      Projectile 2 wo blur_2: 8367565082205025968
+      Projectile 2 wo blur_20: -6452628826028444446
+      Projectile 2 wo blur_21: 6005415161163024211
+      Projectile 2 wo blur_22: -7615681839367927268
+      Projectile 2 wo blur_23: 9151130180909597559
+      Projectile 2 wo blur_24: -5606904009757812522
+      Projectile 2 wo blur_25: 3812883188498478878
+      Projectile 2 wo blur_3: -7077998094079808146
+      Projectile 2 wo blur_4: 1046450545886011377
+      Projectile 2 wo blur_5: 8416504040599199829
+      Projectile 2 wo blur_6: -304645619706332365
+      Projectile 2 wo blur_7: 1836528995583288862
+      Projectile 2 wo blur_8: 1406118814976150521
+      Projectile 2 wo blur_9: -4590787220228601828
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

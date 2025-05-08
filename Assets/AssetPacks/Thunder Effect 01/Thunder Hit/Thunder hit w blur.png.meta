@@ -259,7 +259,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Thunder hit w blur_0: -3263653343902223344
+      Thunder hit w blur_1: 8219282339543974511
+      Thunder hit w blur_2: 5554414204076018764
+      Thunder hit w blur_3: -6384987531560189125
+      Thunder hit w blur_4: 1670040759625267941
+      Thunder hit w blur_5: 4762593704965271585
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

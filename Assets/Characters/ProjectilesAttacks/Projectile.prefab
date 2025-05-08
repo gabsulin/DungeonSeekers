@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  destroy: 1
   particles: {fileID: 0}
 --- !u!114 &-2368068397244263196
 MonoBehaviour:

@@ -9,7 +9,17 @@ AssetOrigin:
   uploadId: 693043
 ScriptedImporter:
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Idle
+    second: {fileID: 7400000, guid: 949f4e49201571444af3f32ec5af7b99, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Play
+    second: {fileID: 7400000, guid: 19c742b5e9fb846499e40e50f8350215, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -105,7 +115,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638493930716527819
+  platformSettingsDirtyTick: 638821329589214279
   textureAssetName: 
   singleSpriteImportData:
   - name: 

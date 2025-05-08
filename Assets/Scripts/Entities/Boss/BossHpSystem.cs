@@ -69,8 +69,11 @@ public class BossHpSystem : MonoBehaviour
     }
     public void Heal(int amount, float time)
     {
-        currentHealth = Mathf.Lerp(currentHealth, currentHealth + amount, time);
-        isHealing = true;
+        if(anim.GetBool("IsImmune") == true)
+        {
+            currentHealth = Mathf.Lerp(currentHealth, currentHealth + amount, time);
+            isHealing = true;
+        }
     }
     public void StopHealing()
     {

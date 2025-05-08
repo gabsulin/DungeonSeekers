@@ -23,6 +23,7 @@ public class MechGolem : MonoBehaviour
     private Animator animator;
     private BossHpSystem bossHp;
     private PlayerHpSystem playerHp;
+    private CameraShake shake;
 
     private Vector2 dashDirection;
     private bool isDashing = false;
@@ -39,6 +40,7 @@ public class MechGolem : MonoBehaviour
         animator = GetComponent<Animator>();
         bossHp = GetComponent<BossHpSystem>();
         playerHp = FindFirstObjectByType<PlayerHpSystem>();
+        shake = GetComponent<CameraShake>();
 
         dashDuration = animator.GetFloat("DashDuration");
         attackCooldown = animator.GetFloat("AttackCooldown");
@@ -68,7 +70,7 @@ public class MechGolem : MonoBehaviour
             dashDuration += Time.deltaTime;
             animator.SetFloat("DashDuration", dashDuration);
 
-            if (dashDuration >= maxDashDuration && playerHp.isDead)
+            if (dashDuration >= maxDashDuration && ! playerHp.isDead)
             {
                 StopDash();
             }
@@ -182,6 +184,7 @@ public class MechGolem : MonoBehaviour
                 playerRb.linearVelocity = Vector2.zero;
                 lastBounceTime = Time.time;
                 SetDashDirectionFromPlayer();
+                if(isDashing) shake.StartShake(force: 0.25f);
             }
         }
         else if ((bounceLayers.value & (1 << collision.gameObject.layer)) != 0)
@@ -190,6 +193,7 @@ public class MechGolem : MonoBehaviour
             {
                 lastBounceTime = Time.time;
                 SetDashDirectionToPlayer();
+                if(isDashing) shake.StartShake(force: 0.25f);
             }
         }
     }

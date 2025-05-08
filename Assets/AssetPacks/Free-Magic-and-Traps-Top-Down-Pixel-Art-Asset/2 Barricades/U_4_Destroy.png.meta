@@ -384,7 +384,18 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      U_4_Destroy_0: 4635066799831367893
+      U_4_Destroy_1: -2421378013191013927
+      U_4_Destroy_10: -3365733703911134449
+      U_4_Destroy_2: 208406955893257440
+      U_4_Destroy_3: -9214619978506976913
+      U_4_Destroy_4: -1773928111588695688
+      U_4_Destroy_5: 892606429571766664
+      U_4_Destroy_6: -872505038691306858
+      U_4_Destroy_7: 8989125735647316505
+      U_4_Destroy_8: -3181059066512010291
+      U_4_Destroy_9: 8659024100480308528
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

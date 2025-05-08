@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
+  destroy: 1
   particles: {fileID: 2428988616824977718, guid: b8b1258fc1d0017468e4e19f4d34b0ee,
     type: 3}
 --- !u!114 &1813541515645337329
