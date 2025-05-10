@@ -15,6 +15,7 @@ public class PlayerController : Singleton<PlayerController>
     private bool isAttacking = false;
     private float attackTimer = 0f;
 
+    public Vector2 input;
     private Vector2 lastMovementDirection = Vector2.right;
 
     private Weapon currentWeapon;
@@ -43,7 +44,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void HandleMovement()
     {
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
         if (input.magnitude > 0 && !isAttacking)
         {

@@ -29,6 +29,7 @@ public class PlayerHpSystem : MonoBehaviour
     private float shieldRegenTime = 5f;
 
     public bool isDead;
+    public bool isImmune;
 
     //poison
     public float poisonDamagePerSecond = 1f;
@@ -99,49 +100,51 @@ public class PlayerHpSystem : MonoBehaviour
     public void TakeHit(int damage)
     {
         wasntHit = 0;
-
-        if (currentShields > 0)
+        if (!isImmune)
         {
-            int overflowDmg = damage - (int)currentShields;
-
-            currentShields -= damage;
-            /*damageNumber.text = damage.ToString();
-
-            float randX = Random.Range(-0.5f, 0.5f);
-            float randY = Random.Range(-0.5f, 0.5f);
-            Vector2 offSet = new Vector2(randX, randY);
-            Instantiate(damageNumber, (Vector2)transform.position + offSet, Quaternion.identity);*/
-
-            if(currentShields <= 0) currentShields = 0;
-
-            shieldsBar.fillAmount = currentShields / maxShields;
-            shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
-
-            if(overflowDmg > 0)
+            if (currentShields > 0)
             {
-                currentHp -= overflowDmg;
+                int overflowDmg = damage - (int)currentShields;
 
+                currentShields -= damage;
+                /*damageNumber.text = damage.ToString();
+
+                float randX = Random.Range(-0.5f, 0.5f);
+                float randY = Random.Range(-0.5f, 0.5f);
+                Vector2 offSet = new Vector2(randX, randY);
+                Instantiate(damageNumber, (Vector2)transform.position + offSet, Quaternion.identity);*/
+
+                if (currentShields <= 0) currentShields = 0;
+
+                shieldsBar.fillAmount = currentShields / maxShields;
+                shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
+
+                if (overflowDmg > 0)
+                {
+                    currentHp -= overflowDmg;
+
+                    hpBar.fillAmount = currentHp / maxHp;
+                    hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
+
+                    if (currentHp <= 0)
+                    {
+                        currentHp = 0;
+                        hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
+                        Die();
+                    }
+                }
+            }
+            else
+            {
+                currentHp -= damage;
                 hpBar.fillAmount = currentHp / maxHp;
                 hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
-
-                if(currentHp <= 0)
+                if (currentHp <= 0)
                 {
                     currentHp = 0;
                     hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
                     Die();
                 }
-            }
-        }
-        else
-        {
-            currentHp -= damage;
-            hpBar.fillAmount = currentHp / maxHp;
-            hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
-            if (currentHp <= 0)
-            {
-                currentHp = 0;
-                hpTMP.text = $"{currentHp.ToString()}/{maxHp.ToString()}";
-                Die();
             }
         }
         //Debug.Log(wasntHit);
@@ -201,7 +204,7 @@ public class PlayerHpSystem : MonoBehaviour
 
     public void ApplyPoison()
     {
-        if(poisonCoroutine != null)
+        if (poisonCoroutine != null)
         {
             StopCoroutine(poisonCoroutine);
         }
