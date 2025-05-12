@@ -7,5 +7,6 @@ public class ImmuneAbility : Ability
     {
         PlayerHpSystem player = parent.GetComponent<PlayerHpSystem>();
         player.isImmune = true;
+        player.transform.position = Vector2.zero;
     }
 }
