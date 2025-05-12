@@ -1,11 +1,13 @@
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AbilityHolder : MonoBehaviour
 {
     public Ability ability;
     float cooldownTime;
     float activeTime;
+    public Image abilityBar;
 
     Rigidbody2D rb;
     PlayerHpSystem playerHp;
@@ -41,7 +43,9 @@ public class AbilityHolder : MonoBehaviour
                 if (activeTime > 0)
                 {
                     activeTime -= Time.deltaTime;
-                } else
+                    abilityBar.fillAmount = activeTime / ability.activeTime;
+                }
+                else
                 {
                     state = AbilityState.cooldown;
                     cooldownTime = ability.coolDownTime;
@@ -51,6 +55,10 @@ public class AbilityHolder : MonoBehaviour
                 if (cooldownTime > 0)
                 {
                     cooldownTime -= Time.deltaTime;
+
+                    float elapsedCooldown = ability.coolDownTime - cooldownTime;
+                    abilityBar.fillAmount = elapsedCooldown / ability.coolDownTime;
+
                     if (ability is DashAbility) rb.linearVelocity = Vector2.zero;
                     if (ability is ImmuneAbility) playerHp.isImmune = false;
                     //faster fire rate, faster movement, healing, homing bullets, 
@@ -58,6 +66,7 @@ public class AbilityHolder : MonoBehaviour
                 else
                 {
                     state = AbilityState.ready;
+                    abilityBar.fillAmount = 1f;
                 }
                 break;
         }

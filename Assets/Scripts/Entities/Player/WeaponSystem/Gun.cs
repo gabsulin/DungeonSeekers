@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gun : Weapon
@@ -8,17 +7,26 @@ public class Gun : Weapon
     public float bulletSpeed = 10f;
     public bool isShotgun;
 
+    [Range(0f, 100f)] public float accuracy = 100f;
+
     protected override void Attack()
     {
         if (bulletPrefab == null || firePoint == null) return;
 
         if (!isShotgun)
         {
+            float maxSpreadAngle = 20f;
+            float inaccuracy = Mathf.Clamp01(1f - (accuracy / 100f));
+            float spread = Random.Range(-maxSpreadAngle * inaccuracy, maxSpreadAngle * inaccuracy);
+
+            Quaternion spreadRotation = Quaternion.Euler(0, 0, spread);
+            Vector2 direction = spreadRotation * firePoint.right;
+
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.linearVelocity = firePoint.right * bulletSpeed;
+                rb.linearVelocity = direction.normalized * bulletSpeed;
             }
         }
         else
@@ -45,5 +53,4 @@ public class Gun : Weapon
 
         // AudioManager.Instance.PlaySFX("GunShot");
     }
-
 }
