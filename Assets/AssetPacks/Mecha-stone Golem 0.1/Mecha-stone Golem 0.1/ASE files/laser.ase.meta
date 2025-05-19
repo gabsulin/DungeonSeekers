@@ -7,7 +7,7 @@ ScriptedImporter:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
       name: laser_Clip
-    second: {fileID: 7400000, guid: bc0442d3326efc349a2769fdaa5dd57f, type: 2}
+    second: {fileID: 7400000, guid: c67c6770eba407d4b9a92f72edfa78ce, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -103,7 +103,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638820019370616692
+  platformSettingsDirtyTick: 638827590819126154
   textureAssetName: 
   singleSpriteImportData:
   - name: 

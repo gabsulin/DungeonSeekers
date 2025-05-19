@@ -80,18 +80,14 @@ public class PlayerController : Singleton<PlayerController>
     }
     private void HandleActions()
     {
-        bool isPrimaryFireHeld = Input.GetMouseButton(0);
-        bool isPrimaryFireJustPressed = Input.GetMouseButtonDown(0);
-
         if (currentWeapon != null)
         {
-            bool shouldTryFire = currentWeapon is Gun ? isPrimaryFireHeld : isPrimaryFireJustPressed;
-            currentWeapon.TryAttack(shouldTryFire);
+            currentWeapon.UpdateWeapon();
 
             if (currentWeapon.IsAttacking)
             {
                 playerObj._playerState = PlayerObj.PlayerState.attack;
-
+               
                 if (currentWeapon is Melee)
                     anim.PlayAnimation(4);
                 else if (currentWeapon is Staff)

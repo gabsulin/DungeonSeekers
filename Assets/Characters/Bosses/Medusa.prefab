@@ -432,6 +432,7 @@ MonoBehaviour:
   hpBar: {fileID: 5063681281121961646}
   isEnraged: 0
   isDamagable: 1
+  isDead: 0
 --- !u!114 &686144137338232766
 MonoBehaviour:
   m_ObjectHideFlags: 0

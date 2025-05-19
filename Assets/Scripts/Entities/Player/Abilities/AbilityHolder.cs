@@ -59,7 +59,11 @@ public class AbilityHolder : MonoBehaviour
                     float elapsedCooldown = ability.coolDownTime - cooldownTime;
                     abilityBar.fillAmount = elapsedCooldown / ability.coolDownTime;
 
-                    if (ability is DashAbility) rb.linearVelocity = Vector2.zero;
+                    if (ability is DashAbility)
+                    {
+                        rb.linearVelocity = Vector2.zero;
+                        playerHp.isImmune = false;
+                    }
                     if (ability is ImmuneAbility) playerHp.isImmune = false;
                     //faster fire rate, faster movement, healing, homing bullets, 
                 }

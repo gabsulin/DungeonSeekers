@@ -24,6 +24,7 @@ public class MechGolem : MonoBehaviour
     private BossHpSystem bossHp;
     private PlayerHpSystem playerHp;
     private CameraShake shake;
+    private GameObject laser;
 
     private Vector2 dashDirection;
     private bool isDashing = false;
@@ -53,6 +54,9 @@ public class MechGolem : MonoBehaviour
         attackCooldown += Time.deltaTime;
         animator.SetFloat("AttackCooldown", attackCooldown);
 
+        //mozna protoze je pred nim prekazka tak se nedokaze rozhodnout co ma delat kdyz ma dashoavt
+
+
         if (attackCooldown > 1f && !isDashing && !isCastingLaser && !playerHp.isDead)
         {
             if (!bossHp.isEnraged)
@@ -70,10 +74,16 @@ public class MechGolem : MonoBehaviour
             dashDuration += Time.deltaTime;
             animator.SetFloat("DashDuration", dashDuration);
 
-            if (dashDuration >= maxDashDuration && ! playerHp.isDead)
+            if (dashDuration >= maxDashDuration && !playerHp.isDead)
             {
                 StopDash();
             }
+        }
+
+        if (bossHp.isDead)
+        {
+            StopDash();
+            StartCoroutine(StopLaserAfterDuration(laser, 0.1f));
         }
     }
 
@@ -95,36 +105,41 @@ public class MechGolem : MonoBehaviour
     {
         if (isCastingLaser) return;
 
-        float rand = Random.value;
-        animator.SetTrigger("Attack");
+        if (!bossHp.isDead)
+        {
+            float rand = Random.value;
+            animator.SetTrigger("Attack");
 
-        if (rand < 0.5f)
-        {
-            StartLaserAttack();
-        }
-        else
-        {
-            StartDashAttack();
+            if (rand < 0.3f)
+            {
+                StartLaserAttack();
+            }
+            else
+            {
+                StartDashAttack();
+            }
         }
     }
 
     public void ChooseEnragedAttack()
     {
-        float rand = Random.value;
-
-        if (rand < 0.8f)
+        if (!bossHp.isDead)
         {
-            animator.SetTrigger("Attack");
-            animator.SetTrigger("MissleAttack");
-        }
-        else if (rand < 0.93f)
-        {
-            animator.SetTrigger("Attack");
-            StartLaserAttack();
-        }
-        else
-        {
-            ActivateImmunity();
+            float rand = Random.value;
+            if (rand < 0.8f)
+            {
+                animator.SetTrigger("Attack");
+                animator.SetTrigger("MissleAttack");
+            }
+            else if (rand < 0.93f)
+            {
+                animator.SetTrigger("Attack");
+                StartLaserAttack();
+            }
+            else
+            {
+                ActivateImmunity();
+            }
         }
     }
 
@@ -174,6 +189,8 @@ public class MechGolem : MonoBehaviour
     {
         if (!isDashing) return;
 
+        rb.linearVelocity = Vector2.zero;
+
         if (collision.gameObject.CompareTag("Player"))
         {
             if (Time.time - lastBounceTime > bounceCooldown)
@@ -184,7 +201,7 @@ public class MechGolem : MonoBehaviour
                 playerRb.linearVelocity = Vector2.zero;
                 lastBounceTime = Time.time;
                 SetDashDirectionFromPlayer();
-                if(isDashing) shake.StartShake(force: 0.25f);
+                if (isDashing) shake.StartShake(force: 0.25f);
             }
         }
         else if ((bounceLayers.value & (1 << collision.gameObject.layer)) != 0)
@@ -193,14 +210,14 @@ public class MechGolem : MonoBehaviour
             {
                 lastBounceTime = Time.time;
                 SetDashDirectionToPlayer();
-                if(isDashing) shake.StartShake(force: 0.25f);
+                if (isDashing) shake.StartShake(force: 0.25f);
             }
         }
     }
 
     private void StartLaserAttack()
     {
-        GameObject laser = Instantiate(laserPrefab, laserSpawnPoint.position, Quaternion.identity);
+        laser = Instantiate(laserPrefab, laserSpawnPoint.position, Quaternion.identity);
         LaserRotate rotator = laser.GetComponent<LaserRotate>();
 
         if (rotator != null && !isCastingLaser)
@@ -217,7 +234,7 @@ public class MechGolem : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         LaserRotate rotator = laser.GetComponent<LaserRotate>();
-        if (rotator != null)
+        if (rotator != null && laser != null)
         {
             rotator.StopRotating();
         }
@@ -226,7 +243,7 @@ public class MechGolem : MonoBehaviour
         animator.SetBool("LaserComplete", true);
         attackCooldown = 0f;
 
-        Destroy(laser);
+        if (laser != null) Destroy(laser);
     }
 
     public void LaunchMissile()

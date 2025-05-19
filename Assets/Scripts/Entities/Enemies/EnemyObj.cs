@@ -44,8 +44,8 @@ public class EnemyObj : MonoBehaviour
         transform.position += (_dirMVec * _charMS * Time.deltaTime);
 
 
-        if (_dirMVec.x > 0) _prefabs.transform.localScale = new Vector3(-1, 1, 1);
-        else if (_dirMVec.x < 0) _prefabs.transform.localScale = new Vector3(1, 1, 1);
+        //if (_dirMVec.x > 0) _prefabs.transform.localScale = new Vector3(-1, 1, 1);
+        //else if (_dirMVec.x < 0) _prefabs.transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void SetMovePos(Vector2 pos)

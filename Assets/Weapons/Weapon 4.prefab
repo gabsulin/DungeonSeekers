@@ -187,7 +187,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.2, y: 0.5}
-    oldSize: {x: 1, y: 0.5}
+    oldSize: {x: 0.6666667, y: 0.33333334}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -209,8 +209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: efc9db6b78c152f44b96d1b2ce8e11ee, type: 2}
   allowHoldToFire: 1
-  bulletPrefab: {fileID: 5276360105930362109, guid: 3ddfbe3d699557544ae3fc3a5a45d962,
-    type: 3}
+  bulletPoolTag: Bullet
   firePoint: {fileID: 4939529128305284952}
   bulletSpeed: 10
   isShotgun: 0
+  accuracy: 100

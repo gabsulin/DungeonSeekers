@@ -23,7 +23,7 @@ public class BulletCollision : MonoBehaviour
                     Destroy(gameObject, 1);
                 }
                 var spawnedParticles = Instantiate(destroyParticles, transform.position, Quaternion.identity);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             } else
             {
                 if (destroyParticles != null)
@@ -32,7 +32,7 @@ public class BulletCollision : MonoBehaviour
                     spawnedParticles.Play();
                     Destroy(spawnedParticles.gameObject, spawnedParticles.main.duration);
                 }
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
 
         }

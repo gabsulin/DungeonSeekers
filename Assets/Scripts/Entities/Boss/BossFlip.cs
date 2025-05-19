@@ -13,6 +13,7 @@ public class BossFlip : MonoBehaviour
     {
         player = FindFirstObjectByType<PlayerController>().transform;
         isFlipped = startsFlipped;
+        LookAtPlayer();
     }
 
     public void LookAtPlayer()

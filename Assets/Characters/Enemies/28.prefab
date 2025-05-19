@@ -105,8 +105,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.021882772, y: 0.34967634}
-  m_Size: {x: 0.7269224, y: 0.802113}
+  m_Offset: {x: 0, y: 0.3}
+  m_Size: {x: 0.5, y: 0.7}
   m_Direction: 0
 --- !u!50 &6689181151996125251
 Rigidbody2D:
@@ -147,7 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7523c59464994ef4ab45dbfc91182c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
   distance: 0
+  attackThreshold: 8
+  moveThreshold: 10
 --- !u!114 &2559663367921002077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,6 +166,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: -3171398902844836856, guid: 87ffeb305e44aed4a99c160e0c3c48b1,
     type: 3}
   bulletSpawnPoint: {fileID: 5226277744210486415}
+  soundName: MagicLightning
+  bulletSpeed: 6
 --- !u!114 &226851829756624149
 MonoBehaviour:
   m_ObjectHideFlags: 0

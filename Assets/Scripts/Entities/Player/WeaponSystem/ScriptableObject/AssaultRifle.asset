@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
   attackCooldown: 0.2
-  attackSound: {fileID: 0}
-  damage: 10
+  burstCount: 0
+  burstDelay: 0
+  fireMode: 1
+  attackSound:
+    name: 
+    clips: []

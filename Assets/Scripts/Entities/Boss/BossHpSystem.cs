@@ -15,6 +15,7 @@ public class BossHpSystem : MonoBehaviour
     public bool isEnraged = false;
     public bool isDamagable = true;
     bool isHealing = false;
+    public bool isDead = false;
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -82,7 +83,7 @@ public class BossHpSystem : MonoBehaviour
     private void Die()
     {
         anim.SetBool("Die", true);
-        
+        isDead = true;
     }
 
     public void DestroyBoss()

@@ -14,7 +14,7 @@ public class BossAttack : MonoBehaviour
 
 
     bool hasSpawnedEnemies = false;
-    float startAngle = 0f, angleStep = 18f, endAngle = 360f, currentAngle;
+    int startAngle = 0, angleStep = 12, endAngle, currentAngle;
 
 
     void Start()
@@ -47,7 +47,7 @@ public class BossAttack : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             fireball.transform.rotation = Quaternion.Euler(0, 0, angle + 180);
 
-            fireball.AddForce(direction * 5, ForceMode2D.Impulse);
+            fireball.AddForce(direction * 10, ForceMode2D.Impulse);
         }
     }
 
@@ -55,7 +55,7 @@ public class BossAttack : MonoBehaviour
     {
         if (!hasSpawnedEnemies)
         {
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Instantiate(enemyPrefab, Vector2.zero, Quaternion.identity);
             }
@@ -81,8 +81,9 @@ public class BossAttack : MonoBehaviour
 
     IEnumerator EnragedShootingRoutine()
     {
-
+        startAngle = Random.Range(0, 360);
         currentAngle = startAngle;
+        endAngle = startAngle + 360;
 
         while (currentAngle < endAngle)
         {

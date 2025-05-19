@@ -15,7 +15,7 @@ public abstract class Weapon : MonoBehaviour
             attackTimer -= Time.deltaTime;
     }
 
-    public void TryAttack(bool trigger)
+    public virtual void TryAttack(bool trigger)
     {
         if (attackTimer <= 0f && trigger)
         {

@@ -3,19 +3,28 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    PlayerObj player;
-    EnemyObj enemy;
-    EnemyHpSystem enemyHp;
-    PlayerHpSystem playerHp;
-    SPUM_Prefabs anim;
-    RangedEnemyAttack enemyAttack;
-    BossFlip flip;
+    public enum EnemyType
+    {
+        Melee,
+        Magic,
+        Bow
+    }
 
-    public float distance;
+    [SerializeField] private EnemyType enemyType;
 
-    private const float IdleThreshold = 8f;
-    private const float AttackThreshold = 8f;
-    private const float MoveThreshold = 10f;
+    private PlayerObj player;
+    private EnemyObj enemy;
+    private EnemyHpSystem enemyHp;
+    private PlayerHpSystem playerHp;
+    private SPUM_Prefabs anim;
+    private RangedEnemyAttack rangedEnemyAttack;
+    private MeleeEnemyAttack meleeEnemyAttack;
+    private BossFlip flip;
+
+    [HideInInspector] public float distance;
+
+    [SerializeField] public float attackThreshold;
+    [SerializeField] public float moveThreshold;
 
     private Coroutine patrolCoroutine;
 
@@ -26,7 +35,8 @@ public class EnemyMovement : MonoBehaviour
         anim = GetComponentInChildren<SPUM_Prefabs>();
         enemyHp = GetComponent<EnemyHpSystem>();
         playerHp = FindAnyObjectByType<PlayerHpSystem>();
-        enemyAttack = GetComponent<RangedEnemyAttack>();
+        rangedEnemyAttack = GetComponent<RangedEnemyAttack>();
+        meleeEnemyAttack = GetComponent<MeleeEnemyAttack>();
         flip = GetComponent<BossFlip>();
     }
 
@@ -49,35 +59,39 @@ public class EnemyMovement : MonoBehaviour
                 Idle();
             }
         }
+
     }
 
     private void EnemyBehavior()
     {
-        if (distance > MoveThreshold && enemyHp.stunned == false)
+        bool canSeePlayer = (rangedEnemyAttack != null && rangedEnemyAttack.CanSeePlayer()) ||
+                            (meleeEnemyAttack != null && meleeEnemyAttack.CanSeePlayer());
+
+        if (distance > moveThreshold && !enemyHp.stunned)
         {
             if (patrolCoroutine == null)
             {
                 patrolCoroutine = StartCoroutine(Patrol());
             }
         }
-        else if (distance > IdleThreshold && distance <= MoveThreshold && enemyAttack.CanSeePlayer() && enemyHp.stunned == false)
+        else if (distance > attackThreshold && distance <= moveThreshold && playerHp.currentHp > 0 && !enemyHp.stunned && canSeePlayer)
         {
             StopPatrol();
             MoveToPlayer();
         }
-        else if (distance <= AttackThreshold && playerHp.currentHp > 0 && enemyAttack.CanSeePlayer() && enemyHp.stunned == false)
+        else if (distance <= attackThreshold && playerHp.currentHp > 0 && !enemyHp.stunned && canSeePlayer)
         {
             StopPatrol();
             AttackPlayer();
         }
-        else if (!enemyAttack.CanSeePlayer() && enemyHp.stunned == false)
+        else if (!enemyHp.stunned && !canSeePlayer)
         {
             if (patrolCoroutine == null)
             {
                 patrolCoroutine = StartCoroutine(Patrol());
             }
         }
-        else if (enemyHp.stunned == true)
+        else if (enemyHp.stunned)
         {
             StopPatrol();
             Stun();
@@ -110,7 +124,19 @@ public class EnemyMovement : MonoBehaviour
     private void AttackPlayer()
     {
         enemy._enemyState = EnemyObj.EnemyState.attack;
-        anim.PlayAnimation(6);
+
+        switch (enemyType)
+        {
+            case EnemyType.Melee:
+                anim.PlayAnimation(4);
+                break;
+            case EnemyType.Bow:
+                anim.PlayAnimation(5);
+                break;
+            case EnemyType.Magic:
+                anim.PlayAnimation(6);
+                break;
+        }
     }
 
     private void Idle()
@@ -134,7 +160,6 @@ public class EnemyMovement : MonoBehaviour
         anim._anim.SetFloat("RunState", 1f);
         anim._anim.SetFloat("AttackState", 0f);
         anim._anim.SetFloat("SkillState", 0f);
-
     }
 
     private IEnumerator Patrol()
@@ -149,9 +174,11 @@ public class EnemyMovement : MonoBehaviour
 
             enemy._enemyState = EnemyObj.EnemyState.move;
         }
+
         Vector2 goalPos;
         bool isPathClear;
         const int maxAttempts = 500;
+
         while (playerHp.currentHp > 0)
         {
             int attempts = 0;
@@ -162,26 +189,25 @@ public class EnemyMovement : MonoBehaviour
                 int randomY = Random.Range(-10, 10);
                 goalPos = new Vector2(randomX, randomY);
 
-                isPathClear = IsValidPosition(goalPos) && Physics2D.Linecast(transform.position, goalPos, LayerMask.GetMask("Collision")) == false;
-                yield return new WaitForSeconds(0.1f);
+                isPathClear = IsValidPosition(goalPos) &&
+                    Physics2D.Linecast(transform.position, goalPos, LayerMask.GetMask("Collision")) == false;
 
-                attempts += 1;
+                yield return new WaitForSeconds(0.1f);
+                attempts++;
             }
             while (!isPathClear && enemyHp.currentHealth > 0 && attempts < maxAttempts);
 
-            if (maxAttempts == attempts)
+            if (attempts == maxAttempts)
             {
                 enemy.SetMovePos(Vector2.zero);
-                yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(2f);
                 continue;
             }
 
             enemy.SetMovePos(goalPos);
-
             float idleTime = Random.Range(0.5f, 4f);
             yield return new WaitForSeconds(idleTime);
         }
-        
     }
 
     private void StopPatrol()
@@ -195,10 +221,6 @@ public class EnemyMovement : MonoBehaviour
 
     private bool IsValidPosition(Vector2 pos)
     {
-        if (Physics2D.OverlapPoint(pos, LayerMask.GetMask("Collision")))
-        {
-            return false;
-        }
-        return true;
+        return !Physics2D.OverlapPoint(pos, LayerMask.GetMask("Collision"));
     }
 }

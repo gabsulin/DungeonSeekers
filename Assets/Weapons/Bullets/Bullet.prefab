@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2212127908125169024}
   - component: {fileID: 4808273500634955841}
   - component: {fileID: 181386139182307134}
+  - component: {fileID: -3052906666630442621}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -185,3 +186,18 @@ MonoBehaviour:
   boomParticles: {fileID: 1135783283977302706, guid: 133c66311eb92e34b9e231149cdaf6b7,
     type: 3}
   damage: 10
+--- !u!114 &-3052906666630442621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276360105930362109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fe6a6e9f6874d44ab4b22df5583c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  lifetime: 3
+  damageScript: {fileID: 0}

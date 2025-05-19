@@ -29,7 +29,7 @@ public class LaserRotate : MonoBehaviour
         if (isRotating)
         {
             transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
-            shake.StartShake(1, 0.05f, 0.25f);
+            shake.StartShake(1, 0.05f, 0.1f);
         }
     }
     public void SpawnSecondLaser()

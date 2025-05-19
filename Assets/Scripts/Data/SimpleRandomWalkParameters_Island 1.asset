@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77963a33a1eeab942bec1efc282ce9b0, type: 3}
-  m_Name: Shotgun
+  m_Script: {fileID: 11500000, guid: 30dccaa895cc6bf4f88dd4bbf7d1f209, type: 3}
+  m_Name: SimpleRandomWalkParameters_Island 1
   m_EditorClassIdentifier: 
-  attackCooldown: 1
-  burstCount: 1
-  burstDelay: 0
-  fireMode: 0
-  attackSound:
-    name: 
-    clips: []
+  iterations: 300
+  walkLength: 75
+  startRandomlyEachIteration: 0

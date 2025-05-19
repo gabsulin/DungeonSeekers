@@ -17,12 +17,6 @@ public class EnemyDamage : MonoBehaviour
             player = FindFirstObjectByType<PlayerObj>();
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (hasHitEnemy) return;
@@ -109,7 +103,7 @@ public class EnemyDamage : MonoBehaviour
                     hasHitEnemy = true;
                     enemyHp.TakeDamage(damage);
                     StartCoroutine(ResetHitFlag());
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);
 
                 }
             }
@@ -133,7 +127,7 @@ public class EnemyDamage : MonoBehaviour
                     hasHitEnemy = true;
                     enemyHp.TakeDamage(damage);
                     StartCoroutine(ResetHitFlag());
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);
 
                 }
             }
@@ -154,6 +148,11 @@ public class EnemyDamage : MonoBehaviour
     private IEnumerator ResetHitFlag()
     {
         yield return new WaitForSeconds(0.35f);
+        hasHitEnemy = false;
+    }
+
+    public void ResetHit()
+    {
         hasHitEnemy = false;
     }
 }

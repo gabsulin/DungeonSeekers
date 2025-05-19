@@ -5,77 +5,120 @@ using UnityEngine.Tilemaps;
 
 public class MapFunctionality : MonoBehaviour
 {
+    [Header("Scene Objects")]
     [SerializeField] Tilemap nextScene;
     [SerializeField] Tilemap prevScene;
     [SerializeField] GameObject chest;
     [SerializeField] GameObject areaExit;
     [SerializeField] GameObject areaEntrance;
 
-    [SerializeField] public List<EnemyHpSystem> enemies;
+    [Header("Wave Settings")]
+    [SerializeField] GameObject[] enemyPrefabs;
+    [SerializeField] int[] enemiesPerWave = { 2, 4, 6 };
+    private int currentWaveIndex = 0;
+    private bool allWavesCompleted = false;
+    private bool waveInProgress = false;
 
-    [SerializeField] int enemiesCount;
-    [SerializeField] GameObject enemyPrefab;
+    [Header("Spawn Area")]
     [SerializeField] BoxCollider2D enemySpawnArea;
 
-    bool isSpawningEnemies = true;
+    [Header("Runtime")]
+    [SerializeField] public List<EnemyHpSystem> enemies;
+
+    private WaveTextEffect waveTextEffect;
+    private bool isSpawningEnemies = true;
+
     void Start()
     {
-        StartCoroutine(WaitForEnemiesSpawn());
-        chest.gameObject.SetActive(false);
+        Canvas canvas = FindFirstObjectByType<Canvas>();
+        waveTextEffect = canvas.transform.Find("WaveText").GetComponent<WaveTextEffect>();
+
+        DisplayWaveStartEffects();
+        chest.SetActive(false);
         nextScene.gameObject.SetActive(true);
         prevScene.gameObject.SetActive(true);
-    }
-    private void SpawnEnemies()
-    {
-        MapFunctionality manager = this;
-        for (int i = 0; i < enemiesCount; i++)
-        {
-            Vector2 randomPosition = GetRandomPosition();
 
-            GameObject enemy = Instantiate(enemyPrefab, randomPosition ,Quaternion.identity);
-
-            EnemyHpSystem enemyHpSystem = enemy.GetComponent<EnemyHpSystem>();
-            if (enemyHpSystem != null)
-            {
-                enemies.Add(enemyHpSystem);
-                enemyHpSystem.SetManager(manager);
-            }
-        }
-
-        isSpawningEnemies = false;
+        StartCoroutine(WaitForEnemiesSpawn());
     }
 
     void Update()
     {
-        if (!isSpawningEnemies && enemies.Count == 0)
+        // When wave is done and no enemies left
+        if (!isSpawningEnemies && enemies.Count == 0 && !allWavesCompleted && !waveInProgress)
         {
-            nextScene.gameObject.SetActive(false);
-            prevScene.gameObject.SetActive(false);
-            chest.gameObject.SetActive(true);
-            areaExit.SetActive(true);
-            areaEntrance.SetActive(true);
+            waveInProgress = true;
+
+            if (currentWaveIndex < enemiesPerWave.Length - 1)
+            {
+                currentWaveIndex++;
+                StartCoroutine(WaitForEnemiesSpawn());
+            }
+            else
+            {
+                allWavesCompleted = true;
+
+                nextScene.gameObject.SetActive(false);
+                prevScene.gameObject.SetActive(false);
+                chest.SetActive(true);
+                areaExit.SetActive(true);
+                areaEntrance.SetActive(true);
+            }
         }
     }
 
     private IEnumerator WaitForEnemiesSpawn()
     {
         yield return new WaitForSeconds(0.1f);
+
         areaEntrance.SetActive(false);
         areaExit.SetActive(false);
         isSpawningEnemies = true;
-        yield return new WaitForSeconds(3);
+
+        DisplayWaveStartEffects();
+
+        yield return new WaitForSeconds(2);
         SpawnEnemies();
+    }
+
+    private void DisplayWaveStartEffects()
+    {
+        if (waveTextEffect != null)
+        {
+            waveTextEffect.DisplayWaveText(currentWaveIndex + 1);
+        }
+
+        // Optional: play wave start sound here
+    }
+
+    private void SpawnEnemies()
+    {
+        int currentEnemiesCount = enemiesPerWave[currentWaveIndex];
+
+        for (int i = 0; i < currentEnemiesCount; i++)
+        {
+            Vector2 randomPosition = GetRandomPosition();
+            GameObject selectedEnemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+
+            GameObject enemy = Instantiate(selectedEnemyPrefab, randomPosition, Quaternion.identity);
+
+            EnemyHpSystem enemyHpSystem = enemy.GetComponent<EnemyHpSystem>();
+            if (enemyHpSystem != null)
+            {
+                enemies.Add(enemyHpSystem);
+                enemyHpSystem.SetManager(this);
+            }
+        }
+
+        isSpawningEnemies = false;
+        waveInProgress = false;
     }
 
     private Vector2 GetRandomPosition()
     {
         if (enemySpawnArea == null)
-        {
             return Vector2.zero;
-        }
 
         Bounds bounds = enemySpawnArea.bounds;
-
         const int maxAttempts = 500;
         int attempts = 0;
         Vector2 spawnPos;
@@ -84,7 +127,6 @@ public class MapFunctionality : MonoBehaviour
         {
             float randomX = Random.Range(bounds.min.x, bounds.max.x);
             float randomY = Random.Range(bounds.min.y, bounds.max.y);
-
             spawnPos = new Vector2(randomX, randomY);
             attempts++;
         }
@@ -92,7 +134,7 @@ public class MapFunctionality : MonoBehaviour
 
         if (attempts >= maxAttempts)
         {
-            Debug.LogWarning("nenasla se zadna pozice pro spawn");
+            Debug.LogWarning("No valid spawn position found, using center.");
             return bounds.center;
         }
 
@@ -101,10 +143,6 @@ public class MapFunctionality : MonoBehaviour
 
     private bool IsValidPosition(Vector2 pos)
     {
-        if (Physics2D.OverlapPoint(pos, LayerMask.GetMask("Collision")))
-        {
-            return false;
-        }
-        return true;
+        return !Physics2D.OverlapPoint(pos, LayerMask.GetMask("Collision"));
     }
 }

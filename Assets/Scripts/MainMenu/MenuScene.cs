@@ -10,7 +10,8 @@ public class MenuScene : MonoBehaviour
     [SerializeField] Animator enemyAnim;
     [SerializeField] Transform playerGoalPos;
     [SerializeField] Transform enemyGoalPos;
-
+    [SerializeField] SPUM_Prefabs _prefabs;
+ 
     Vector2 playerGoal;
     Vector2 enemyGoal;
 
@@ -25,6 +26,7 @@ public class MenuScene : MonoBehaviour
 
     void Update()
     {
+        _prefabs.transform.localScale = new Vector3(-1, 1, 1);
         if (Mathf.Abs(player.transform.position.x - playerGoal.x) < 0.5f)
         {
             StartCoroutine(PlayAttackAnimation(playerAnim));

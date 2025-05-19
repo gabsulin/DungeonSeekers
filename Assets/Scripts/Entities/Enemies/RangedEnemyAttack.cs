@@ -11,6 +11,8 @@ public class RangedEnemyAttack : MonoBehaviour
 
     [SerializeField] public Rigidbody2D bulletPrefab;
     [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] private string soundName;
+    [SerializeField] private float bulletSpeed;
     Transform aimTarget;
 
     Coroutine shootingRoutine;
@@ -89,7 +91,7 @@ public class RangedEnemyAttack : MonoBehaviour
 
     private void Shoot()
     {
-        if (enemyDistance.distance <= 8)
+        if (enemyDistance.distance <= enemyDistance.attackThreshold)
         {
             var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
             if (bullet != null)
@@ -97,8 +99,8 @@ public class RangedEnemyAttack : MonoBehaviour
                 Vector2 direction = ((Vector2)aimTarget.transform.position - (Vector2)bulletSpawnPoint.position).normalized;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
-                bullet.AddForce(direction * 6, ForceMode2D.Impulse);
-                AudioManager.Instance.PlaySFX("MagicLightning");
+                bullet.AddForce(direction * bulletSpeed, ForceMode2D.Impulse);
+                AudioManager.Instance.PlaySFX(soundName);
             }
         }
     }
