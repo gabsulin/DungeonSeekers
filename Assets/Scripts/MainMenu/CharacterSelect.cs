@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class CharacterSelect : MonoBehaviour
 {
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera _camera;
     [SerializeField] private GameObject canvas;
     [SerializeField] private TMP_Text characterNameText, healthText, shieldsText, speedText, description;
     [SerializeField] private Button actionButton;
@@ -29,8 +29,8 @@ public class CharacterSelect : MonoBehaviour
 
     private void Start()
     {
-        zoom = camera.orthographicSize;
-        originalPosition = camera.transform.position;
+        zoom = _camera.orthographicSize;
+        originalPosition = _camera.transform.position;
     }
 
     private void Update()
@@ -56,14 +56,14 @@ public class CharacterSelect : MonoBehaviour
 
         if (isZooming)
         {
-            camera.orthographicSize = Mathf.SmoothDamp(camera.orthographicSize, zoom, ref velocity, smoothTime);
-            camera.transform.position = Vector3.SmoothDamp(camera.transform.position, targetPosition, ref velocityPos, smoothTime);
+            _camera.orthographicSize = Mathf.SmoothDamp(_camera.orthographicSize, zoom, ref velocity, smoothTime);
+            _camera.transform.position = Vector3.SmoothDamp(_camera.transform.position, targetPosition, ref velocityPos, smoothTime);
             canvas.gameObject.SetActive(true);
 
-            if (Mathf.Abs(camera.orthographicSize - zoom) < 0.01f && Vector3.Distance(camera.transform.position, targetPosition) < 0.01f)
+            if (Mathf.Abs(_camera.orthographicSize - zoom) < 0.01f && Vector3.Distance( _camera.transform.position, targetPosition) < 0.01f)
             {
-                camera.orthographicSize = zoom;
-                camera.transform.position = targetPosition;
+                _camera.orthographicSize = zoom;
+                _camera.transform.position = targetPosition;
                 isZooming = false;
                 //isZoomed = true;
             }
@@ -96,7 +96,7 @@ public class CharacterSelect : MonoBehaviour
         zoom = minZoom;
         targetPosition = characterPosition;
         targetPosition.y += 0.25f;
-        targetPosition.z = camera.transform.position.z;
+        targetPosition.z = _camera.transform.position.z;
         canvas.gameObject.SetActive(false);
     }
 
@@ -132,13 +132,7 @@ public class CharacterSelect : MonoBehaviour
         player.moveSpeed = data.speed;
 
         PlayerHpSystem hpSystem = selectedCharacter.GetComponent<PlayerHpSystem>();
-        
-
-        if (hpSystem == null)
-        {
-            hpSystem = selectedCharacter.AddComponent<PlayerHpSystem>();
-        }
-
+        if (hpSystem == null) hpSystem = selectedCharacter.AddComponent<PlayerHpSystem>();
         hpSystem.enabled = true;
         hpSystem.characterData = data;
 
@@ -146,6 +140,9 @@ public class CharacterSelect : MonoBehaviour
         collider.direction = CapsuleDirection2D.Horizontal;
         collider.offset = new Vector2(0, 0.1f);
         collider.size = new Vector2(0.5f, 0.4f);
+
+        AbilityHolder abilityHolder = selectedCharacter.GetComponent<AbilityHolder>();
+        if (abilityHolder != null) abilityHolder.enabled = true;
 
         Transform cameras = selectedCharacter.transform.Find("Cameras");
         cameras.gameObject.SetActive(true);

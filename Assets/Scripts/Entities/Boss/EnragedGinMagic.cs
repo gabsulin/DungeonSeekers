@@ -11,9 +11,6 @@ public class EnragedGinMagic : MonoBehaviour
     public float maxTravelDistance = 3f;
     private Dictionary<Collider2D, Vector2> playerInitialPositions = new Dictionary<Collider2D, Vector2>();
 
-    bool isPulling = false;
-    float pullTimer = 0f;
-
     private void Start()
     {
         playerHp = FindFirstObjectByType<PlayerHpSystem>();

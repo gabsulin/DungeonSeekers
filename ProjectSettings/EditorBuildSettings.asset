@@ -21,7 +21,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Level1/1_2.unity
     guid: 637f1e92b1b7a494ab69319f93f6e02c
   - enabled: 1
-    path: Assets/Scenes/Level1/1_5_MiniBoss.unity
+    path: Assets/Scenes/Level1/1_5_Boss.unity
     guid: 56b21c9133a335f4aad16b2665372847
+  - enabled: 1
+    path: Assets/Scenes/Level1/1_5_Boss1.unity
+    guid: f13048b89ad7b074cae15356dbc456ec
+  - enabled: 1
+    path: Assets/Scenes/Level1/1_5_Boss2.unity
+    guid: a7cb84efc9cf9544f8bb84824a8f1ce0
+  - enabled: 1
+    path: Assets/Scenes/Level1/1_5_Boss3.unity
+    guid: 1f78b426239013845b3db877c02860f3
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

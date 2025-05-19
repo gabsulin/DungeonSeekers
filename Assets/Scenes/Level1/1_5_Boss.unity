@@ -4680,8 +4680,8 @@ Tilemap:
   - first: {x: -15, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 0
+      m_TileIndex: 0
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4970,8 +4970,8 @@ Tilemap:
   - first: {x: 14, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 0
+      m_TileIndex: 0
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -9179,13 +9179,15 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 870
+  - m_RefCount: 2
+    m_Data: {fileID: 11400000, guid: 358dd1abd683b9044b40d48f2ca64671, type: 2}
+  - m_RefCount: 868
     m_Data: {fileID: 11400000, guid: 7b6e368fc0ee90b4ca09e0f71344589a, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 870
+  - m_RefCount: 868
     m_Data: {fileID: 21300000, guid: 1c9ed9d1200c29d4cbfd2071028c1cd5, type: 3}
+  - m_RefCount: 2
+    m_Data: {fileID: 21300054, guid: a07735877a3bd644094331b137b71878, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 870
     m_Data:
@@ -9590,7 +9592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1237681192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9603,8 +9605,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81503e338557d104b976f3107ff77f42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: 1_6
-  sceneTransitionName: 6Entry
+  sceneToLoad: 1_5_Boss1
+  sceneTransitionName: 1BossEntry
 --- !u!61 &1237681193
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9635,7 +9637,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -9729,7 +9731,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -12327,7 +12329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4f370a3e8b15b4ca1705031d30ecae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionName: 6to5Entry
+  transitionName: 1to0BossEntry
 --- !u!1 &2031407877
 GameObject:
   m_ObjectHideFlags: 0

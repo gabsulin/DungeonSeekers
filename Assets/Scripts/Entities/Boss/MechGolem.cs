@@ -19,7 +19,7 @@ public class MechGolem : MonoBehaviour
     [SerializeField] private float laserDuration = 2f;
 
     private Rigidbody2D rb;
-    [SerializeField] Transform player;
+    private Transform player;
     private Animator animator;
     private BossHpSystem bossHp;
     private PlayerHpSystem playerHp;

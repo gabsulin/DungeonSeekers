@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Character
   m_EditorClassIdentifier: 
   description: Ignac is a tanky character, but be careful with your health he doesn't
-    have many shields to protect you. He's also quite fast for being a tank.
+    have many shields to protect you.
   characterName: Ignac
   health: 20
   shields: 3
   isUnlocked: 0
   price: 10
-  speed: 5
+  speed: 8

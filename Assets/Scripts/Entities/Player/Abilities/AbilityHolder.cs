@@ -1,4 +1,3 @@
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +6,7 @@ public class AbilityHolder : MonoBehaviour
     public Ability ability;
     float cooldownTime;
     float activeTime;
-    public Image abilityBar;
+    Image abilityBar;
 
     Rigidbody2D rb;
     PlayerHpSystem playerHp;
@@ -26,6 +25,17 @@ public class AbilityHolder : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerHp = GetComponent<PlayerHpSystem>();
+    }
+
+    public void AssignBar()
+    {
+        GameObject canvas = GameObject.Find("Canvas");
+        if (canvas != null) abilityBar = canvas.transform.Find("AbilityBar/BarHolder/Bar").GetComponent<Image>();
+        else Debug.Log("Smula");
+    }
+    public void UpdateBar()
+    {
+        if (abilityBar != null) abilityBar.fillAmount = 1f;
     }
     void Update()
     {

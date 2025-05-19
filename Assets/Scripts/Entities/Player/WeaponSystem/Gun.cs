@@ -11,7 +11,7 @@ public class Gun : Weapon
 
     [Range(0f, 100f)] public float accuracy = 100f;
 
-    private bool isBursting = false;
+    //private bool isBursting = false;
     public override void UpdateWeapon()
     {
         base.UpdateWeapon();
@@ -77,7 +77,7 @@ public class Gun : Weapon
 
     private IEnumerator FireBurst()
     {
-        isBursting = true;
+        //isBursting = true;
 
         for (int i = 0; i < data.burstCount; i++)
         {
@@ -85,6 +85,6 @@ public class Gun : Weapon
             yield return new WaitForSeconds(data.burstDelay);
         }
 
-        isBursting = false;
+        //isBursting = false;
     }
 }

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Character 1
   m_EditorClassIdentifier: 
   description: August doesn't have much health but he does have lot of shields so
-    don't be afraid to jump head first into the battle! For having this many shields
-    he's still pretty fast.
+    don't be afraid to jump head first into the battle! All of these shields are
+    slowing him down though.
   characterName: August
   health: 5
   shields: 10
   isUnlocked: 0
   price: 15
-  speed: 10
+  speed: 5

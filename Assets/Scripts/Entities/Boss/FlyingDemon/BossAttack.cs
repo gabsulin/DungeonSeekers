@@ -14,7 +14,7 @@ public class BossAttack : MonoBehaviour
 
 
     bool hasSpawnedEnemies = false;
-    int startAngle = 0, angleStep = 12, endAngle, currentAngle;
+    int startAngle = 0, angleStep = 15, endAngle, currentAngle;
 
 
     void Start()

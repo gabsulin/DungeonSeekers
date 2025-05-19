@@ -34,7 +34,6 @@ public class PlayerHpSystem : MonoBehaviour
     //poison
     public float poisonDamagePerSecond = 1f;
     public float poisonDuration = 5f;
-    private bool isPoisoned = false;
     private Coroutine poisonCoroutine;
 
     private void Awake()
@@ -213,7 +212,7 @@ public class PlayerHpSystem : MonoBehaviour
 
     private IEnumerator PoisonEffect()
     {
-        isPoisoned = true;
+        //isPoisoned = true;
         float timer = 0f;
 
         while (timer < poisonDuration)
@@ -223,7 +222,7 @@ public class PlayerHpSystem : MonoBehaviour
             yield return null;
         }
 
-        isPoisoned = false;
+        //isPoisoned = false;
         poisonCoroutine = null;
     }
 

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   attackCooldown: 0.4
+  burstCount: 1
+  burstDelay: 0
+  fireMode: 0
   attackSound:
     name: 
     clips: []

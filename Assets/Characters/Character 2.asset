@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35223b13753b5d647b5eac91bc801515, type: 3}
   m_Name: Character 2
   m_EditorClassIdentifier: 
-  description: he eats ass
-  characterName: Asseater
-  health: 7
-  shields: 30
+  description: This is a character for testing, that's why he's so overpowered.
+  characterName: Test
+  health: 100
+  shields: 100
   isUnlocked: 1
   price: 5
-  speed: 8
+  speed: 7
