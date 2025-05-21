@@ -178,8 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 30bc66e6fe108d5429227dd95a8ad2a8, type: 2}
   allowHoldToFire: 1
-  bulletPrefab: {fileID: 5276360105930362109, guid: 3ddfbe3d699557544ae3fc3a5a45d962,
-    type: 3}
+  bulletPoolTag: Bullet
   firePoint: {fileID: 5392087669173287743}
   bulletSpeed: 10
   isShotgun: 0

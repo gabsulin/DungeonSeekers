@@ -3347,7 +3347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d93106c04bd174382af68b862409d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniBossPrefab: {fileID: 6963438212081240242, guid: 4e7cde8e1fbe5804e939d28f4c4ef219,
+  miniBossPrefab: {fileID: 122328850291627605, guid: b4c166715751f624dbab4e8688132b3f,
     type: 3}
   areaExit: {fileID: 1387676148}
 --- !u!114 &1113904960

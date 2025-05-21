@@ -272,11 +272,4 @@ public class MechGolem : MonoBehaviour
         bossHp.isDamagable = true;
         animator.SetBool("IsImmune", false);
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.magenta;
-        Vector2 direction = (transform.position - player.position).normalized;
-        Gizmos.DrawLine(transform.position, direction);
-    }
 }
