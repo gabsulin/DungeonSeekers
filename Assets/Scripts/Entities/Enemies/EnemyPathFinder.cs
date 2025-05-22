@@ -10,26 +10,43 @@ public class EnemyPathfinder : MonoBehaviour
     private List<Vector2Int> currentPath = new List<Vector2Int>();
     private int pathIndex = 0;
 
+    private float pathRecalculationTimer = 0f;
+    private float pathRecalculationInterval = 0.5f;
+
     void Update()
     {
-        Vector2Int enemyPos = grid.WorldToGrid(transform.position);
-        Vector2Int playerPos = grid.WorldToGrid(player.position);
+        pathRecalculationTimer -= Time.deltaTime;
 
-        // Recalculate path if target moved or we have no path
-        if (currentPath.Count == 0 || currentPath[currentPath.Count - 1] != playerPos)
+        if (pathRecalculationTimer <= 0f)
         {
-            currentPath = AStarPathFinder.FindPath(enemyPos, playerPos, grid);
-            pathIndex = 0;
+            Vector2Int enemyPos = grid.WorldToGrid(transform.position);
+            Vector2Int playerPos = grid.WorldToGrid(player.position);
+
+            if (currentPath.Count == 0 ||
+                currentPath[currentPath.Count - 1] != playerPos ||
+                !currentPath.Contains(enemyPos))
+            {
+                currentPath = AStarPathFinder.FindPath(enemyPos, playerPos, grid, 1000);
+
+                pathIndex = 0;
+                for (int i = 0; i < currentPath.Count; i++)
+                {
+                    if (currentPath[i] == enemyPos)
+                    {
+                        pathIndex = i;
+                        break;
+                    }
+                }
+            }
+            pathRecalculationTimer = pathRecalculationInterval;
         }
 
-        // Follow path if valid
         if (currentPath.Count > 1 && pathIndex < currentPath.Count - 1)
         {
-            Vector2Int nextStep = currentPath[pathIndex + 1]; // currentPath[0] is the current position
+            Vector2Int nextStep = currentPath[pathIndex + 1];
             Vector2 targetWorld = grid.GridToWorld(nextStep);
             MoveTo(targetWorld);
 
-            // Check if we reached the next tile
             if (Vector2.Distance(transform.position, targetWorld) < 0.05f)
                 pathIndex++;
         }
