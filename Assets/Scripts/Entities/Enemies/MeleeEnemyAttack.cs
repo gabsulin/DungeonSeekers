@@ -85,9 +85,6 @@ public class MeleeEnemyAttack : MonoBehaviour
 
     private void Attack()
     {
-        if (enemyDistance.distance <= 1.5f)
-        {
-            
-        }
+        
     }
 }

@@ -6,7 +6,7 @@ public class AbilityHolder : MonoBehaviour
     public Ability ability;
     float cooldownTime;
     float activeTime;
-    Image abilityBar;
+    [SerializeField] Image abilityBar;
 
     Rigidbody2D rb;
     PlayerHpSystem playerHp;

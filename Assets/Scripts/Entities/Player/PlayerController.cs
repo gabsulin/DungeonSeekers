@@ -99,7 +99,7 @@ public class PlayerController : Singleton<PlayerController>
             }
         }
 
-        if (Input.GetMouseButtonDown(1) && currentWeapon is Melee)
+        /*if (Input.GetMouseButtonDown(1) && currentWeapon is Melee)
         {
             playerObj._playerState = PlayerObj.PlayerState.stun;
             anim.PlayAnimation(7);
@@ -114,7 +114,7 @@ public class PlayerController : Singleton<PlayerController>
                 var enemyHealth = enemy.GetComponent<EnemyHpSystem>();
                 enemyHealth.Stun();
             }
-        }
+        }*/
     }
     private void HandleAttackCooldown()
     {

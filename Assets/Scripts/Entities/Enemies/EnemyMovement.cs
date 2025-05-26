@@ -1,18 +1,13 @@
-using System.Collections;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public enum EnemyType
-    {
-        Melee,
-        Magic,
-        Bow
-    }
+    public enum EnemyType { Melee, Magic, Bow }
 
     [SerializeField] private EnemyType enemyType;
 
-    private PlayerObj player;
+    private Transform player;
     private EnemyObj enemy;
     private EnemyHpSystem enemyHp;
     private PlayerHpSystem playerHp;
@@ -20,17 +15,24 @@ public class EnemyMovement : MonoBehaviour
     private RangedEnemyAttack rangedEnemyAttack;
     private MeleeEnemyAttack meleeEnemyAttack;
     private BossFlip flip;
+    private Rigidbody2D rb;
+    public float speed;
 
     [HideInInspector] public float distance;
 
     [SerializeField] public float attackThreshold;
     [SerializeField] public float moveThreshold;
 
-    private Coroutine patrolCoroutine;
+    // 🔄 Pathfinding
+    private GridManager grid;
+    private List<Vector2Int> currentPath = new List<Vector2Int>();
+    private int pathIndex = 0;
+    private float pathRecalculationTimer = 0f;
+    private float pathRecalculationInterval = 0.25f;
 
-    void Start()
+    private void Start()
     {
-        player = FindAnyObjectByType<PlayerObj>();
+        player = FindAnyObjectByType<PlayerController>().transform;
         enemy = GetComponent<EnemyObj>();
         anim = GetComponentInChildren<SPUM_Prefabs>();
         enemyHp = GetComponent<EnemyHpSystem>();
@@ -38,86 +40,101 @@ public class EnemyMovement : MonoBehaviour
         rangedEnemyAttack = GetComponent<RangedEnemyAttack>();
         meleeEnemyAttack = GetComponent<MeleeEnemyAttack>();
         flip = GetComponent<BossFlip>();
+        grid = FindAnyObjectByType<GridManager>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (player != null)
-        {
-            distance = Vector2.Distance(transform.position, player.transform.position);
-            flip.LookAtPlayer();
-        }
+        if (player == null || enemy == null || playerHp == null || grid == null || enemyHp.currentHealth <= 0)
+            return;
 
-        if (enemy != null && player != null)
-        {
-            if (enemyHp.currentHealth > 0)
-            {
-                EnemyBehavior();
-            }
-            if (playerHp.currentHp <= 0)
-            {
-                Idle();
-            }
-        }
+        distance = Vector2.Distance(transform.position, player.transform.position);
+        flip.LookAtPlayer();
 
+        pathRecalculationTimer -= Time.deltaTime;
+
+        if (pathRecalculationTimer <= 0f)
+        {
+            Vector2Int enemyPos = grid.WorldToGrid(transform.position);
+            Vector2Int playerPos = grid.WorldToGrid(player.position);
+
+            currentPath = AStarPathFinder.FindPath(enemyPos, playerPos, grid);
+            pathIndex = 0;
+
+            for (int i = 0; i < currentPath.Count; i++)
+            {
+                if (currentPath[i] == enemyPos)
+                {
+                    pathIndex = i;
+                    break;
+                }
+            }
+
+            pathRecalculationTimer = pathRecalculationInterval;
+        }
+        if (currentPath.Count > 1 && pathIndex < currentPath.Count - 1 && distance > attackThreshold && anim._anim.GetBool("Die") == false)
+        {
+            Vector2Int nextStep = currentPath[pathIndex + 1];
+            Vector2 targetWorld = grid.GridToWorld(nextStep);
+            MoveTo(targetWorld);
+
+            if (Vector2.Distance(transform.position, targetWorld) < 0.05f)
+                pathIndex++;
+        }
+        //HandleBehavior();
     }
-
-    private void EnemyBehavior()
+    void MoveTo(Vector2 target)
     {
-        bool canSeePlayer = (rangedEnemyAttack != null && rangedEnemyAttack.CanSeePlayer()) ||
-                            (meleeEnemyAttack != null && meleeEnemyAttack.CanSeePlayer());
+        rb.MovePosition(Vector2.MoveTowards(rb.position, target, speed * Time.deltaTime));
+    }
+    private void HandleBehavior()
+    {
+        bool canSeePlayer = (rangedEnemyAttack && rangedEnemyAttack.CanSeePlayer()) ||
+                            (meleeEnemyAttack && meleeEnemyAttack.CanSeePlayer());
 
-        if (distance > moveThreshold && !enemyHp.stunned)
+        if (playerHp.currentHp <= 0)
         {
-            if (patrolCoroutine == null)
-            {
-                patrolCoroutine = StartCoroutine(Patrol());
-            }
+            Idle();
+            return;
         }
-        else if (distance > attackThreshold && distance <= moveThreshold && playerHp.currentHp > 0 && !enemyHp.stunned && canSeePlayer)
+
+        if (distance <= attackThreshold)
         {
-            StopPatrol();
-            MoveToPlayer();
-        }
-        else if (distance <= attackThreshold && playerHp.currentHp > 0 && !enemyHp.stunned && canSeePlayer)
-        {
-            StopPatrol();
             AttackPlayer();
         }
-        else if (!enemyHp.stunned && !canSeePlayer)
+        else if (distance <= moveThreshold)
         {
-            if (patrolCoroutine == null)
-            {
-                patrolCoroutine = StartCoroutine(Patrol());
-            }
-        }
-        else if (enemyHp.stunned)
-        {
-            StopPatrol();
-            Stun();
-        }
-    }
-
-    private void MoveToPlayer()
-    {
-        Vector2 goalPos = player.transform.position;
-
-        if (IsValidPosition(goalPos))
-        {
-            enemy.SetMovePos(goalPos);
+            MoveAlongPath();
         }
         else
         {
-            if (patrolCoroutine == null)
-            {
-                patrolCoroutine = StartCoroutine(Patrol());
-            }
+            Idle();
         }
+    }
 
-        if (enemy._enemyState != EnemyObj.EnemyState.move)
+    private void MoveAlongPath()
+    {
+        if (currentPath.Count > 1 && pathIndex < currentPath.Count - 1)
         {
-            enemy._enemyState = EnemyObj.EnemyState.move;
-            anim.PlayAnimation(1);
+            Vector2Int nextStep = currentPath[pathIndex + 1];
+            Vector2 targetWorld = grid.GridToWorld(nextStep);
+
+            if (IsValidPosition(targetWorld))
+            {
+                transform.position = Vector2.MoveTowards(transform.position, targetWorld, speed * Time.deltaTime);
+
+                if (enemy._enemyState != EnemyObj.EnemyState.move)
+                {
+                    enemy._enemyState = EnemyObj.EnemyState.move;
+                    anim.PlayAnimation(1); // Run animation
+                }
+
+                if (Vector2.Distance(transform.position, targetWorld) < 0.05f)
+                {
+                    pathIndex++;
+                }
+            }
         }
     }
 
@@ -128,13 +145,13 @@ public class EnemyMovement : MonoBehaviour
         switch (enemyType)
         {
             case EnemyType.Melee:
-                anim.PlayAnimation(4);
+                anim.PlayAnimation(4); // Melee attack
                 break;
             case EnemyType.Bow:
-                anim.PlayAnimation(5);
+                anim.PlayAnimation(5); // Bow attack
                 break;
             case EnemyType.Magic:
-                anim.PlayAnimation(6);
+                anim.PlayAnimation(6); // Magic attack
                 break;
         }
     }
@@ -148,75 +165,7 @@ public class EnemyMovement : MonoBehaviour
         anim._anim.SetFloat("AttackState", 0f);
         anim._anim.SetFloat("SkillState", 0f);
 
-        anim.PlayAnimation(0);
-    }
-
-    private void Stun()
-    {
-        enemy._enemyState = EnemyObj.EnemyState.stun;
-        anim.PlayAnimation(3);
-
-        anim._anim.ResetTrigger("Attack");
-        anim._anim.SetFloat("RunState", 1f);
-        anim._anim.SetFloat("AttackState", 0f);
-        anim._anim.SetFloat("SkillState", 0f);
-    }
-
-    private IEnumerator Patrol()
-    {
-        StopPatrol();
-
-        if (enemy._enemyState != EnemyObj.EnemyState.move)
-        {
-            anim._anim.ResetTrigger("Attack");
-            anim._anim.SetFloat("AttackState", 0f);
-            anim._anim.SetFloat("SkillState", 0f);
-
-            enemy._enemyState = EnemyObj.EnemyState.move;
-        }
-
-        Vector2 goalPos;
-        bool isPathClear;
-        const int maxAttempts = 500;
-
-        while (playerHp.currentHp > 0)
-        {
-            int attempts = 0;
-
-            do
-            {
-                int randomX = Random.Range(-10, 10);
-                int randomY = Random.Range(-10, 10);
-                goalPos = new Vector2(randomX, randomY);
-
-                isPathClear = IsValidPosition(goalPos) &&
-                    Physics2D.Linecast(transform.position, goalPos, LayerMask.GetMask("Collision")) == false;
-
-                yield return new WaitForSeconds(0.1f);
-                attempts++;
-            }
-            while (!isPathClear && enemyHp.currentHealth > 0 && attempts < maxAttempts);
-
-            if (attempts == maxAttempts)
-            {
-                enemy.SetMovePos(Vector2.zero);
-                yield return new WaitForSeconds(2f);
-                continue;
-            }
-
-            enemy.SetMovePos(goalPos);
-            float idleTime = Random.Range(0.5f, 4f);
-            yield return new WaitForSeconds(idleTime);
-        }
-    }
-
-    private void StopPatrol()
-    {
-        if (patrolCoroutine != null)
-        {
-            StopCoroutine(patrolCoroutine);
-            patrolCoroutine = null;
-        }
+        anim.PlayAnimation(0); // Idle
     }
 
     private bool IsValidPosition(Vector2 pos)

@@ -3,19 +3,33 @@ using UnityEngine;
 
 public class EnemyPathfinder : MonoBehaviour
 {
-    public Transform player;
-    public GridManager grid;
+    [HideInInspector] public Transform player;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public GridManager grid;
+    Rigidbody2D rb;
     public float moveSpeed = 2f;
+    public float maxDistance = 2f;
+    float distance;
 
     private List<Vector2Int> currentPath = new List<Vector2Int>();
     private int pathIndex = 0;
 
     private float pathRecalculationTimer = 0f;
-    private float pathRecalculationInterval = 0.5f;
+    private float pathRecalculationInterval = 0.25f;
+    private float attackTimer = 0f;
+    private float attackCooldown = 1.5f;
 
+    private void Start()
+    {
+        player = FindFirstObjectByType<PlayerController>().transform;
+        animator = GetComponent<Animator>();
+        grid = FindFirstObjectByType<GridManager>();
+    }
     void Update()
     {
+        distance = Vector2.Distance(transform.position, player.position);
         pathRecalculationTimer -= Time.deltaTime;
+        attackCooldown -= Time.deltaTime;
 
         if (pathRecalculationTimer <= 0f)
         {
@@ -41,20 +55,33 @@ public class EnemyPathfinder : MonoBehaviour
             pathRecalculationTimer = pathRecalculationInterval;
         }
 
-        if (currentPath.Count > 1 && pathIndex < currentPath.Count - 1)
+        if (currentPath.Count > 1 && pathIndex < currentPath.Count - 1 && distance > maxDistance && animator.GetBool("Die") == false)
         {
             Vector2Int nextStep = currentPath[pathIndex + 1];
             Vector2 targetWorld = grid.GridToWorld(nextStep);
-            MoveTo(targetWorld);
+            MoveTo(targetWorld);    
 
             if (Vector2.Distance(transform.position, targetWorld) < 0.05f)
                 pathIndex++;
+        }
+        else if (currentPath.Count > 1 && pathIndex < currentPath.Count - 1 && distance <= maxDistance && attackCooldown <= 0f)
+        {
+            AttackPlayer();
         }
     }
 
     void MoveTo(Vector2 target)
     {
-        transform.position = Vector2.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+        animator.SetBool("IsMoving", true);
+        rb.MovePosition(Vector2.MoveTowards(rb.position, target, moveSpeed * Time.deltaTime));
+    }
+
+    void AttackPlayer()
+    {
+        animator.SetTrigger("Attack");
+        animator.SetBool("IsMoving", false);
+        //animator.SetBool("IsIdle", false);
+        attackCooldown = 1.5f;
     }
 
     void OnDrawGizmos()
@@ -75,5 +102,8 @@ public class EnemyPathfinder : MonoBehaviour
                 Gizmos.DrawLine(worldPos, nextWorld);
             }
         }
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, player.position);
     }
 }

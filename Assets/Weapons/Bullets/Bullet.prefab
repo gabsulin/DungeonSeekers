@@ -200,4 +200,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lifetime: 3
-  damageScript: {fileID: 0}

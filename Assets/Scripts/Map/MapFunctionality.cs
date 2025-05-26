@@ -23,7 +23,8 @@ public class MapFunctionality : MonoBehaviour
     [SerializeField] BoxCollider2D enemySpawnArea;
 
     [Header("Runtime")]
-    [SerializeField] public List<EnemyHpSystem> enemies;
+    [SerializeField] public List<EnemyHpSystem> spumEnemies;
+    [SerializeField] public List<EnemyHealth> enemies;
 
     private WaveTextEffect waveTextEffect;
     private bool isSpawningEnemies = true;
@@ -44,7 +45,7 @@ public class MapFunctionality : MonoBehaviour
     void Update()
     {
         // When wave is done and no enemies left
-        if (!isSpawningEnemies && enemies.Count == 0 && !allWavesCompleted && !waveInProgress)
+        if (!isSpawningEnemies && spumEnemies.Count == 0 && enemies.Count == 0 && !allWavesCompleted && !waveInProgress)
         {
             waveInProgress = true;
 
@@ -101,12 +102,22 @@ public class MapFunctionality : MonoBehaviour
 
             GameObject enemy = Instantiate(selectedEnemyPrefab, randomPosition, Quaternion.identity);
 
-            EnemyHpSystem enemyHpSystem = enemy.GetComponent<EnemyHpSystem>();
-            if (enemyHpSystem != null)
+            EnemyHpSystem spumEnemyHpSystem = enemy.GetComponent<EnemyHpSystem>();
+            if (spumEnemyHpSystem != null)
             {
-                enemies.Add(enemyHpSystem);
-                enemyHpSystem.SetManager(this);
+                spumEnemies.Add(spumEnemyHpSystem);
+                spumEnemyHpSystem.SetManager(this);
             }
+            if(spumEnemyHpSystem == null)
+            {
+                EnemyHealth enemyHpSystem = enemy.GetComponent<EnemyHealth>();
+                if (enemyHpSystem != null)
+                {
+                    enemies.Add(enemyHpSystem);
+                    enemyHpSystem.SetManager(this);
+                }
+            }
+            
         }
 
         isSpawningEnemies = false;

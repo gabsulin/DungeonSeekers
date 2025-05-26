@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
@@ -9,107 +8,36 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField] int damage;
 
     private bool hasHitEnemy = false;
+
     void Start()
     {
-        player = GetComponentInParent<PlayerObj>();
-        if(player == null)
-        {
-            player = FindFirstObjectByType<PlayerObj>();
-        }
+        player = FindFirstObjectByType<PlayerObj>();
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (hasHitEnemy) return;
-
-        Weapon weapon = PlayerController.Instance?.GetCurrentWeapon();
-        bool isMelee = weapon is Melee;
-
-        if(weapon is Melee)
-        {
-            if (player._playerState == PlayerObj.PlayerState.attack && collision.collider.CompareTag("Enemy") && !hasHitEnemy)
-            {
-                EnemyHpSystem enemyHp = collision.collider.GetComponent<EnemyHpSystem>();
-                if (enemyHp != null)
-                {
-                    hasHitEnemy = true;
-                    enemyHp.TakeDamage(damage);
-                    StartCoroutine(ResetHitFlag());
-
-                }
-            }
-            else if (collision.collider.CompareTag("MiniBoss") && player._playerState == PlayerObj.PlayerState.attack && !hasHitEnemy)
-            {
-                BossHpSystem bossHp = collision.collider.GetComponent<BossHpSystem>();
-                if (bossHp != null)
-                {
-                    hasHitEnemy = true;
-                    bossHp.TakeDamage(damage, isMelee);
-                    StartCoroutine(ResetHitFlag());
-                }
-            }
-        } else
-        {
-            if (collision.collider.CompareTag("Enemy") && !hasHitEnemy)
-            {
-                EnemyHpSystem enemyHp = collision.collider.GetComponent<EnemyHpSystem>();
-                if (enemyHp != null)
-                {
-                    hasHitEnemy = true;
-                    enemyHp.TakeDamage(damage);
-                    StartCoroutine(ResetHitFlag());
-
-                }
-            }
-            else if (collision.collider.CompareTag("MiniBoss") && !hasHitEnemy)
-            {
-                BossHpSystem bossHp = collision.collider.GetComponent<BossHpSystem>();
-                if (bossHp != null)
-                {
-                    hasHitEnemy = true;
-                    bossHp.TakeDamage(damage, isMelee);
-                    StartCoroutine(ResetHitFlag());
-                }
-            }
-        }
-        
-
-        if(collision.collider.CompareTag("Enemy") && player._playerState == PlayerObj.PlayerState.stun && !hasHitEnemy)
-        {
-            EnemyHpSystem enemyHp = collision.collider.GetComponent<EnemyHpSystem>();
-            if (enemyHp != null)
-            {
-                hasHitEnemy = true;
-                enemyHp.Stun();
-                StartCoroutine(ResetHitFlag());
-
-            }
-        }
+        HandleCollision(collision.collider);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        HandleCollision(collider);
+    }
+
+    private void HandleCollision(Collider2D collider)
     {
         if (hasHitEnemy) return;
 
         Weapon weapon = PlayerController.Instance?.GetCurrentWeapon();
         bool isMelee = weapon is Melee;
+        var state = player._playerState;
 
-        if(weapon is Melee)
+        if ((collider.CompareTag("Enemy") && (state == PlayerObj.PlayerState.attack || state == PlayerObj.PlayerState.stun)) ||
+            (collider.CompareTag("MiniBoss") && state == PlayerObj.PlayerState.attack))
         {
-            if (player._playerState == PlayerObj.PlayerState.attack && collision.CompareTag("Enemy") && !hasHitEnemy)
+            if (collider.CompareTag("MiniBoss"))
             {
-                EnemyHpSystem enemyHp = collision.GetComponent<EnemyHpSystem>();
-                if (enemyHp != null)
-                {
-                    hasHitEnemy = true;
-                    enemyHp.TakeDamage(damage);
-                    StartCoroutine(ResetHitFlag());
-                    gameObject.SetActive(false);
-
-                }
-            }
-            else if (collision.CompareTag("MiniBoss") && player._playerState == PlayerObj.PlayerState.attack && !hasHitEnemy)
-            {
-                BossHpSystem bossHp = collision.GetComponent<BossHpSystem>();
+                var bossHp = collider.GetComponent<BossHpSystem>();
                 if (bossHp != null)
                 {
                     hasHitEnemy = true;
@@ -117,32 +45,34 @@ public class EnemyDamage : MonoBehaviour
                     StartCoroutine(ResetHitFlag());
                 }
             }
-        } else
-        {
-            if (collision.CompareTag("Enemy") && !hasHitEnemy)
+            else
             {
-                EnemyHpSystem enemyHp = collision.GetComponent<EnemyHpSystem>();
-                if (enemyHp != null)
+                if (TryDealDamageToEnemy(collider) && gameObject.activeSelf == true)
                 {
                     hasHitEnemy = true;
-                    enemyHp.TakeDamage(damage);
-                    StartCoroutine(ResetHitFlag());
-                    gameObject.SetActive(false);
-
-                }
-            }
-            else if (collision.CompareTag("MiniBoss") && !hasHitEnemy)
-            {
-                BossHpSystem bossHp = collision.GetComponent<BossHpSystem>();
-                if (bossHp != null)
-                {
-                    hasHitEnemy = true;
-                    bossHp.TakeDamage(damage, isMelee);
                     StartCoroutine(ResetHitFlag());
                 }
             }
         }
-        
+    }
+
+    private bool TryDealDamageToEnemy(Component target)
+    {
+        var spumEnemyHp = target.GetComponent<EnemyHpSystem>();
+        if (spumEnemyHp != null)
+        {
+            spumEnemyHp.TakeDamage(damage);
+            return true;
+        }
+
+        var enemyHp = target.GetComponent<EnemyHealth>();
+        if (enemyHp != null)
+        {
+            enemyHp.TakeDamage(damage);
+            return true;
+        }
+
+        return false;
     }
 
     private IEnumerator ResetHitFlag()
