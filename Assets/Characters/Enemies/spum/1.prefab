@@ -2915,8 +2915,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 0
+  speed: 3
   distance: 0
-  attackThreshold: 1.5
+  attackThreshold: 1
   moveThreshold: 8
 --- !u!114 &4535884828763695905
 MonoBehaviour:

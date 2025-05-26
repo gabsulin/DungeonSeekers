@@ -23,7 +23,6 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] public float attackThreshold;
     [SerializeField] public float moveThreshold;
 
-    // 🔄 Pathfinding
     private GridManager grid;
     private List<Vector2Int> currentPath = new List<Vector2Int>();
     private int pathIndex = 0;
@@ -41,12 +40,15 @@ public class EnemyMovement : MonoBehaviour
         meleeEnemyAttack = GetComponent<MeleeEnemyAttack>();
         flip = GetComponent<BossFlip>();
         grid = FindAnyObjectByType<GridManager>();
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>(); // Retained for other potential physics interactions, but not movement
     }
 
     private void Update()
     {
-        if (player == null || enemy == null || playerHp == null || grid == null || enemyHp.currentHealth <= 0)
+        if (player == null || enemy == null || playerHp == null || grid == null || enemyHp.currentHealth <= 0 || anim == null || flip == null)
+            return;
+
+        if (anim._anim.GetBool("Die"))
             return;
 
         distance = Vector2.Distance(transform.position, player.transform.position);
@@ -56,54 +58,41 @@ public class EnemyMovement : MonoBehaviour
 
         if (pathRecalculationTimer <= 0f)
         {
-            Vector2Int enemyPos = grid.WorldToGrid(transform.position);
-            Vector2Int playerPos = grid.WorldToGrid(player.position);
+            Vector2Int enemyPosGrid = grid.WorldToGrid(transform.position);
+            Vector2Int playerPosGrid = grid.WorldToGrid(player.position);
 
-            currentPath = AStarPathFinder.FindPath(enemyPos, playerPos, grid);
+            currentPath = AStarPathFinder.FindPath(enemyPosGrid, playerPosGrid, grid);
             pathIndex = 0;
 
-            for (int i = 0; i < currentPath.Count; i++)
+            if (currentPath != null && currentPath.Count > 0)
             {
-                if (currentPath[i] == enemyPos)
+                for (int i = 0; i < currentPath.Count; i++)
                 {
-                    pathIndex = i;
-                    break;
+                    if (currentPath[i] == enemyPosGrid)
+                    {
+                        pathIndex = i;
+                        break;
+                    }
                 }
             }
-
             pathRecalculationTimer = pathRecalculationInterval;
         }
-        if (currentPath.Count > 1 && pathIndex < currentPath.Count - 1 && distance > attackThreshold && anim._anim.GetBool("Die") == false)
-        {
-            Vector2Int nextStep = currentPath[pathIndex + 1];
-            Vector2 targetWorld = grid.GridToWorld(nextStep);
-            MoveTo(targetWorld);
 
-            if (Vector2.Distance(transform.position, targetWorld) < 0.05f)
-                pathIndex++;
-        }
-        //HandleBehavior();
+        HandleBehavior();
     }
-    void MoveTo(Vector2 target)
-    {
-        rb.MovePosition(Vector2.MoveTowards(rb.position, target, speed * Time.deltaTime));
-    }
+
     private void HandleBehavior()
     {
-        bool canSeePlayer = (rangedEnemyAttack && rangedEnemyAttack.CanSeePlayer()) ||
-                            (meleeEnemyAttack && meleeEnemyAttack.CanSeePlayer());
-
         if (playerHp.currentHp <= 0)
         {
             Idle();
             return;
         }
-
         if (distance <= attackThreshold)
         {
             AttackPlayer();
         }
-        else if (distance <= moveThreshold)
+        else if (distance <= moveThreshold && distance > attackThreshold)
         {
             MoveAlongPath();
         }
@@ -115,10 +104,10 @@ public class EnemyMovement : MonoBehaviour
 
     private void MoveAlongPath()
     {
-        if (currentPath.Count > 1 && pathIndex < currentPath.Count - 1)
+        if (currentPath != null && currentPath.Count > 1 && pathIndex < currentPath.Count - 1)
         {
-            Vector2Int nextStep = currentPath[pathIndex + 1];
-            Vector2 targetWorld = grid.GridToWorld(nextStep);
+            Vector2Int nextStepGrid = currentPath[pathIndex + 1];
+            Vector2 targetWorld = grid.GridToWorld(nextStepGrid);
 
             if (IsValidPosition(targetWorld))
             {
@@ -127,7 +116,7 @@ public class EnemyMovement : MonoBehaviour
                 if (enemy._enemyState != EnemyObj.EnemyState.move)
                 {
                     enemy._enemyState = EnemyObj.EnemyState.move;
-                    anim.PlayAnimation(1); // Run animation
+                    anim.PlayAnimation(1);
                 }
 
                 if (Vector2.Distance(transform.position, targetWorld) < 0.05f)
@@ -135,6 +124,14 @@ public class EnemyMovement : MonoBehaviour
                     pathIndex++;
                 }
             }
+            else
+            {
+                pathRecalculationTimer = 0f;
+            }
+        }
+        else if (distance > moveThreshold)
+        {
+            Idle();
         }
     }
 
@@ -145,27 +142,26 @@ public class EnemyMovement : MonoBehaviour
         switch (enemyType)
         {
             case EnemyType.Melee:
-                anim.PlayAnimation(4); // Melee attack
+                anim.PlayAnimation(4);
                 break;
             case EnemyType.Bow:
-                anim.PlayAnimation(5); // Bow attack
+                anim.PlayAnimation(5);
                 break;
             case EnemyType.Magic:
-                anim.PlayAnimation(6); // Magic attack
+                anim.PlayAnimation(6);
                 break;
         }
     }
 
     private void Idle()
     {
+        if (enemy._enemyState == EnemyObj.EnemyState.idle)
+        {
+            return;
+        }
         enemy._enemyState = EnemyObj.EnemyState.idle;
 
-        anim._anim.ResetTrigger("Attack");
-        anim._anim.SetFloat("RunState", 0f);
-        anim._anim.SetFloat("AttackState", 0f);
-        anim._anim.SetFloat("SkillState", 0f);
-
-        anim.PlayAnimation(0); // Idle
+        anim.PlayAnimation(0);
     }
 
     private bool IsValidPosition(Vector2 pos)

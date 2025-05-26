@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangedEnemyAttack : MonoBehaviour
 {
-    EnemyMovement enemyDistance;
+    EnemyMovement enemyMovement;
     EnemyHpSystem enemyHp;
     PlayerHpSystem playerHp;
 
     [SerializeField] public Rigidbody2D bulletPrefab;
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private string soundName;
-    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float bulletSpeed = 10f;
     Transform aimTarget;
 
     Coroutine shootingRoutine;
@@ -21,38 +20,61 @@ public class RangedEnemyAttack : MonoBehaviour
     {
         shootingRoutine = null;
     }
+
     void Start()
     {
-        enemyDistance = GetComponent<EnemyMovement>();
+        enemyMovement = GetComponent<EnemyMovement>();
         enemyHp = GetComponent<EnemyHpSystem>();
-        playerHp = FindFirstObjectByType<PlayerHpSystem>();
 
-        if (playerHp != null)
-        {
-            Transform aimTargetTransform = playerHp.transform;
-            aimTarget = aimTargetTransform.Find("AimTarget");
-        }
+        playerHp = FindFirstObjectByType<PlayerHpSystem>();
+        Transform aimTargetParent = playerHp.transform;
+        aimTarget = aimTargetParent.Find("AimTarget");
     }
 
     private void Update()
     {
-        if(aimTarget != null)
+        if (enemyHp == null || playerHp == null || aimTarget == null || enemyMovement == null)
         {
-            StartShooting();
+            return;
+        }
+
+        if (aimTarget != null)
+        {
+            if (enemyMovement.distance <= enemyMovement.attackThreshold && enemyHp.currentHealth > 0 && playerHp.currentHp > 0)
+            {
+                StartShooting();
+            }
+            else
+            {
+                StopShooting();
+            }
+        }
+        else
+        {
+            StopShooting();
         }
     }
 
     public void StartShooting()
     {
+
+
         if (shootingRoutine == null && enemyHp.currentHealth > 0 && playerHp.currentHp > 0)
         {
-            shootingRoutine = StartCoroutine(ShootingRoutine());
+            try
+            {
+                shootingRoutine = StartCoroutine(ShootingRoutine());
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"RangedEnemyAttack: EXCEPTION caught while starting ShootingRoutine: {e.Message}\n{e.StackTrace}", this.gameObject);
+            }
         }
     }
 
     public void StopShooting()
     {
-        if(shootingRoutine != null)
+        if (shootingRoutine != null)
         {
             StopCoroutine(shootingRoutine);
             shootingRoutine = null;
@@ -61,13 +83,15 @@ public class RangedEnemyAttack : MonoBehaviour
 
     public IEnumerator ShootingRoutine()
     {
-        StopShooting();
-
-        while (enemyHp.currentHealth > 0)
+        while (enemyHp != null && enemyHp.currentHealth > 0)
         {
-            if (playerHp.currentHp > 0 && CanSeePlayer() && enemyHp.stunned == false)
+            if (playerHp != null && playerHp.currentHp > 0 && aimTarget != null && CanSeePlayer() && !enemyHp.stunned)
             {
                 Shoot();
+            }
+            else if (playerHp == null || playerHp.currentHp <= 0 || aimTarget == null)
+            {
+                break;
             }
             yield return new WaitForSeconds(0.75f);
         }
@@ -76,30 +100,51 @@ public class RangedEnemyAttack : MonoBehaviour
 
     public bool CanSeePlayer()
     {
-        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, aimTarget.position);
+        if (aimTarget == null)
+        {
+            return false;
+        }
+        if (bulletSpawnPoint == null)
+        {
+            RaycastHit2D[] hitsFromTransform = Physics2D.LinecastAll(transform.position, aimTarget.position, LayerMask.GetMask("Collision"));
+            foreach (RaycastHit2D hit in hitsFromTransform)
+            {
+                if (hit.transform != aimTarget.root && hit.transform != transform.root)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        RaycastHit2D[] hits = Physics2D.LinecastAll(bulletSpawnPoint.position, aimTarget.position, LayerMask.GetMask("Collision"));
 
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Collision"))
             {
-                return false;
+                if (hit.transform != aimTarget.root)
+                {
+                    return false;
+                }
             }
         }
         return true;
     }
 
-
     private void Shoot()
     {
-        if (enemyDistance.distance <= enemyDistance.attackThreshold)
+        var bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+
+        if (bulletInstance != null)
         {
-            var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
-            if (bullet != null)
+            Vector2 direction = ((Vector2)aimTarget.position - (Vector2)bulletSpawnPoint.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            bulletInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
+            bulletInstance.AddForce(direction * bulletSpeed, ForceMode2D.Impulse);
+
+            if (AudioManager.Instance != null && !string.IsNullOrEmpty(soundName))
             {
-                Vector2 direction = ((Vector2)aimTarget.transform.position - (Vector2)bulletSpawnPoint.position).normalized;
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
-                bullet.AddForce(direction * bulletSpeed, ForceMode2D.Impulse);
                 AudioManager.Instance.PlaySFX(soundName);
             }
         }

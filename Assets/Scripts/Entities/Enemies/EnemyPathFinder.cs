@@ -7,6 +7,7 @@ public class EnemyPathfinder : MonoBehaviour
     [HideInInspector] public Animator animator;
     [HideInInspector] public GridManager grid;
     Rigidbody2D rb;
+    BossFlip flip;
     public float moveSpeed = 2f;
     public float maxDistance = 2f;
     float distance;
@@ -24,12 +25,16 @@ public class EnemyPathfinder : MonoBehaviour
         player = FindFirstObjectByType<PlayerController>().transform;
         animator = GetComponent<Animator>();
         grid = FindFirstObjectByType<GridManager>();
+        rb = GetComponent<Rigidbody2D>();
+        flip = GetComponent<BossFlip>();
     }
     void Update()
     {
         distance = Vector2.Distance(transform.position, player.position);
         pathRecalculationTimer -= Time.deltaTime;
         attackCooldown -= Time.deltaTime;
+
+        flip.LookAtPlayer();
 
         if (pathRecalculationTimer <= 0f)
         {
@@ -59,7 +64,7 @@ public class EnemyPathfinder : MonoBehaviour
         {
             Vector2Int nextStep = currentPath[pathIndex + 1];
             Vector2 targetWorld = grid.GridToWorld(nextStep);
-            MoveTo(targetWorld);    
+            MoveTo(targetWorld);
 
             if (Vector2.Distance(transform.position, targetWorld) < 0.05f)
                 pathIndex++;

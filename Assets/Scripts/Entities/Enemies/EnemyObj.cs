@@ -25,7 +25,7 @@ public class EnemyObj : MonoBehaviour
                 break;
 
             case EnemyState.move:
-                DoMove();
+                //DoMove();
                 break;
         }
     }

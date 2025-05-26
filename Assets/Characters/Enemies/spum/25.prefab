@@ -148,9 +148,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 2
+  speed: 2
   distance: 0
-  attackThreshold: 6
-  moveThreshold: 10
+  attackThreshold: 5
+  moveThreshold: 15
 --- !u!114 &-1357443942445559821
 MonoBehaviour:
   m_ObjectHideFlags: 0
