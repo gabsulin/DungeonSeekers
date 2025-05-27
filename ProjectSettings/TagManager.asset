@@ -17,6 +17,7 @@ TagManager:
   - ShieldsBar
   - Bullet
   - Missle
+  - Tower
   layers:
   - Default
   - TransparentFX

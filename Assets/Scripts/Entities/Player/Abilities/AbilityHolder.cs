@@ -21,6 +21,8 @@ public class AbilityHolder : MonoBehaviour
 
     public KeyCode key;
 
+    public bool isReset = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,7 +41,7 @@ public class AbilityHolder : MonoBehaviour
     }
     void Update()
     {
-        switch(state)
+        switch (state)
         {
             case AbilityState.ready:
                 if (Input.GetKeyDown(key))
@@ -69,12 +71,11 @@ public class AbilityHolder : MonoBehaviour
                     float elapsedCooldown = ability.coolDownTime - cooldownTime;
                     abilityBar.fillAmount = elapsedCooldown / ability.coolDownTime;
 
-                    if (ability is DashAbility)
+                    if (!isReset)
                     {
-                        rb.linearVelocity = Vector2.zero;
-                        playerHp.isImmune = false;
+                        ResetAbility();
+                        isReset = true;
                     }
-                    if (ability is ImmuneAbility) playerHp.isImmune = false;
                     //faster fire rate, faster movement, healing, homing bullets, 
                 }
                 else
@@ -83,6 +84,38 @@ public class AbilityHolder : MonoBehaviour
                     abilityBar.fillAmount = 1f;
                 }
                 break;
+        }
+    }
+
+    private void ResetAbility()
+    {
+        if (ability is DashAbility)
+        {
+            rb.linearVelocity = Vector2.zero;
+            playerHp.isImmune = false;
+        }
+        if (ability is ImmuneAbility) playerHp.isImmune = false;
+        if (ability is WeaponAbility)
+        {
+            PlayerController player = GetComponent<PlayerController>();
+            Weapon currentWeapon = player.GetCurrentWeapon();
+            if (currentWeapon is Melee)
+            {
+                Melee melee = (Melee)currentWeapon;
+                var enemyDamage = melee.GetComponent<EnemyDamage>();
+                enemyDamage.damage /= 2;
+            }
+            else if (currentWeapon is Gun)
+            {
+                currentWeapon.data.attackCooldown *= 2f;
+                Gun gun = (Gun)currentWeapon;
+                gun.accuracy /= 2f;
+            }
+        }
+        if (ability is TowerSpawnAbility)
+        {
+            Tower tower = FindFirstObjectByType<Tower>();
+            tower.DestroyTower();
         }
     }
 }

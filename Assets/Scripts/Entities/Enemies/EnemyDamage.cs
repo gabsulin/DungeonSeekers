@@ -5,7 +5,7 @@ public class EnemyDamage : MonoBehaviour
 {
     private PlayerObj player;
     [SerializeField] ParticleSystem boomParticles;
-    [SerializeField] int damage;
+    [SerializeField] public int damage;
 
     private bool hasHitEnemy = false;
 
@@ -32,7 +32,7 @@ public class EnemyDamage : MonoBehaviour
         bool isMelee = weapon is Melee;
         var state = player._playerState;
 
-        if ((collider.CompareTag("Enemy") && (state == PlayerObj.PlayerState.attack || state == PlayerObj.PlayerState.stun)) ||
+        if ((collider.CompareTag("Enemy") && (state == PlayerObj.PlayerState.attack)) ||
             (collider.CompareTag("MiniBoss") && state == PlayerObj.PlayerState.attack))
         {
             if (collider.CompareTag("MiniBoss"))
