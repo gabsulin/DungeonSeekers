@@ -4,6 +4,7 @@ public class Destructible : MonoBehaviour
 {
     PlayerObj player;
     [SerializeField] ParticleSystem destroyParticles;
+    PlayerController playerController;
 
     private void Start()
     {
@@ -16,6 +17,7 @@ public class Destructible : MonoBehaviour
             destroyParticles.transform.position = gameObject.transform.position;
             destroyParticles.Play();
             Destroy(gameObject, 0.1f);
+            PlayerController.Instance.isAttacking = false;
         }
     }
 

@@ -117,5 +117,11 @@ public class AbilityHolder : MonoBehaviour
             Tower tower = FindFirstObjectByType<Tower>();
             tower.DestroyTower();
         }
+        if (ability is ReflectiveShieldAbility)
+        {
+            playerHp.isImmune = false;
+            var shield = FindFirstObjectByType<ReflectiveShield>();
+            if (shield != null) shield.gameObject.SetActive(false);
+        }
     }
 }

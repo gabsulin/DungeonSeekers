@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77963a33a1eeab942bec1efc282ce9b0, type: 3}
-  m_Name: AssaultRifle
+  m_Script: {fileID: 11500000, guid: aba1863aef3c859468fae2e271d05fdc, type: 3}
+  m_Name: Reflective Shield Ability
   m_EditorClassIdentifier: 
-  attackCooldown: 0.25
-  burstCount: 0
-  burstDelay: 0
-  fireMode: 1
-  attackSound:
-    name: 
-    clips: []
+  name: 
+  coolDownTime: 5
+  activeTime: 5
+  shieldPrefab: {fileID: 8198573634030821143, guid: 5851b4bafb34afa4aa0592ed333620ab,
+    type: 3}

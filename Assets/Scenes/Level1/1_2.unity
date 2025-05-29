@@ -4558,7 +4558,7 @@ MonoBehaviour:
   areaExit: {fileID: 1947674317}
   areaEntrance: {fileID: 108765606}
   enemyPrefabs:
-  - {fileID: 6430580396849281738, guid: dcffc8a622201ca47afd514cc1d6f6b8, type: 3}
+  - {fileID: 8156773956958594124, guid: 063d75cd2a0317c46a8815511dd2e908, type: 3}
   enemiesPerWave: 02000000
   enemySpawnArea: {fileID: 812680390}
   spumEnemies: []

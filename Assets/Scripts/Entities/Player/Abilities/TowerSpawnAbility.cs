@@ -7,7 +7,10 @@ public class TowerSpawnAbility : Ability
     float randY = 0;
     public override void Activate(GameObject parent)
     {
+        AbilityHolder abilityHolder = parent.GetComponent<AbilityHolder>();
+
         Instantiate(tower, RandomSpawnPos(), Quaternion.identity);
+        abilityHolder.isReset = false;
     }
 
     Vector2 RandomSpawnPos()

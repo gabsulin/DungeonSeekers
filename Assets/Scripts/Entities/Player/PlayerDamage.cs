@@ -8,6 +8,7 @@ public class PlayerDamage : MonoBehaviour
     PlayerHpSystem playerHp;
     Animator anim;
     Stone stone;
+    CameraShake shake;
 
     [SerializeField] int damage;
     [SerializeField] bool destroy = true;
@@ -19,6 +20,7 @@ public class PlayerDamage : MonoBehaviour
         playerHp = FindFirstObjectByType<PlayerHpSystem>();
         anim = GetComponent<Animator>();
         stone = FindFirstObjectByType<Stone>();
+        shake = GetComponent<CameraShake>();
     }
 
     private void Update()
@@ -55,6 +57,7 @@ public class PlayerDamage : MonoBehaviour
             {
                 var spawnedParticles = Instantiate(particles, player.transform.position, Quaternion.identity);
             }
+            shake.StartShake(force: 0.2f);
         }
     }
 }

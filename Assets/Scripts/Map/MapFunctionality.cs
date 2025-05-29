@@ -34,7 +34,7 @@ public class MapFunctionality : MonoBehaviour
         Canvas canvas = FindFirstObjectByType<Canvas>();
         waveTextEffect = canvas.transform.Find("WaveText").GetComponent<WaveTextEffect>();
 
-        DisplayWaveStartEffects();
+        StartCoroutine(WaitForWaveTexToSpawn());
         chest.SetActive(false);
         nextScene.gameObject.SetActive(true);
         prevScene.gameObject.SetActive(true);
@@ -80,7 +80,11 @@ public class MapFunctionality : MonoBehaviour
         yield return new WaitForSeconds(2);
         SpawnEnemies();
     }
-
+    private IEnumerator WaitForWaveTexToSpawn()
+    {
+        yield return new WaitForSeconds(1f);
+        DisplayWaveStartEffects();
+    }
     private void DisplayWaveStartEffects()
     {
         if (waveTextEffect != null)

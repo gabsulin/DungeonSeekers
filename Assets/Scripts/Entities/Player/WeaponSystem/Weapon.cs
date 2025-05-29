@@ -8,7 +8,6 @@ public abstract class Weapon : MonoBehaviour
 
     protected float attackTimer = 0f;
     public bool IsAttacking => attackTimer > 0;
-
     public virtual void UpdateWeapon()
     {
         if (attackTimer > 0f)

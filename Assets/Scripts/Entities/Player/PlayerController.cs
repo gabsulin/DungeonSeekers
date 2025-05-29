@@ -12,7 +12,7 @@ public class PlayerController : Singleton<PlayerController>
     public bool canMove = true;
     public bool canAttack = true;
 
-    private bool isAttacking = false;
+    public bool isAttacking = false;
     private float attackTimer = 0f;
 
     public Vector2 input;
@@ -122,17 +122,15 @@ public class PlayerController : Singleton<PlayerController>
         {
             attackTimer -= Time.deltaTime;
 
-            if (attackTimer <= 0f)
+            /*if (attackTimer <= 0f)
             {
-                isAttacking = false;
-
                 if (rb.linearVelocity.magnitude == 0)
                 {
                     playerObj._playerState = PlayerObj.PlayerState.idle;
                     FlipCharacter(lastMovementDirection.x);
                     anim.PlayAnimation(0);
                 }
-            }
+            }*/
         }
     }
 

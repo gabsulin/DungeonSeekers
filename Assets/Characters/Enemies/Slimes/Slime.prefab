@@ -289,8 +289,8 @@ MonoBehaviour:
   player: {fileID: 0}
   animator: {fileID: 5967395661672471901}
   grid: {fileID: 0}
-  moveSpeed: 3
-  maxDistance: 2
+  moveSpeed: 15
+  maxDistance: 3
 --- !u!114 &452850721225914523
 MonoBehaviour:
   m_ObjectHideFlags: 0
