@@ -77,7 +77,8 @@ public class EnemyDamage : MonoBehaviour
                 {
                     hasHitEnemy = true;
                     ShowDamageNumber(actualDamageDealt, enemyCenterPosition);
-                    StartCoroutine(ResetHitFlag());
+                    if (gameObject.activeSelf)
+                        StartCoroutine(ResetHitFlag());
                 }
             }
         }

@@ -48,7 +48,7 @@ public class EnemyHealth : MonoBehaviour
 
         RemoveFromList();
 
-        if (coinsDrop == 3)
+        if (coinsDrop >= 0)
         {
             StartCoroutine(DropCoins());
         }

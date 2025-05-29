@@ -1354,7 +1354,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 750585903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffa9d191f5ac97d4fa250592ee3e4793, type: 3}
+  m_Script: {fileID: 11500000, guid: 13fad89834573e8489e790cc2ce71bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyState: 0
@@ -7373,7 +7373,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6430580397198175403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffa9d191f5ac97d4fa250592ee3e4793, type: 3}
+  m_Script: {fileID: 11500000, guid: 13fad89834573e8489e790cc2ce71bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyState: 0

@@ -70,7 +70,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -108,7 +108,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -409,7 +409,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Vampires2_Death_red_0: -2070120441919809481
+      Vampires2_Death_red_1: 6319845402717185606
+      Vampires2_Death_red_10: 2805260879720625149
+      Vampires2_Death_red_11: -8898494312307065205
+      Vampires2_Death_red_2: -4599892005448769085
+      Vampires2_Death_red_3: 4710035250530697855
+      Vampires2_Death_red_4: -4395042085911230165
+      Vampires2_Death_red_5: -2901326454264014505
+      Vampires2_Death_red_6: -5474692844794950782
+      Vampires2_Death_red_7: 8723640722454444429
+      Vampires2_Death_red_8: 484378946805065040
+      Vampires2_Death_red_9: 6022019336385212584
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

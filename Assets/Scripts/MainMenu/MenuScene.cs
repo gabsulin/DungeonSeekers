@@ -4,8 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuScene : MonoBehaviour
 {
-    [SerializeField] EnemyObj player;
-    [SerializeField] EnemyObj enemy;
+    [SerializeField] MMEnemyObj player;
+    [SerializeField] MMEnemyObj enemy;
     [SerializeField] Animator playerAnim;
     [SerializeField] Animator enemyAnim;
     [SerializeField] Transform playerGoalPos;

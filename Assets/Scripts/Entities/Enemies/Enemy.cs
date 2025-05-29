@@ -20,7 +20,7 @@ public abstract class Enemy : MonoBehaviour
     public Rigidbody2D rb;
 
     [Header("Movement Settings")]
-    public float attackRange;
+    //public float attackRange;
 
     [Header("Attack Settings")]
     public Collider2D attackHitbox;
@@ -183,7 +183,7 @@ public abstract class Enemy : MonoBehaviour
     {
         // Draw attack range
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(new Vector2(transform.position.x, transform.position.y + 0.3f), attackRange);
+        //Gizmos.DrawWireSphere(new Vector2(transform.position.x, transform.position.y + 0.3f), attackRange);
 
         // Draw path
         if (currentPath != null && currentPath.Count > 0 && grid != null)

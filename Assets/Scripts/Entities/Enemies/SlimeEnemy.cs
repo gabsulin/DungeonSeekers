@@ -7,10 +7,13 @@ public class SlimeEnemy : Enemy
     public float jumpHeight = 1f;
     public float jumpDuration = 0.5f;
     private bool isJumping = false;
+
+    CameraShake shake;
     protected override void Start()
     {
         attackCooldown = animator.GetFloat("AttackCooldown");
         player = FindFirstObjectByType<PlayerController>().transform;
+        shake = GetComponent<CameraShake>();
     }
     private void Update()
     {
@@ -55,6 +58,7 @@ public class SlimeEnemy : Enemy
             currentState = EnemyState.Idle;
             ExecuteIdleState();
             attackCooldown = 0f;
+            shake.StartShake(force: 0.1f);
         }
     }
 }

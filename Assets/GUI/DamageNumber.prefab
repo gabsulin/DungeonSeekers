@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36b009c498ad34b48961c8acb4a93f4d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f5cac33c0d48e54ab95e646ba361328, type: 2}
   m_sharedMaterial: {fileID: 3072700118527043362, guid: 36b009c498ad34b48961c8acb4a93f4d,
     type: 2}
   m_fontSharedMaterials: []
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &-6452447714493606799
@@ -150,8 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b42e7af207a63a4fb4da1297be39d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  riseSpeed: 100
-  fallSpeed: 150
-  horizontalDrift: 40
+  moveSpeed: 1
   fadeOutTime: 1.2
-  lifeTime: 1.2
+  lifeTime: 1
