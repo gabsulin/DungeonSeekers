@@ -61,6 +61,11 @@ public class EnemyHealth : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    public void RestoreFullHealth()
+    {
+        currentHealth = maxHealth;
+    }
 
     IEnumerator DropCoins()
     {
