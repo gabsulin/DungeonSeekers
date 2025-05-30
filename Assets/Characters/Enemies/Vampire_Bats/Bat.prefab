@@ -124,8 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778c27fc880d20a4c930b032245c6e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vampirePrefab: {fileID: 922391390063402889, guid: 34fabd1fc7f7da44ab45527c0314ebf5,
-    type: 3}
   speed: 4
   flightDistanceMin: 5
   flightDistanceMax: 15

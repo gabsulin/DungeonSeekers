@@ -52,7 +52,7 @@ public class SlimeEnemy : Enemy
         if (currentState == EnemyState.Attack && collision.gameObject.CompareTag("Player") && (attackHitbox != null || collision.collider.IsTouching(attackHitbox)))
         {
             PlayerHpSystem playerHp = collision.collider.GetComponent<PlayerHpSystem>();
-            playerHp.TakeHit(1);
+            playerHp.TakeHit(damage);
             rb.linearVelocity = Vector3.zero;
             player.GetComponent<Rigidbody2D>().linearVelocity = Vector3.zero;
             currentState = EnemyState.Idle;

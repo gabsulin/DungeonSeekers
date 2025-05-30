@@ -12,6 +12,7 @@ public class TowerTroop : MonoBehaviour
     [SerializeField] float fireRate = 1f;
     [SerializeField] float arrowSpeed = 10f;
     [SerializeField] string enemyTag = "Enemy";
+    [SerializeField] string bossTag = "MiniBoss";
 
     private Transform currentTarget;
     private Animator animator;
@@ -27,7 +28,7 @@ public class TowerTroop : MonoBehaviour
     }
     void Update()
     {
-        FindClosestEnemy();
+        FindTarget();
         UpdateFacingDirection();
         ShootAtTarget();
     }
@@ -45,39 +46,110 @@ public class TowerTroop : MonoBehaviour
             }
         }
     }
-    private void FindClosestEnemy()
+    private void FindTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-        Transform closestEnemy = null;
-        float minDistanceSquared = MathF.Pow(attackRange, 2);
-
+        Transform newTarget = null;
         Vector2 currentPosition = transform.position;
 
-        foreach (GameObject enemyObject in enemies)
-        {
-            Vector2 directionToEnemy = (Vector2)enemyObject.transform.position - currentPosition;
-            float distanceSquaredToEnemy = directionToEnemy.sqrMagnitude;
+        GameObject[] bosses = GameObject.FindGameObjectsWithTag(bossTag);
+        Transform closestBossInRange = null;
+        float minBossDistanceSquared = Mathf.Pow(attackRange, 2);
 
-            if (distanceSquaredToEnemy < minDistanceSquared)
+        foreach (GameObject bossObject in bosses)
+        {
+            BossHpSystem bossHp = bossObject.GetComponent<BossHpSystem>();
+            if (bossHp != null && bossHp.currentHealth > 0)
             {
-                minDistanceSquared = distanceSquaredToEnemy;
-                closestEnemy = enemyObject.transform;
+                Vector2 directionToBoss = (Vector2)bossObject.transform.position - currentPosition;
+                float distanceSquaredToBoss = directionToBoss.sqrMagnitude;
+
+                if (distanceSquaredToBoss < minBossDistanceSquared)
+                {
+                    minBossDistanceSquared = distanceSquaredToBoss;
+                    closestBossInRange = bossObject.transform;
+                }
             }
         }
-        currentTarget = closestEnemy;
-        Debug.Log(currentTarget);
+        if (closestBossInRange != null)
+        {
+            newTarget = closestBossInRange;
+        }
+        else
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+            Transform closestEnemyInRange = null;
+            float minEnemyDistanceSquared = Mathf.Pow(attackRange, 2);
+
+            foreach (GameObject enemyObject in enemies)
+            {
+                bool enemyHasHealth = false;
+                EnemyHpSystem enemyHpSys = enemyObject.GetComponent<EnemyHpSystem>();
+                if (enemyHpSys != null && enemyHpSys.currentHealth > 0)
+                {
+                    enemyHasHealth = true;
+                }
+                else
+                {
+                    EnemyHealth enemyHealthCom = enemyObject.GetComponent<EnemyHealth>();
+                    if (enemyHealthCom != null && enemyHealthCom.currentHealth > 0)
+                    {
+                        enemyHasHealth = true;
+                    }
+                }
+                if (enemyHasHealth)
+                {
+                    Vector2 directionToEnemy = (Vector2)enemyObject.transform.position - currentPosition;
+                    float distanceSquaredToEnemy = directionToEnemy.sqrMagnitude;
+
+                    if (distanceSquaredToEnemy < minEnemyDistanceSquared)
+                    {
+                        minEnemyDistanceSquared = distanceSquaredToEnemy;
+                        closestEnemyInRange = enemyObject.transform;
+                    }
+                }
+            }
+            newTarget = closestEnemyInRange;
+        }
+        currentTarget = newTarget;
     }
     private void ShootAtTarget()
     {
-        if (currentTarget != null && currentTarget.GetComponent<EnemyHpSystem>().currentHealth > 0)
+        if (currentTarget != null)
         {
-            if (Time.time > nextFireTime)
+            bool targetHasHealth = false;
+
+            BossHpSystem bossHp = currentTarget.GetComponent<BossHpSystem>();
+            if (bossHp != null && bossHp.currentHealth > 0)
             {
-                animator.SetTrigger("Attack");
-                nextFireTime = Time.time + fireCooldown;
-            } else
+                targetHasHealth = true;
+            }
+            if (!targetHasHealth)
             {
-                animator.ResetTrigger("Attack");
+                EnemyHpSystem hpSystem = currentTarget.GetComponent<EnemyHpSystem>();
+                if (hpSystem != null && hpSystem.currentHealth > 0)
+                {
+                    targetHasHealth = true;
+                }
+            }
+            if (!targetHasHealth)
+            {
+                EnemyHealth healthSystem = currentTarget.GetComponent<EnemyHealth>();
+                if (healthSystem != null && healthSystem.currentHealth > 0)
+                {
+                    targetHasHealth = true;
+                }
+            }
+            if (targetHasHealth)
+            {
+                if (Time.time > nextFireTime)
+                {
+                    animator.SetTrigger("Attack");
+                    nextFireTime = Time.time + fireCooldown;
+                }
+                else
+                {
+                    animator.ResetTrigger("Attack");
+                }
             }
         }
     }

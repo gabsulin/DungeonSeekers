@@ -9,6 +9,12 @@ public class DamageToEnemy : MonoBehaviour
         {
             TryDealDamageToEnemy(collision);
         }
+        else if (collision.CompareTag("MiniBoss"))
+        {
+            var bossHp = collision.GetComponent<BossHpSystem>();
+            if (bossHp != null)
+                bossHp.TakeDamage(damage, false);
+        }
     }
 
     private bool TryDealDamageToEnemy(Component target)
@@ -26,7 +32,6 @@ public class DamageToEnemy : MonoBehaviour
             enemyHp.TakeDamage(damage);
             return true;
         }
-
         return false;
     }
 }

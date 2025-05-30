@@ -19,6 +19,7 @@ public class ChestInteraction : MonoBehaviour, IInteractable
     {
         if (isOpen) return;
         isOpen = true;
+        gameObject.tag = "Untagged";
         anim.SetBool("ChestOpen", true);
         StartCoroutine(SpawnCoins());
         AudioManager.Instance.PlaySFX("ChestOpening");
