@@ -17,7 +17,6 @@ public class EnemyPathfinder : MonoBehaviour
 
     private float pathRecalculationTimer = 0f;
     private float pathRecalculationInterval = 0.25f;
-    private float attackTimer = 0f;
     private float attackCooldown = 1.5f;
 
     private void Start()

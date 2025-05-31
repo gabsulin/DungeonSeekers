@@ -189,7 +189,6 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 1137463279741286454, guid: 2f108bbd3785ef043885c86735c64d6e,
     type: 3}
   textSpawnRadius: 0.5
-  textSpawnYOffset: 0.5
   uiCanvasTransform: {fileID: 0}
   mainCamera: {fileID: 0}
 --- !u!114 &-3052906666630442621

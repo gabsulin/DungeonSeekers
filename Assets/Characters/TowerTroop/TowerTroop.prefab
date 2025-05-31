@@ -132,6 +132,7 @@ MonoBehaviour:
   fireRate: 1
   arrowSpeed: 18
   enemyTag: Enemy
+  bossTag: MiniBoss
 --- !u!1 &3520119601009531636
 GameObject:
   m_ObjectHideFlags: 0

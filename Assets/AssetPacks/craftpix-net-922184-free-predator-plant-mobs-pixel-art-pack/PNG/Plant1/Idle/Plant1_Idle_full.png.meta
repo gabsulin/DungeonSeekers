@@ -82,7 +82,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -96,7 +96,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -120,7 +120,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -509,7 +509,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Plant1_Idle_full_0: 747135984338043005
+      Plant1_Idle_full_1: 712375868728954502
+      Plant1_Idle_full_10: -594118586130401388
+      Plant1_Idle_full_11: -3888879398979316586
+      Plant1_Idle_full_12: 1622677803684113053
+      Plant1_Idle_full_13: -7780280078491651571
+      Plant1_Idle_full_14: -1186326419944048647
+      Plant1_Idle_full_15: 5337817731977854460
+      Plant1_Idle_full_2: 5950781385151363696
+      Plant1_Idle_full_3: -6225068933743809593
+      Plant1_Idle_full_4: -4742663895688965653
+      Plant1_Idle_full_5: 1125960161512871960
+      Plant1_Idle_full_6: -5800328857243435983
+      Plant1_Idle_full_7: 3231787475273982136
+      Plant1_Idle_full_8: 6789582149880329643
+      Plant1_Idle_full_9: -7352229874675521307
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

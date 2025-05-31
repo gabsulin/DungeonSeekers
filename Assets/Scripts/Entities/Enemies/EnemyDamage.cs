@@ -11,7 +11,6 @@ public class EnemyDamage : MonoBehaviour
     [Header("Damage Text Settings")]
     [SerializeField] private GameObject damageTextPrefab;
     [SerializeField] private float textSpawnRadius = 0.5f;
-    [SerializeField] private float textSpawnYOffset = 0.5f;
     [SerializeField] private Transform uiCanvasTransform;
     [SerializeField] private Camera mainCamera;
 
