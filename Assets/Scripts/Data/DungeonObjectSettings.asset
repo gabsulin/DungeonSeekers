@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4763df036f096d4484e4181d69dc25e, type: 3}
+  m_Name: DungeonObjectSettings
+  m_EditorClassIdentifier: 
+  globalObjectDensity: 0.15
+  maxAttemptsPerObject: 10
+  minRoomSizeForObjects: 8
+  objectTypes:
+  - prefab: {fileID: 7531763656113992403, guid: 22cf487d68ca27549b16d915dcf58dd9,
+      type: 3}
+    objectName: Table
+    spawnChance: 0.2
+    minDistanceFromWalls: 2
+    minDistanceBetweenObjects: 1
+    canPlaceNearWalls: 0
+    requiresFloorAccess: 1
+    blockMovement: 1
+    minRoomSize: 10
+    maxDensityPerRoom: 0.3
+    category: 0
+    weight: 10
+  - prefab: {fileID: 7531763656113992403, guid: e46dc41007052aa499075a3f6e1c2593,
+      type: 3}
+    objectName: Plant
+    spawnChance: 0.3
+    minDistanceFromWalls: 1
+    minDistanceBetweenObjects: 2
+    canPlaceNearWalls: 1
+    requiresFloorAccess: 1
+    blockMovement: 0
+    minRoomSize: 6
+    maxDensityPerRoom: 0.2
+    category: 1
+    weight: 5
+  - prefab: {fileID: 7531763656113992403, guid: c085b81c0a916384da09a4a02c4f60b9,
+      type: 3}
+    objectName: Rock
+    spawnChance: 0.1
+    minDistanceFromWalls: 1
+    minDistanceBetweenObjects: 3
+    canPlaceNearWalls: 0
+    requiresFloorAccess: 1
+    blockMovement: 1
+    minRoomSize: 8
+    maxDensityPerRoom: 0.15
+    category: 3
+    weight: 3
+  minPathWidth: 2
+  ensureRoomConnectivity: 1
+  showDebugGizmos: 0
+  debugObjectColor: {r: 0, g: 1, b: 0, a: 1}
+  debugBlockedAreaColor: {r: 1, g: 0, b: 0, a: 1}
