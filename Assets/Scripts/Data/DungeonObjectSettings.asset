@@ -12,49 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4763df036f096d4484e4181d69dc25e, type: 3}
   m_Name: DungeonObjectSettings
   m_EditorClassIdentifier: 
-  globalObjectDensity: 0.15
+  globalObjectDensity: 0.2
   maxAttemptsPerObject: 10
   minRoomSizeForObjects: 8
   objectTypes:
-  - prefab: {fileID: 7531763656113992403, guid: 22cf487d68ca27549b16d915dcf58dd9,
-      type: 3}
-    objectName: Table
+  - prefab: {fileID: 341433622838068289, guid: 4359848e59dcc20469d8d4e7e76eed41, type: 3}
+    objectName: Torch
     spawnChance: 0.2
+    minDistanceFromWalls: 1
+    minDistanceBetweenObjects: 5
+    canPlaceNearWalls: 1
+    requiresFloorAccess: 1
+    blockMovement: 0
+    minRoomSize: 10
+    maxDensityPerRoom: 0.3
+    category: 1
+    weight: 10
+  - prefab: {fileID: 2435107665453629468, guid: fb1f730ae8fca3d45843b51d51e495e7,
+      type: 3}
+    objectName: Campnofire
+    spawnChance: 0.5
     minDistanceFromWalls: 2
-    minDistanceBetweenObjects: 1
+    minDistanceBetweenObjects: 2
     canPlaceNearWalls: 0
     requiresFloorAccess: 1
     blockMovement: 1
     minRoomSize: 10
-    maxDensityPerRoom: 0.3
-    category: 0
-    weight: 10
-  - prefab: {fileID: 7531763656113992403, guid: e46dc41007052aa499075a3f6e1c2593,
-      type: 3}
-    objectName: Plant
-    spawnChance: 0.3
-    minDistanceFromWalls: 1
-    minDistanceBetweenObjects: 2
-    canPlaceNearWalls: 1
-    requiresFloorAccess: 1
-    blockMovement: 0
-    minRoomSize: 6
-    maxDensityPerRoom: 0.2
+    maxDensityPerRoom: 0.1
     category: 1
-    weight: 5
-  - prefab: {fileID: 7531763656113992403, guid: c085b81c0a916384da09a4a02c4f60b9,
-      type: 3}
-    objectName: Rock
-    spawnChance: 0.1
-    minDistanceFromWalls: 1
-    minDistanceBetweenObjects: 3
-    canPlaceNearWalls: 0
-    requiresFloorAccess: 1
-    blockMovement: 1
-    minRoomSize: 8
-    maxDensityPerRoom: 0.15
-    category: 3
-    weight: 3
+    weight: 10
   minPathWidth: 2
   ensureRoomConnectivity: 1
   showDebugGizmos: 0

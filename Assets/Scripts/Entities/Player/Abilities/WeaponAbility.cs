@@ -18,7 +18,7 @@ public class WeaponAbility : Ability
         {
             currentWeapon.data.attackCooldown *= 0.5f;
             Gun gun = (Gun)currentWeapon;
-            gun.accuracy *= 2f;
+            gun.accuracy *= 10f;
             if(gun.accuracy >= 100) gun.accuracy = 100;
         }
         abilityHolder.isReset = false;

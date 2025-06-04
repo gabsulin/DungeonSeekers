@@ -43,7 +43,7 @@ public class Gun : Weapon
 
     private void FireSingleShot()
     {
-        float maxSpreadAngle = 20f;
+        float maxSpreadAngle = 50f;
         float inaccuracy = Mathf.Clamp01(1f - (accuracy / 100f));
         float spread = Random.Range(-maxSpreadAngle * inaccuracy, maxSpreadAngle * inaccuracy);
 

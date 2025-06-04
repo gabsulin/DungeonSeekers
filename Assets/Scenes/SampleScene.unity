@@ -1069,11 +1069,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Interactable
       objectReference: {fileID: 0}
-    - target: {fileID: 3436162305905209877, guid: cc5680dc2df28a746b54760ce6cfa553,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5356370241008277291, guid: cc5680dc2df28a746b54760ce6cfa553,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3915,7 +3910,7 @@ PrefabInstance:
     - target: {fileID: 4431711375243950916, guid: 55d083b9a1f39144e8993abc3df37aa9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6427135300733878432, guid: 55d083b9a1f39144e8993abc3df37aa9,
         type: 3}
@@ -30650,6 +30645,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 3705724592486074729}
+    - target: {fileID: 7178345637750208840, guid: 9bd4842722ca86546b475d8ca7ec17c5,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7552444464748751244, guid: 9bd4842722ca86546b475d8ca7ec17c5,
         type: 3}
       propertyPath: m_Name
@@ -31543,7 +31543,7 @@ PrefabInstance:
     - target: {fileID: 8016898299228705004, guid: f1ee28a11af418b47abfecf257505a19,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31881,7 +31881,7 @@ Transform:
   m_GameObject: {fileID: 6281657186116699903}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.97, y: -4.49, z: 0}
+  m_LocalPosition: {x: -13.42, y: -0.23, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

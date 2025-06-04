@@ -31,6 +31,8 @@ public class CharacterSelect : MonoBehaviour
     {
         zoom = _camera.orthographicSize;
         originalPosition = _camera.transform.position;
+
+        UIFade.Instance.FadeFromBlack();
     }
 
     private void Update()

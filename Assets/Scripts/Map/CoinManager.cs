@@ -6,7 +6,9 @@ public class CoinManager : MonoBehaviour
     public Transform target;
     public static CoinManager instance;
     public TMP_Text coinText;
-    private int coinCount = 30;
+    private int coinCount; //this is just for testing
+
+    private const string CoinKey = "CoinCount";
 
     private void Awake()
     {
@@ -18,12 +20,14 @@ public class CoinManager : MonoBehaviour
 
     private void Start()
     {
+        coinCount=  PlayerPrefs.GetInt(CoinKey, 0);
         UpdateUI();
     }
 
     public void AddCoin(int amount)
     {
         coinCount += amount;
+        SaveCoins();
         UpdateUI();
     }
 
@@ -37,6 +41,7 @@ public class CoinManager : MonoBehaviour
         if (CanAfford(amount))
         {
             coinCount -= amount;
+            SaveCoins();
             UpdateUI();
         }
     }
@@ -44,5 +49,11 @@ public class CoinManager : MonoBehaviour
     private void UpdateUI()
     {
         coinText.text = coinCount.ToString();
+    }
+
+    private void SaveCoins()
+    {
+        PlayerPrefs.SetInt(CoinKey, coinCount);
+        PlayerPrefs.Save();
     }
 }

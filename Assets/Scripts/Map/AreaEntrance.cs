@@ -16,8 +16,12 @@ public class AreaEntrance : MonoBehaviour
         {
             PlayerController.Instance.transform.position = this.transform.position;
             Debug.Log("scena");
-            //player.SetMovePos(this.transform.position);
+            //player.SetMovePos(this.transform.position)
             UIFade.Instance.FadeFromBlack();
+            if(!ProgressManager.IsGameFinished())
+            {
+                ProgressManager.SaveProgress(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 }

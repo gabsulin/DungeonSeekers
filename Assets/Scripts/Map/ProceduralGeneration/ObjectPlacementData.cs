@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -45,3 +46,5 @@ public enum ObjectCategory
     Obstacle,
     Resource
 }
+
+

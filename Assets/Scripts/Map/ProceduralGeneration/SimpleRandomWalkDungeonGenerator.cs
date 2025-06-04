@@ -13,13 +13,12 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
 
         tilemapVisualizer.Clear();
         tilemapVisualizer.PaintFloorTiles(floorPositions);
-
         HashSet<Vector2Int> wallPositions = GetWallPositions(floorPositions);
         WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
 
-        // Generate objects using the new system
         if (objectGenerator != null && enableObjectGeneration)
         {
+            objectGenerator.ClearObjects();
             objectGenerator.GenerateObjects(floorPositions, wallPositions);
         }
     }
