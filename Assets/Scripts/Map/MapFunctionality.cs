@@ -40,11 +40,12 @@ public class MapFunctionality : MonoBehaviour
         prevScene.gameObject.SetActive(true);
 
         StartCoroutine(WaitForEnemiesSpawn());
+
+        GameStats.Instance.OnRoomStart();
     }
 
     void Update()
     {
-        // When wave is done and no enemies left
         if (!isSpawningEnemies && spumEnemies.Count == 0 && enemies.Count == 0 && !allWavesCompleted && !waveInProgress)
         {
             waveInProgress = true;
@@ -63,6 +64,8 @@ public class MapFunctionality : MonoBehaviour
                 chest.SetActive(true);
                 areaExit.SetActive(true);
                 areaEntrance.SetActive(true);
+
+                GameStats.Instance.OnRoomCleared();
             }
         }
     }

@@ -12,6 +12,8 @@ public class RangedEnemyAttack : MonoBehaviour
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private string soundName;
     [SerializeField] private float bulletSpeed = 10f;
+
+    float cooldown = 0.75f;
     Transform aimTarget;
 
     Coroutine shootingRoutine;
@@ -33,6 +35,7 @@ public class RangedEnemyAttack : MonoBehaviour
 
     private void Update()
     {
+        cooldown -= Time.deltaTime;
         if (enemyHp == null || playerHp == null || aimTarget == null || enemyMovement == null)
         {
             return;
@@ -57,8 +60,6 @@ public class RangedEnemyAttack : MonoBehaviour
 
     public void StartShooting()
     {
-
-
         if (shootingRoutine == null && enemyHp.currentHealth > 0 && playerHp.currentHp > 0)
         {
             try
@@ -134,18 +135,21 @@ public class RangedEnemyAttack : MonoBehaviour
 
     private void Shoot()
     {
-        var bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-
-        if (bulletInstance != null)
+        if(cooldown <= 0)
         {
-            Vector2 direction = ((Vector2)aimTarget.position - (Vector2)bulletSpawnPoint.position).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            bulletInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
-            bulletInstance.AddForce(direction * bulletSpeed, ForceMode2D.Impulse);
+            var bulletInstance = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
 
-            if (AudioManager.Instance != null && !string.IsNullOrEmpty(soundName))
+            if (bulletInstance != null)
             {
-                AudioManager.Instance.PlaySFX(soundName);
+                Vector2 direction = ((Vector2)aimTarget.position - (Vector2)bulletSpawnPoint.position).normalized;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                bulletInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
+                bulletInstance.AddForce(direction * bulletSpeed, ForceMode2D.Impulse);
+                cooldown = 0.75f;
+                if (AudioManager.Instance != null && !string.IsNullOrEmpty(soundName))
+                {
+                    AudioManager.Instance.PlaySFX(soundName);
+                }
             }
         }
     }

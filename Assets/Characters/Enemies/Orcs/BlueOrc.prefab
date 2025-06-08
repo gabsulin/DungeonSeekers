@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  aimTarget: {fileID: 0}
   grid: {fileID: 0}
   animator: {fileID: 705921775409918681}
   rb: {fileID: 2055154843014068991}

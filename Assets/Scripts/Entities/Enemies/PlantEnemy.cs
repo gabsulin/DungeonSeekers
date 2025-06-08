@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class PlantEnemy : Enemy
 {
+    [Header("Plant Settings")]
+    [SerializeField] Rigidbody2D seedPrefab;
+    [SerializeField] Transform spawnPoint;
+    [SerializeField] float[] angles;
+
     CameraShake shake;
     protected override void Start()
     {
         attackCooldown = animator.GetFloat("AttackCooldown");
         player = FindFirstObjectByType<PlayerController>().transform;
+        Transform aimTargetParent = player.transform;
+        aimTarget = aimTargetParent.Find("AimTarget");
         shake = GetComponent<CameraShake>();
     }
     private void Update()
@@ -17,6 +24,29 @@ public class PlantEnemy : Enemy
     public override void Attack()
     {
         currentState = EnemyState.Attack;
+        if (seedPrefab != null && spawnPoint != null)
+        {
+            Vector2 baseDirection = (aimTarget.transform.position - spawnPoint.position).normalized;
+
+            foreach (float angle in angles)
+            {
+                Vector2 rotatedDirection = RotateVector(baseDirection, angle);
+                var seed = Instantiate(seedPrefab, spawnPoint.position, Quaternion.identity);
+                seed.AddForce(rotatedDirection * 5, ForceMode2D.Impulse);
+            }
+            
+        }
+        ExecuteIdleState();
+    }
+    private Vector2 RotateVector(Vector2 v, float angleDegrees)
+    {
+        float rad = angleDegrees * Mathf.Deg2Rad;
+        float cos = Mathf.Cos(rad);
+        float sin = Mathf.Sin(rad);
+        return new Vector2(
+            v.x * cos - v.y * sin,
+            v.x * sin + v.y * cos
+        );
     }
     public override void OnCollisionEnter2D(Collision2D collision)
     {

@@ -32,9 +32,9 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Update()
     {
-        if(canMove) HandleMovement();
+        if (canMove) HandleMovement();
         UpdateCurrentWeapon();
-        if(canAttack) HandleActions();
+        if (canAttack) HandleActions();
         HandleAttackCooldown();
         RotateGunTowardsMouse();
 
@@ -87,7 +87,7 @@ public class PlayerController : Singleton<PlayerController>
             if (currentWeapon.IsAttacking)
             {
                 playerObj._playerState = PlayerObj.PlayerState.attack;
-               
+
                 if (currentWeapon is Melee)
                     anim.PlayAnimation(4);
                 else if (currentWeapon is Staff)
@@ -177,5 +177,10 @@ public class PlayerController : Singleton<PlayerController>
     public Weapon GetCurrentWeapon()
     {
         return currentWeapon;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        rb.linearVelocity = Vector2.zero;
     }
 }

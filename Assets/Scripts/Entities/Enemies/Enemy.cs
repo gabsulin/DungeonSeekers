@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Goldmetal.UndeadSurvivor;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,6 +16,7 @@ public abstract class Enemy : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
+    [HideInInspector] public Transform aimTarget;
     public GridManager grid;
     public Animator animator;
     public Rigidbody2D rb;
@@ -162,6 +164,15 @@ public abstract class Enemy : MonoBehaviour
     }
 
     public abstract void OnCollisionEnter2D(Collision2D collision);
+
+    public virtual void ApplyKnockback(Vector2 sourcePosition, float knockbackForce)
+    {
+        if (rb != null)
+        {
+            Vector2 knockbackDirection = (rb.position - sourcePosition).normalized;
+            rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+        }
+    }
 
     protected virtual void OnDamageDealt()
     {

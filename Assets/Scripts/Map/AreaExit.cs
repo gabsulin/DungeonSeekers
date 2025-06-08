@@ -4,17 +4,22 @@ using UnityEngine.SceneManagement;
 
 public class AreaExit : MonoBehaviour
 {
+    UIFade uiFade;
+
     [SerializeField] private string sceneToLoad;
     [SerializeField] private string sceneTransitionName;
 
     private float waitToLoadTime = 1f;
-
+    private void Start()
+    {
+        uiFade = FindFirstObjectByType<UIFade>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.GetComponent<PlayerObj>())
         {
             SceneManagement.Instance.SetTransitionName(sceneTransitionName);
-            UIFade.Instance.FadeToBlack();
+            uiFade.FadeToBlack();
             StartCoroutine(LoadSceneRoutine());
         }
     }

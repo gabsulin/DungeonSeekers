@@ -27,6 +27,7 @@ public class CoinManager : MonoBehaviour
     public void AddCoin(int amount)
     {
         coinCount += amount;
+        GameStats.Instance.AddCoins(amount);
         SaveCoins();
         UpdateUI();
     }

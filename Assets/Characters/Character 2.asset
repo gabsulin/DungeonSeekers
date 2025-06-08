@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: This is a character for testing, that's why he's so overpowered.
   characterName: Test
-  health: 100
-  shields: 100
+  health: 10
+  shields: 10
   isUnlocked: 1
   price: 5
   speed: 7

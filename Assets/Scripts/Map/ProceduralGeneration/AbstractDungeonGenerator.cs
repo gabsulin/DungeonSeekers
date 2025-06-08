@@ -34,7 +34,14 @@ public abstract class AbstractDungeonGenerator : MonoBehaviour
             objectGenerator.SetPlacementSettings(objectPlacementSettings);
         }
     }
+    public void ClearDungeon()
+    {
+        if(tilemapVisualizer != null)
+            tilemapVisualizer.Clear();
 
+        if(objectGenerator != null)
+            objectGenerator.ClearObjects();
+    }
     public void GenerateDungeon()
     {
         if (tilemapVisualizer != null)
@@ -62,8 +69,6 @@ public abstract class AbstractDungeonGenerator : MonoBehaviour
     {
         if (objectGenerator != null && enableObjectGeneration)
         {
-            // This would require storing the current floor and wall positions
-            // For now, we'll regenerate the entire dungeon
             GenerateDungeon();
         }
     }

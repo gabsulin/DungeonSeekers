@@ -160,8 +160,8 @@ GameObject:
   - component: {fileID: 6496500294386841800}
   - component: {fileID: 1294431853612309463}
   - component: {fileID: 4581426505389843360}
-  - component: {fileID: 4537332596901035615}
-  - component: {fileID: -4977484282770205204}
+  - component: {fileID: -6386275469104729702}
+  - component: {fileID: 7382959494474516847}
   - component: {fileID: -7319748787677198967}
   - component: {fileID: -3620820694745931235}
   m_Layer: 19
@@ -315,7 +315,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.4375, y: 0.09375}
   m_EdgeRadius: 0
---- !u!114 &4537332596901035615
+--- !u!114 &-6386275469104729702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -324,11 +324,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3882112610099657246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d285c9684307dd44caf576bb44f8ac47, type: 3}
+  m_Script: {fileID: 11500000, guid: 4013caece00280e44916b6a348602e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destroyParticles: {fileID: 0}
---- !u!114 &-4977484282770205204
+--- !u!114 &7382959494474516847
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

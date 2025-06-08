@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1285903345674624360}
   - component: {fileID: -238839078090613312}
   - component: {fileID: 7344996850832174958}
-  - component: {fileID: 1813541515645337329}
+  - component: {fileID: 6113426778584671552}
   - component: {fileID: -309934309131659312}
   - component: {fileID: 5946749243033841830}
   m_Layer: 18
@@ -197,7 +197,7 @@ MonoBehaviour:
   destroy: 1
   particles: {fileID: 2428988616824977718, guid: b8b1258fc1d0017468e4e19f4d34b0ee,
     type: 3}
---- !u!114 &1813541515645337329
+--- !u!114 &6113426778584671552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,11 +206,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3770537238471619582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d285c9684307dd44caf576bb44f8ac47, type: 3}
+  m_Script: {fileID: 11500000, guid: 4013caece00280e44916b6a348602e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyParticles: {fileID: 2428988616824977718, guid: b8b1258fc1d0017468e4e19f4d34b0ee,
-    type: 3}
+  destroyParticles: {fileID: 0}
 --- !u!114 &-309934309131659312
 MonoBehaviour:
   m_ObjectHideFlags: 0

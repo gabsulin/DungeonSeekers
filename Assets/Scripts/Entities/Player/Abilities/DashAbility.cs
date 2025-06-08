@@ -12,7 +12,20 @@ public class DashAbility : Ability
         Rigidbody2D rb = parent.GetComponent<Rigidbody2D>(); 
         PlayerHpSystem playerHp = parent.GetComponent<PlayerHpSystem>();
 
-        rb.linearVelocity = player.input.normalized * dashVelocity;
+        Vector2 dashDirection;
+
+        if (player.input != Vector2.zero)
+        {
+            dashDirection = player.input.normalized;
+        }
+        else
+        {
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 directionToMouse = (mouseWorldPos - parent.transform.position);
+            dashDirection = directionToMouse.normalized;
+        }
+
+        rb.linearVelocity = dashDirection * dashVelocity;
         playerHp.isImmune = true;
         abilityHolder.isReset = false;
     }

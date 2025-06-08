@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  aimTarget: {fileID: 0}
   grid: {fileID: 0}
   animator: {fileID: 5967395661672471901}
   rb: {fileID: 3073693108258908040}
@@ -274,7 +275,7 @@ MonoBehaviour:
   damage: 1
   currentState: 0
   jumpHeight: 1
-  jumpDuration: 0.5
+  jumpDuration: 0.3
 --- !u!114 &7178345637750208840
 MonoBehaviour:
   m_ObjectHideFlags: 0

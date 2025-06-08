@@ -17,6 +17,7 @@ public class PlayerHpSystem : MonoBehaviour
     [SerializeField] TMP_Text hpTMP;
     [SerializeField] TMP_Text shieldsTMP;
     [SerializeField] TMP_Text damageNumber;
+    GameObject deathScreen;
 
     [HideInInspector] public float currentHp;
     [HideInInspector] public float currentShields;
@@ -62,6 +63,8 @@ public class PlayerHpSystem : MonoBehaviour
             hpTMP = canvas.transform.Find("HealthBar/HpAmount").GetComponent<TMP_Text>();
             shieldsBar = canvas.transform.Find("Shieldbar/Shields").GetComponent<Image>();
             shieldsTMP = canvas.transform.Find("Shieldbar/ShieldsAmount").GetComponent<TMP_Text>();
+            deathScreen = canvas.transform.Find("DeathScreen").gameObject;
+            deathScreen.SetActive(false);
             Debug.Log("nasel se canvas a priradily se gameobjecty");
         }
         else
@@ -169,9 +172,8 @@ public class PlayerHpSystem : MonoBehaviour
         playerController.canMove = false;
         playerController.canAttack = false;
 
-        /*
-         deathScreen.SetActive(true);
-         */
+        deathScreen.SetActive(true);
+        //GameStats.Instance.ResetStats();
     }
 
     private IEnumerator PlayDeathAnimation()
@@ -200,30 +202,4 @@ public class PlayerHpSystem : MonoBehaviour
         currentShields = Mathf.Min(currentShields, maxShields);
         isRegeneratingShields = false;
     }
-
-    public void ApplyPoison()
-    {
-        if (poisonCoroutine != null)
-        {
-            StopCoroutine(poisonCoroutine);
-        }
-        poisonCoroutine = StartCoroutine(PoisonEffect());
-    }
-
-    private IEnumerator PoisonEffect()
-    {
-        //isPoisoned = true;
-        float timer = 0f;
-
-        while (timer < poisonDuration)
-        {
-            TakeHit(Mathf.RoundToInt(poisonDamagePerSecond * Time.deltaTime));
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        //isPoisoned = false;
-        poisonCoroutine = null;
-    }
-
 }

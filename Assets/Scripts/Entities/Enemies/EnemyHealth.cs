@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour
 
     Enemy enemy;
     Animator anim;
+    Knockback knockback;
 
     public int maxHealth = 100;
     public int currentHealth;
@@ -26,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
     {
         enemy = GetComponent<Enemy>();
         anim = GetComponentInChildren<Animator>();
+        knockback = GetComponent<Knockback>();
 
         coinsDrop = Random.Range(0, 4);
         Debug.Log(coinsDrop);
@@ -33,6 +35,11 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        Weapon weapon = PlayerController.Instance?.GetCurrentWeapon();
+        bool isMelee = weapon is Melee;
+        if (isMelee)
+            knockback.GetKnockback(PlayerController.Instance.transform, 5f);
+
         if (currentHealth <= 0)
         {
             Die();
@@ -47,6 +54,7 @@ public class EnemyHealth : MonoBehaviour
         anim.ResetTrigger("Attack");
 
         RemoveFromList();
+        GameStats.Instance.AddEnemyKill();
 
         if (coinsDrop >= 0)
         {
@@ -61,7 +69,7 @@ public class EnemyHealth : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
     public void RestoreFullHealth()
     {
         currentHealth = maxHealth;

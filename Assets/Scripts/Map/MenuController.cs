@@ -10,14 +10,18 @@ public class MenuController : MonoBehaviour
     [SerializeField] Transform goalPos, fadePos;
     [SerializeField] Animator pedestal;
     [SerializeField] Animator gate;
+    UIFade uiFade;
 
     float waitToLoadTime = 1.5f;
-
+    private void Start()
+    {
+        uiFade = FindFirstObjectByType<UIFade>();
+    }
     private void Update()
     {
         if (Vector2.Distance(player.transform.position, fadePos.position) < 0.1f)
         {
-            UIFade.Instance.FadeToBlack();
+            uiFade.FadeToBlack();
             StartCoroutine(LoadSceneRoutine());
         }
     }

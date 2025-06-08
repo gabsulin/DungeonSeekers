@@ -32,7 +32,7 @@ public class CharacterSelect : MonoBehaviour
         zoom = _camera.orthographicSize;
         originalPosition = _camera.transform.position;
 
-        UIFade.Instance.FadeFromBlack();
+        //UIFade.Instance.FadeFromBlack();
     }
 
     private void Update()
@@ -153,6 +153,7 @@ public class CharacterSelect : MonoBehaviour
 
         //SceneManager.sceneLoaded += OnSceneLoaded;
 
+        //GameStats.Instance.ResetStats();
         SceneManager.LoadScene(3);
     }
 

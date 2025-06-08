@@ -52,8 +52,9 @@ public class EnemyHpSystem : MonoBehaviour
 
             StartCoroutine(PlayDeathAnimation());
         }
-
         RemoveFromList();
+        GameStats.Instance.AddEnemyKill();
+
         if (gameObject != null)
             Destroy(gameObject, 1);
 
