@@ -31,8 +31,11 @@ public class MapFunctionality : MonoBehaviour
 
     void Start()
     {
-        Canvas canvas = FindFirstObjectByType<Canvas>();
-        waveTextEffect = canvas.transform.Find("WaveText").GetComponent<WaveTextEffect>();
+        GameObject canvasGO = GameObject.Find("Canvas");
+        if (canvasGO != null)
+        {
+            waveTextEffect = canvasGO.transform.Find("WaveText").GetComponent<WaveTextEffect>();
+        }
 
         StartCoroutine(WaitForWaveTexToSpawn());
         chest.SetActive(false);

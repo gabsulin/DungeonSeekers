@@ -55,7 +55,7 @@ public class BossAttack : MonoBehaviour
     {
         if (!hasSpawnedEnemies)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 0; i++)
             {
                 Instantiate(enemyPrefab, Vector2.zero, Quaternion.identity);
             }

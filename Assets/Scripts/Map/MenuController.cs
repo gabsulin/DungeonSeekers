@@ -27,7 +27,7 @@ public class MenuController : MonoBehaviour
     }
     public void Play()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
         AudioManager.Instance.PlaySFX("UIButton");
     }
     private IEnumerator LoadSceneRoutine()
@@ -35,7 +35,7 @@ public class MenuController : MonoBehaviour
         yield return new WaitForSeconds(waitToLoadTime);
         var uiFade = FindFirstObjectByType<UIFade>();
         Destroy(uiFade);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void StartGame()

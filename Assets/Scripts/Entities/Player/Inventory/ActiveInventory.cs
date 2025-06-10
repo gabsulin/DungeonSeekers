@@ -35,6 +35,8 @@ public class ActiveInventory : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchSlots(2);
         else if (Input.GetKeyDown(KeyCode.Alpha4)) SwitchSlots(3);
         else if (Input.GetKeyDown(KeyCode.Alpha5)) SwitchSlots(4);
+
+        if (Input.GetKeyDown(KeyCode.Q)) DropWeapon();
     }
 
     void SwitchSlots(int newSlotIndex)
@@ -90,42 +92,6 @@ public class ActiveInventory : MonoBehaviour
         }
     }
 
-    /*public void PickUpWeapon(Transform weapon)
-    {
-        if (weaponParent != null)
-        {
-            if (!weaponPrefabs.Contains(weapon.gameObject))
-            {
-                weapon.SetParent(weaponParent);
-
-                weapon.localPosition = Vector3.zero;
-                weapon.localRotation = Quaternion.identity;
-                weapon.localScale = Vector3.one;
-                weaponPrefabs.Add(weapon.gameObject);
-
-                for (int i = 0; i < inventorySlots.Length; i++)
-                {
-                    Transform itemTransform = inventorySlots[i].transform.Find("Item");
-                    if (itemTransform != null)
-                    {
-                        Image itemImage = itemTransform.GetComponent<Image>();
-                        if (itemImage != null && !itemTransform.gameObject.activeSelf)
-                        {
-                            itemImage.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
-                            itemTransform.gameObject.SetActive(true);
-                            weaponSprites.Insert(i, itemImage.sprite);
-                            break;
-                        }
-                    }
-                }
-
-                activeSlotIndex = weaponPrefabs.Count - 1;
-                UpdateActiveSlot();
-                UpdateWeapon();
-            }
-        }
-    }*/
-
     public void PickUpWeapon(GameObject weapon)
     {
         if (weaponParent == null || weapon == null) return;
@@ -145,23 +111,31 @@ public class ActiveInventory : MonoBehaviour
 
         weaponPrefabs.Add(newWeapon);
 
+        SpriteRenderer spriteRenderer = weapon.GetComponentInChildren<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            weaponSprites.Add(spriteRenderer.sprite);
+        }
+
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             Transform itemTransform = inventorySlots[i].transform.Find("Item");
             if (itemTransform != null)
             {
-                Image itemImage = itemTransform.GetComponent<Image>();
-                if (itemImage != null && !itemTransform.gameObject.activeSelf)
-                {
-                    SpriteRenderer spriteRenderer = weapon.GetComponentInChildren<SpriteRenderer>();
-                    if (spriteRenderer != null)
-                    {
-                        itemImage.sprite = spriteRenderer.sprite;
-                        weaponSprites.Insert(i, spriteRenderer.sprite);
-                    }
+                itemTransform.gameObject.SetActive(false);
+            }
+        }
 
+        for (int i = 0; i < weaponSprites.Count && i < inventorySlots.Length; i++)
+        {
+            Transform itemTransform = inventorySlots[i].transform.Find("Item");
+            if (itemTransform != null)
+            {
+                Image itemImage = itemTransform.GetComponent<Image>();
+                if (itemImage != null)
+                {
+                    itemImage.sprite = weaponSprites[i];
                     itemTransform.gameObject.SetActive(true);
-                    break;
                 }
             }
         }
@@ -173,7 +147,75 @@ public class ActiveInventory : MonoBehaviour
         newWeapon.tag = "Melee";
         newWeapon.layer = 9;
         Collider2D weaponCollider = newWeapon.GetComponent<Collider2D>();
-        weaponCollider.isTrigger = false;
+        if (weaponCollider != null)
+        {
+            weaponCollider.isTrigger = false;
+        }
         Destroy(weapon);
+    }
+
+    public void DropWeapon()
+    {
+        if (activeSlotIndex < 0 || activeSlotIndex >= weaponPrefabs.Count || weaponPrefabs[activeSlotIndex] == null)
+            return;
+
+        GameObject weaponToDrop = weaponPrefabs[activeSlotIndex];
+
+        GameObject droppedWeapon = Instantiate(weaponToDrop, PlayerController.Instance.transform.position, Quaternion.identity);
+
+        droppedWeapon.name = weaponToDrop.name;
+        droppedWeapon.SetActive(true);
+        droppedWeapon.tag = "Interactable";
+        droppedWeapon.layer = 8;
+        if(droppedWeapon.GetComponent<WeaponPickup>() == null)
+        {
+            droppedWeapon.AddComponent<WeaponPickup>();
+        }
+
+        Collider2D droppedCollider = droppedWeapon.GetComponent<Collider2D>();
+        if (droppedCollider != null)
+        {
+            droppedCollider.isTrigger = true;
+        }
+
+        weaponPrefabs.RemoveAt(activeSlotIndex);
+        weaponSprites.RemoveAt(activeSlotIndex);
+
+        Destroy(weaponToDrop);
+
+        if (activeSlotIndex >= weaponPrefabs.Count && weaponPrefabs.Count > 0)
+        {
+            activeSlotIndex = weaponPrefabs.Count - 1;
+        }
+        else if (weaponPrefabs.Count == 0)
+        {
+            activeSlotIndex = 0;
+        }
+
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            Transform itemTransform = inventorySlots[i].transform.Find("Item");
+            if (itemTransform != null)
+            {
+                itemTransform.gameObject.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < weaponSprites.Count && i < inventorySlots.Length; i++)
+        {
+            Transform itemTransform = inventorySlots[i].transform.Find("Item");
+            if (itemTransform != null)
+            {
+                Image itemImage = itemTransform.GetComponent<Image>();
+                if (itemImage != null)
+                {
+                    itemImage.sprite = weaponSprites[i];
+                    itemTransform.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        UpdateActiveSlot();
+        UpdateWeapon();
     }
 }

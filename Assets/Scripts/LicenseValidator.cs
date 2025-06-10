@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class LicenseValidator : MonoBehaviour
 {
-    public string licenseKey = "Rls-E9Q-DDJ";
-    public string serverURL = "http://localhost:5000/api/validate";
+    public string serverURL = "https://gabsulin.pythonanywhere.com/api/validate";
+    public bool IsValid { get; private set; }
 
-    IEnumerator Start()
+    public IEnumerator ValidateKey(string licenseKey)
     {
         string hwid = SystemInfo.deviceUniqueIdentifier;
         string url = $"{serverURL}?key={licenseKey}&hwid={hwid}";
         UnityWebRequest r = UnityWebRequest.Get(url);
         yield return r.SendWebRequest();
 
-        if(r.result != UnityWebRequest.Result.Success || r.downloadHandler.text != "OK")
+        if (r.result == UnityWebRequest.Result.Success && r.downloadHandler.text == "OK")
         {
-            Debug.LogError("❌ Licence neplatná/nelze ověřit.");
-            Application.Quit();
+            IsValid = true;
         }
-        Debug.Log("❌ Licence neplatná/nelze ověřit.");
+        else
+        {
+            IsValid = false;
+        }
     }
-
 }
+

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Threading;
+using UnityEditor.SceneManagement;
 
 public class PlayerHpSystem : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerHpSystem : MonoBehaviour
     [SerializeField] TMP_Text shieldsTMP;
     [SerializeField] TMP_Text damageNumber;
     GameObject deathScreen;
+    GameObject cam;
 
     [HideInInspector] public float currentHp;
     [HideInInspector] public float currentShields;
@@ -55,6 +57,8 @@ public class PlayerHpSystem : MonoBehaviour
 
     public void AssignUIElements()
     {
+        cam = GameObject.FindGameObjectWithTag("Camera").gameObject;
+        cam.SetActive(false);
         GameObject canvas = GameObject.Find("Canvas");
 
         if (canvas != null)
@@ -172,7 +176,9 @@ public class PlayerHpSystem : MonoBehaviour
         playerController.canMove = false;
         playerController.canAttack = false;
 
+        Destroy(GameObject.Find("Player"));
         deathScreen.SetActive(true);
+        cam.SetActive(true);
         //GameStats.Instance.ResetStats();
     }
 

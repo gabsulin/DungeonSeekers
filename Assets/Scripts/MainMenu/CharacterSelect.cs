@@ -153,8 +153,8 @@ public class CharacterSelect : MonoBehaviour
 
         //SceneManager.sceneLoaded += OnSceneLoaded;
 
-        //GameStats.Instance.ResetStats();
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("1_1");
+        GameStats.Instance.ResetStats();
     }
 
     /*private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

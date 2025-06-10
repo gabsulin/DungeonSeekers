@@ -19,6 +19,7 @@ TagManager:
   - Missle
   - Tower
   - EnemyBullet
+  - Camera
   layers:
   - Default
   - TransparentFX

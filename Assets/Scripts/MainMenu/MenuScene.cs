@@ -15,7 +15,7 @@ public class MenuScene : MonoBehaviour
     Vector2 playerGoal;
     Vector2 enemyGoal;
 
-    int nextScene = 1;
+    int nextScene = 2;
     void Start()
     {
         playerGoal = new Vector2 (-1.8f, -2);
