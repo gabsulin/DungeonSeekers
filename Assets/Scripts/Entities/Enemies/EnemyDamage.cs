@@ -28,7 +28,7 @@ public class EnemyDamage : MonoBehaviour
 
         if (uiCanvasTransform == null)
         {
-            Canvas canvas = FindFirstObjectByType<Canvas>();
+            Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
             if (canvas != null) uiCanvasTransform = canvas.transform;
             if (uiCanvasTransform == null) Debug.LogError("UI Canvas Transform not assigned!");
         }
@@ -37,12 +37,13 @@ public class EnemyDamage : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         HandleCollision(collision.collider, collision.contacts[0].point);
-        PlayerController.Instance.isAttacking = false;
+        //PlayerController.Instance.isAttacking = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         HandleCollision(collider, collider.transform.position);
+        PlayerController.Instance.isAttacking = false;
     }
 
     private void HandleCollision(Collider2D collider, Vector3 hitPosition)
@@ -74,6 +75,7 @@ public class EnemyDamage : MonoBehaviour
             {
                 if (TryDealDamageToEnemy(collider, actualDamageDealt))
                 {
+                    Debug.Log("hit");
                     hasHitEnemy = true;
                     ShowDamageNumber(actualDamageDealt, enemyCenterPosition);
                     if (gameObject.activeSelf)

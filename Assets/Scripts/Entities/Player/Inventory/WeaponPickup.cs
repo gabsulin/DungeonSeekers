@@ -9,6 +9,7 @@ public class WeaponPickup : MonoBehaviour, IInteractable
         {
             gameObject.tag = "Untagged";
             gameObject.layer = 9;
+            gameObject.GetComponent<Collider2D>().isTrigger = true;
             playerInventory.PickUpWeapon(gameObject);
         }
     }

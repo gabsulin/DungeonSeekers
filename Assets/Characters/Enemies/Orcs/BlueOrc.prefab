@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 3922064657865030142}
   - component: {fileID: 1319764694283628206}
   - component: {fileID: 7213858258786740201}
+  - component: {fileID: -416463071141442028}
   m_Layer: 6
   m_Name: BlueOrc
   m_TagString: Enemy
@@ -406,3 +407,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useCoroutine: 0
+--- !u!114 &-416463071141442028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244491403492122524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69a5a89e2fa6fc42a4e3ad50dd2fe27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackTime: 0.2

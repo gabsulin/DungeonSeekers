@@ -29,7 +29,8 @@ public class PlayerHpSystem : MonoBehaviour
     private float wasntHit = 0f;
     private bool isRegeneratingShields = false;
 
-    private float shieldRegenTime = 5f;
+    private float startShieldRegenTime = 5f;
+    private float shieldRegenTime = 2f;
 
     public bool isDead;
     public bool isImmune;
@@ -97,7 +98,7 @@ public class PlayerHpSystem : MonoBehaviour
     {
         wasntHit += Time.deltaTime;
 
-        if (currentShields < maxShields && wasntHit >= shieldRegenTime && !isRegeneratingShields && !isDead)
+        if (currentShields < maxShields && wasntHit >= startShieldRegenTime && !isRegeneratingShields && !isDead)
         {
             StartCoroutine(RegenerateShields());
         }
@@ -176,9 +177,15 @@ public class PlayerHpSystem : MonoBehaviour
         playerController.canMove = false;
         playerController.canAttack = false;
 
-        Destroy(GameObject.Find("Player"));
-        deathScreen.SetActive(true);
+        UpgradeManager.Instance.ResetUpgrades();
+
         cam.SetActive(true);
+        deathScreen.SetActive(true);
+
+        Destroy(GameObject.Find("Player"));
+        var persistance = GameObject.Find("Persistence");
+        var inventory = persistance.transform.Find("InventoryCanvas(Clone)");
+        Destroy(inventory.gameObject);
         //GameStats.Instance.ResetStats();
     }
 
@@ -196,16 +203,21 @@ public class PlayerHpSystem : MonoBehaviour
     {
         isRegeneratingShields = true;
 
-        while (currentShields < maxShields && !isDead && wasntHit >= shieldRegenTime)
+        while (currentShields < maxShields && !isDead && wasntHit >= startShieldRegenTime)
         {
             currentShields += 1;
             shieldsBar.fillAmount = currentShields / maxShields;
             shieldsTMP.text = $"{currentShields.ToString()}/{maxShields.ToString()}";
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(shieldRegenTime);
         }
 
         currentShields = Mathf.Min(currentShields, maxShields);
         isRegeneratingShields = false;
+    }
+    public void ApplyShieldRechargeUpgrade(float multiplier)
+    {
+        shieldRegenTime *= 1f / multiplier;
+        startShieldRegenTime *= 1f / multiplier * 2.5f;
     }
 }

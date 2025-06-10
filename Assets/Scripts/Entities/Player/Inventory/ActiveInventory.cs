@@ -146,11 +146,6 @@ public class ActiveInventory : MonoBehaviour
 
         newWeapon.tag = "Melee";
         newWeapon.layer = 9;
-        Collider2D weaponCollider = newWeapon.GetComponent<Collider2D>();
-        if (weaponCollider != null)
-        {
-            weaponCollider.isTrigger = false;
-        }
         Destroy(weapon);
     }
 

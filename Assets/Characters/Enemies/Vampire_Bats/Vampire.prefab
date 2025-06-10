@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 2167734540869775012}
   - component: {fileID: 5162624507894367675}
   - component: {fileID: 3016387971251753329}
+  - component: {fileID: -7956425805977529486}
   m_Layer: 6
   m_Name: Vampire
   m_TagString: Enemy
@@ -324,6 +325,19 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0.2, y: -0.2, z: 0}
+--- !u!114 &-7956425805977529486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922391390063402889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69a5a89e2fa6fc42a4e3ad50dd2fe27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackTime: 0.2
 --- !u!1 &3958024148154878533
 GameObject:
   m_ObjectHideFlags: 0

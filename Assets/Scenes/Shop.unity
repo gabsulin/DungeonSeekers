@@ -12656,6 +12656,7 @@ GameObject:
   - component: {fileID: 6259752443376740205}
   - component: {fileID: 3988566829413828228}
   - component: {fileID: 6348803488971168305}
+  - component: {fileID: 6348803488971168306}
   m_Layer: 0
   m_Name: UnitRoot
   m_TagString: Untagged
@@ -15603,6 +15604,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6348803488971168306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984185420969947155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1198cd2a8673bad44b54dcdc1a4bd724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6366366811386525426
 Transform:
   m_ObjectHideFlags: 0
@@ -22011,7 +22024,8 @@ MonoBehaviour:
   shieldsBar: {fileID: 0}
   hpTMP: {fileID: 0}
   shieldsTMP: {fileID: 0}
-  damageNumber: {fileID: 0}
+  damageNumber: {fileID: 4768065298066574434, guid: 2f108bbd3785ef043885c86735c64d6e,
+    type: 3}
   currentHp: 0
   currentShields: 0
   maxHp: 0

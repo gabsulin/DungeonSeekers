@@ -17,7 +17,7 @@ public class Destructible : MonoBehaviour
             destroyParticles.transform.position = gameObject.transform.position;
             destroyParticles.Play();
             Destroy(gameObject, 0.1f);
-            PlayerController.Instance.isAttacking = false;
+            //PlayerController.Instance.isAttacking = false;
         }
     }
 
@@ -28,6 +28,13 @@ public class Destructible : MonoBehaviour
             destroyParticles.transform.position = transform.position;
             destroyParticles.Play();
             Destroy(gameObject, 0.1f);
+        }
+        if (collision.gameObject.CompareTag("Melee") && player._playerState == PlayerObj.PlayerState.attack)
+        {
+            destroyParticles.transform.position = gameObject.transform.position;
+            destroyParticles.Play();
+            Destroy(gameObject, 0.1f);
+            //PlayerController.Instance.isAttacking = false;
         }
     }
 }
