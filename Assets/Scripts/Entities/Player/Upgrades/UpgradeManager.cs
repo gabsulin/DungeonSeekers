@@ -45,7 +45,11 @@ public class UpgradeManager : MonoBehaviour
     public void ResetUpgrades()
     {
         activeUpgrades.Clear();
-        // volitelnì: resetni staty hráèe na výchozí (pokud máš zálohu)
+        var abilityHolder = PlayerController.Instance.GetComponent<AbilityHolder>();
+        if(abilityHolder != null && abilityHolder.ability != null)
+        {
+            abilityHolder.ability.ResetValues();
+        } 
         Debug.Log("Upgrady resetovány.");
     }
 

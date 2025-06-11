@@ -82,6 +82,7 @@ public class BossHpSystem : MonoBehaviour
     }
     private void Die()
     {
+        AudioManager.Instance.PlayMusic("Battle", false);
         anim.SetBool("Die", true);
         isDead = true;
     }

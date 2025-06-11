@@ -5,5 +5,20 @@ public class Ability : ScriptableObject
     public float coolDownTime;
     public float activeTime;
 
-    public virtual void Activate(GameObject parent) {}
+    [HideInInspector] public float baseCooldownTime;
+    [HideInInspector] public float baseActiveTime;
+
+    public virtual void Activate(GameObject parent) { }
+
+    private void OnEnable()
+    {
+        if (baseCooldownTime == 0f) baseCooldownTime = coolDownTime;
+        if (baseActiveTime == 0f) baseActiveTime = activeTime;
+    }
+
+    public void ResetValues()
+    {
+        coolDownTime = baseCooldownTime;
+        activeTime = baseActiveTime;
+    }
 }

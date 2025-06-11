@@ -46,7 +46,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
-        if (input.magnitude > 0 && !isAttacking)
+        if (input.magnitude > 0)
         {
             playerObj._playerState = PlayerObj.PlayerState.move;
             transform.position += (Vector3)(input * moveSpeed * Time.deltaTime);
@@ -98,23 +98,6 @@ public class PlayerController : Singleton<PlayerController>
                 animator.ResetTrigger("Attack");
             }
         }
-
-        /*if (Input.GetMouseButtonDown(1) && currentWeapon is Melee)
-        {
-            playerObj._playerState = PlayerObj.PlayerState.stun;
-            anim.PlayAnimation(7);
-            AudioManager.Instance.PlaySFX("SwordSpecialAttack");
-            //stun bude fungovat pouze na enemies v nejake oblasti
-
-            EnemyObj[] enemiesArray = FindObjectsByType<EnemyObj>(FindObjectsSortMode.None);
-            List<EnemyObj> enemiesList = new List<EnemyObj>(enemiesArray);
-
-            foreach (EnemyObj enemy in enemiesList)
-            {
-                var enemyHealth = enemy.GetComponent<EnemyHpSystem>();
-                enemyHealth.Stun();
-            }
-        }*/
     }
     private void HandleAttackCooldown()
     {

@@ -13,10 +13,11 @@ public class EnemyHealth : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
-    public bool stunned;
-
     int coinsDrop;
     int coinsAmount;
+
+    bool hasDroppedCoins = false;
+    bool isAddedToGameStats = false;
 
     [SerializeField] GameObject coinPrefab;
     private void Awake()
@@ -48,16 +49,22 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
+        if (!isAddedToGameStats)
+        {
+            isAddedToGameStats = true;
+            GameStats.Instance.AddEnemyKill();
+        }
+
         enemy.currentState = EnemyState.Death;
         anim.SetBool("Die", true);
         anim.SetBool("IsMoving", false);
         anim.ResetTrigger("Attack");
 
         RemoveFromList();
-        GameStats.Instance.AddEnemyKill();
 
-        if (coinsDrop >= 0)
+        if (!hasDroppedCoins && coinsDrop == 3)
         {
+            hasDroppedCoins = true;
             StartCoroutine(DropCoins());
         }
     }
@@ -78,6 +85,7 @@ public class EnemyHealth : MonoBehaviour
     IEnumerator DropCoins()
     {
         coinsAmount = Random.Range(3, 8);
+        Debug.Log($"Dropping {coinsAmount} coins!");
         for (int i = 0; i < coinsAmount; i++)
         {
             GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
@@ -97,7 +105,7 @@ public class EnemyHealth : MonoBehaviour
             rb.gravityScale = 0;
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0;
-            AnimateCoinMovement(coin);
+            StartCoroutine(AnimateCoinMovement(coin));
         }
     }
 

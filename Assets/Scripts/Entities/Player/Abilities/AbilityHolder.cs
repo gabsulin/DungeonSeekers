@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class AbilityHolder : MonoBehaviour
 {
     public Ability ability;
-    float cooldownTime;
+    [HideInInspector] public float cooldownTime;
     float activeTime;
     [SerializeField] Image abilityBar;
 

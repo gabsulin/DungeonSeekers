@@ -35,6 +35,7 @@ public class Gun : Weapon
 
     protected override void Attack()
     {
+        AudioManager.Instance.PlaySFX("GunShot");
         if (!isShotgun)
             FireSingleShot();
         else

@@ -8,7 +8,7 @@ public enum UpgradeType
     MaxHealth,
     MaxShields,
     CooldownReduction,
-    ShieldRecharge
+    ShieldRecharge 
 }
 
 [System.Serializable]
@@ -24,7 +24,6 @@ public class Upgrade
         switch (upgradeType)
         {
             case UpgradeType.FireRate:
-            case UpgradeType.CooldownReduction:
                 weapon.data.attackCooldown *= 1f - value;
                 break;
             case UpgradeType.Accuracy:
@@ -40,6 +39,7 @@ public class Upgrade
     {
         var player = PlayerController.Instance;
         var hpSystem = player.GetComponent<PlayerHpSystem>();
+        var ability = player.GetComponent<AbilityHolder>();
 
         switch (upgradeType)
         {
@@ -59,7 +59,9 @@ public class Upgrade
             case UpgradeType.ShieldRecharge:
                 hpSystem.ApplyShieldRechargeUpgrade(value);
                 break;
+            case UpgradeType.CooldownReduction:
+                ability.ability.coolDownTime *= (1f - value);
+                break;
         }
     }
-
 }

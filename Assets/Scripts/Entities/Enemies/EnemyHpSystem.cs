@@ -17,6 +17,9 @@ public class EnemyHpSystem : MonoBehaviour
     int coinsDrop;
     int coinsAmount;
 
+    bool hasDroppedCoins = false;
+    bool isAddedToGameStats = false;
+
     [SerializeField] GameObject coinPrefab;
     private void Awake()
     {
@@ -41,6 +44,12 @@ public class EnemyHpSystem : MonoBehaviour
 
     private void Die()
     {
+        if (!isAddedToGameStats)
+        {
+            isAddedToGameStats = true;
+            GameStats.Instance.AddEnemyKill();
+        }
+
         if (enemy._enemyState != EnemyObj.EnemyState.death)
         {
             anim._anim.ResetTrigger("Attack");
@@ -53,13 +62,13 @@ public class EnemyHpSystem : MonoBehaviour
             StartCoroutine(PlayDeathAnimation());
         }
         RemoveFromList();
-        GameStats.Instance.AddEnemyKill();
 
         if (gameObject != null)
             Destroy(gameObject, 1);
 
-        if(coinsDrop == 3)
+        if (!hasDroppedCoins && coinsDrop == 3)
         {
+            hasDroppedCoins = true;
             StartCoroutine(DropCoins());
         }
     }

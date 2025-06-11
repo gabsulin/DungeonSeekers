@@ -71,11 +71,16 @@ public class MechGolem : MonoBehaviour
 
         if (isDashing)
         {
+            AudioManager.Instance.PlaySFX("MechCharging");
+            var loopingSFX = AudioManager.Instance.sfxSource;
+            loopingSFX.loop = true;
             dashDuration += Time.deltaTime;
             animator.SetFloat("DashDuration", dashDuration);
 
             if (dashDuration >= maxDashDuration && !playerHp.isDead)
             {
+                loopingSFX.loop = false;
+                loopingSFX.Stop();
                 StopDash();
             }
         }
@@ -113,6 +118,7 @@ public class MechGolem : MonoBehaviour
             if (rand < 0.3f)
             {
                 StartLaserAttack();
+                AudioManager.Instance.PlaySFX("Laser");
             }
             else
             {
@@ -135,6 +141,7 @@ public class MechGolem : MonoBehaviour
             {
                 animator.SetTrigger("Attack");
                 StartLaserAttack();
+                AudioManager.Instance.PlaySFX("Laser");
             }
             else
             {

@@ -25,23 +25,28 @@ public class EnemyDamage : MonoBehaviour
             mainCamera = Camera.main;
             if (mainCamera == null) Debug.LogError("Main Camera not found!");
         }
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (uiCanvasTransform == null)
         {
             Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
             if (canvas != null) uiCanvasTransform = canvas.transform;
             if (uiCanvasTransform == null) Debug.LogError("UI Canvas Transform not assigned!");
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
         HandleCollision(collision.collider, collision.contacts[0].point);
         //PlayerController.Instance.isAttacking = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        if (uiCanvasTransform == null)
+        {
+            Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            if (canvas != null) uiCanvasTransform = canvas.transform;
+            if (uiCanvasTransform == null) Debug.LogError("UI Canvas Transform not assigned!");
+        }
         HandleCollision(collider, collider.transform.position);
         PlayerController.Instance.isAttacking = false;
     }
@@ -137,7 +142,7 @@ public class EnemyDamage : MonoBehaviour
 
     private IEnumerator ResetHitFlag()
     {
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.1f);
         hasHitEnemy = false;
     }
 

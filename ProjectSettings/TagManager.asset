@@ -31,14 +31,14 @@ TagManager:
   - Collision
   - Interactable
   - Weapon
+  - IgnoreDamage
   - 
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
+  - PlayerBullet
   - BossBullet
   - Bullet
   - Layer 1

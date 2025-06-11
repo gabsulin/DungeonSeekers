@@ -45,7 +45,7 @@ public class GameStats : MonoBehaviour
 
     public void AddEnemyKill()
     {
-        enemiesKilled++;
+        enemiesKilled += 1;
     }
 
     public void AddCoins(int amount)

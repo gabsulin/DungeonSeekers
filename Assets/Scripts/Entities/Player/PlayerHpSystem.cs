@@ -106,6 +106,7 @@ public class PlayerHpSystem : MonoBehaviour
 
     public void TakeHit(int damage)
     {
+        AudioManager.Instance.PlaySFX("Hit");
         wasntHit = 0;
         if (!isImmune)
         {

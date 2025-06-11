@@ -22047,6 +22047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ability: {fileID: 11400000, guid: 279f402e94753c846b1c06ba9787f8e2, type: 2}
+  cooldownTime: 0
   abilityBar: {fileID: 0}
   key: 32
   isReset: 0

@@ -13,6 +13,7 @@ public class DashAbility : Ability
         PlayerHpSystem playerHp = parent.GetComponent<PlayerHpSystem>();
 
         Vector2 dashDirection;
+        AudioManager.Instance.PlaySFX("Dash");
 
         if (player.input != Vector2.zero)
         {

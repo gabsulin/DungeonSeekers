@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1303588456740025412}
   - component: {fileID: 5009364802588119640}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: AttackHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  stunned: 0
   coinPrefab: {fileID: 179157823112342523, guid: 5c9742279d057ca46bbd5697c76645f9,
     type: 3}
 --- !u!114 &6739833971677640263
