@@ -270,7 +270,7 @@ MonoBehaviour:
   missilePrefab: {fileID: -4196643192435945419, guid: 241ec70f03ff4bb4eb1c5e8822858b6c,
     type: 3}
   missileSpawnPoint: {fileID: 6870932463142461470}
-  dashSpeed: 10
+  dashSpeed: 12
   maxDashDuration: 5
   bounceLayers:
     serializedVersion: 2

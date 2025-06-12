@@ -4,6 +4,7 @@ public class UpgradePickup : MonoBehaviour, IInteractable
 {
     public UpgradeType upgradeType;
     public float value;
+    public int price;
 
     public void Interact()
     {
@@ -13,6 +14,8 @@ public class UpgradePickup : MonoBehaviour, IInteractable
             value = value
         };
 
+        CoinManager.instance.Buy(price);
+        AudioManager.Instance.PlaySFX("Upgrade");
         UpgradeManager.Instance.ApplyUpgradeToCurrentWeapon(upgrade);
 
         Destroy(gameObject);

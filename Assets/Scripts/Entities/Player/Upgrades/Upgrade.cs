@@ -44,7 +44,7 @@ public class Upgrade
         switch (upgradeType)
         {
             case UpgradeType.MovementSpeed:
-                player.moveSpeed += value;
+                player.moveSpeed *= value;
                 break;
             case UpgradeType.MaxHealth:
                 hpSystem.maxHp += value;

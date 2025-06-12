@@ -448,7 +448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0c63a2e4620364844974146b503f4e8b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1181,8 +1181,7 @@ MonoBehaviour:
   - {fileID: 1760890252618503655}
   - {fileID: 2174177251460961748}
   weaponPrefabs: []
-  weaponSprites:
-  - {fileID: 21300000, guid: 0c63a2e4620364844974146b503f4e8b, type: 3}
+  weaponSprites: []
   weaponParent: {fileID: 0}
 --- !u!1 &8179243183975528131
 GameObject:

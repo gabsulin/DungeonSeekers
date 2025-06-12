@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,8 +21,12 @@ public class ActiveInventory : MonoBehaviour
         if (weaponParent.childCount > 0)
         {
             GameObject defaultWeapon = weaponParent.GetChild(0).gameObject;
+            weaponSprites.Add(defaultWeapon.GetComponent<SpriteRenderer>().sprite);
             weaponPrefabs.Add(defaultWeapon);
             currentWeaponInstance = defaultWeapon;
+
+            Transform itemTransform = inventorySlots[0].transform.Find("Item");
+            UpdateSprites(defaultWeapon, itemTransform);
         }
 
         UpdateActiveSlot();
@@ -91,7 +96,32 @@ public class ActiveInventory : MonoBehaviour
             }
         }
     }
+    private static void UpdateSprites(GameObject newWeapon, Transform itemTransform)
+    {
+        RectTransform imageRect = itemTransform.GetComponent<RectTransform>();
+        if (imageRect != null)
+        {
+            float width = 50f;
+            float height = 50f;
+            float rotation = 0f;
 
+            if (newWeapon.GetComponent<Gun>())
+            {
+                width = 55f;
+                height = 35f;
+                rotation = 0f;
+            }
+            else if (newWeapon.GetComponent<Melee>())
+            {
+                width = 35f;
+                height = 65f;
+                rotation = -45f;
+            }
+
+            imageRect.sizeDelta = new Vector2(width, height);
+            imageRect.rotation = Quaternion.Euler(0, 0, rotation);
+        }
+    }
     public void PickUpWeapon(GameObject weapon)
     {
         if (weaponParent == null || weapon == null) return;
@@ -117,28 +147,25 @@ public class ActiveInventory : MonoBehaviour
             weaponSprites.Add(spriteRenderer.sprite);
         }
 
-        for (int i = 0; i < inventorySlots.Length; i++)
-        {
-            Transform itemTransform = inventorySlots[i].transform.Find("Item");
-            if (itemTransform != null)
-            {
-                itemTransform.gameObject.SetActive(false);
-            }
-        }
+        int newIndex = weaponPrefabs.Count - 1;
 
-        for (int i = 0; i < weaponSprites.Count && i < inventorySlots.Length; i++)
+        if (newIndex >= 0 && newIndex < inventorySlots.Length)
         {
-            Transform itemTransform = inventorySlots[i].transform.Find("Item");
+            Transform itemTransform = inventorySlots[newIndex].transform.Find("Item");
+
             if (itemTransform != null)
             {
+                UpdateSprites(newWeapon, itemTransform);
+
                 Image itemImage = itemTransform.GetComponent<Image>();
                 if (itemImage != null)
                 {
-                    itemImage.sprite = weaponSprites[i];
+                    itemImage.sprite = weaponSprites[newIndex];
                     itemTransform.gameObject.SetActive(true);
                 }
             }
         }
+
 
         activeSlotIndex = weaponPrefabs.Count - 1;
         UpdateActiveSlot();
@@ -162,7 +189,7 @@ public class ActiveInventory : MonoBehaviour
         droppedWeapon.SetActive(true);
         droppedWeapon.tag = "Interactable";
         droppedWeapon.layer = 8;
-        if(droppedWeapon.GetComponent<WeaponPickup>() == null)
+        if (droppedWeapon.GetComponent<WeaponPickup>() == null)
         {
             droppedWeapon.AddComponent<WeaponPickup>();
         }
@@ -201,6 +228,8 @@ public class ActiveInventory : MonoBehaviour
             Transform itemTransform = inventorySlots[i].transform.Find("Item");
             if (itemTransform != null)
             {
+                UpdateSprites(weaponPrefabs[i], itemTransform);
+
                 Image itemImage = itemTransform.GetComponent<Image>();
                 if (itemImage != null)
                 {

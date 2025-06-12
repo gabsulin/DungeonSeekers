@@ -7382,6 +7382,12 @@ MonoBehaviour:
   - name: Death
     clips:
     - {fileID: 8300000, guid: 1d7a60a0bd3508b4c981d2a52a339960, type: 3}
+  - name: Upgrade
+    clips:
+    - {fileID: 8300000, guid: 6948a03ca81215f4cacec5a78c3a82e1, type: 3}
+  - name: Upgrade
+    clips:
+    - {fileID: 8300000, guid: 1d7a60a0bd3508b4c981d2a52a339960, type: 3}
   musicSource: {fileID: 121208694}
   loopSource: {fileID: 840704403}
   sfxSource: {fileID: 128986368}

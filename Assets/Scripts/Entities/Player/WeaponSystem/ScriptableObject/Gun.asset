@@ -19,3 +19,6 @@ MonoBehaviour:
   attackSound:
     name: 
     clips: []
+  inventorySprite: {fileID: -353751291, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
+  spriteScale: {x: 1, y: 1}
+  spriteOffset: {x: 0, y: 0}

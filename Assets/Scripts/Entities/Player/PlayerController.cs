@@ -8,7 +8,7 @@ public class PlayerController : Singleton<PlayerController>
     private SPUM_Prefabs anim;
     private Animator animator;
 
-    public float moveSpeed = 8f;
+    public float moveSpeed;
     public bool canMove = true;
     public bool canAttack = true;
 
@@ -40,6 +40,8 @@ public class PlayerController : Singleton<PlayerController>
 
         if (currentWeapon != null)
             currentWeapon.UpdateWeapon();
+
+        Debug.Log(moveSpeed);
     }
 
     private void HandleMovement()

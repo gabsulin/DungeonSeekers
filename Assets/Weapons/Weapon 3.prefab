@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3526690527195854564}
   - component: {fileID: -4695030332283845172}
   - component: {fileID: -5700561403372381978}
+  - component: {fileID: 763687913457370175}
   m_Layer: 8
   m_Name: Weapon 3
   m_TagString: Interactable
@@ -182,7 +183,19 @@ MonoBehaviour:
   firePoint: {fileID: 5392087669173287743}
   bulletSpeed: 10
   isShotgun: 0
-  accuracy: 100
+  accuracy: 65
+--- !u!114 &763687913457370175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5465140942155413232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bea77fa61d276941b1f662ae1897731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7338125251074981351
 GameObject:
   m_ObjectHideFlags: 0

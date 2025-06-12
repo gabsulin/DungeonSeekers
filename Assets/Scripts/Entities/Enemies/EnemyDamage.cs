@@ -73,7 +73,7 @@ public class EnemyDamage : MonoBehaviour
                     hasHitEnemy = true;
                     bossHp.TakeDamage(actualDamageDealt, isMelee);
                     ShowDamageNumber(actualDamageDealt, enemyCenterPosition);
-                    StartCoroutine(ResetHitFlag());
+                    if(gameObject.activeSelf) StartCoroutine(ResetHitFlag());
                 }
             }
             else

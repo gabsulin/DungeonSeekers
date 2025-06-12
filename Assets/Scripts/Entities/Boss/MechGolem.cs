@@ -240,10 +240,13 @@ public class MechGolem : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
 
-        LaserRotate rotator = laser.GetComponent<LaserRotate>();
-        if (rotator != null && laser != null)
+        if (laser != null)
         {
-            rotator.StopRotating();
+            LaserRotate rotator = laser.GetComponent<LaserRotate>();
+            if (rotator != null)
+            {
+                rotator.StopRotating();
+            }
         }
 
         isCastingLaser = false;

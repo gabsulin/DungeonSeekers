@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1054325870596465265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1657740630358067683}
+  - component: {fileID: 8729496155522443391}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1657740630358067683
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054325870596465265}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8729496155522443391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054325870596465265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883a4e802d655d044ac39032a4df707b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToBuy:
+  - {fileID: 8582864339536313691, guid: f6046cccd0ed4044cab413934ba91950, type: 3}
+  - {fileID: 7423473656304616733, guid: b00752bf3e5b75b41a21efbf3df8b663, type: 3}
+  - {fileID: 2282504237066601859, guid: fcccd66afa4e5fe4f8dcb8f762077ea3, type: 3}
+  - {fileID: 7859706620258973859, guid: 0cc69b72eb97ae34eb0d78e2a5358d7f, type: 3}
+  - {fileID: 7641522003683207027, guid: c4bcb53c3faee7b4e9ddf47c78927716, type: 3}
+  - {fileID: 7591110682801277872, guid: 35916a73fe9043044935f13eaca615c4, type: 3}
+  - {fileID: 1744607315956705918, guid: 2d40d2588eab6834a99848c12877beb2, type: 3}
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  floatSpeed: 3.5
+  floatHeight: 0.05

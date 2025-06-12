@@ -13,6 +13,6 @@ public class LevitationAnimation : MonoBehaviour
     void Update()
     { 
         float newY = Mathf.Sin(Time.time * floatSpeed) * floatHeight;
-        transform.position = startPos + new Vector2(startPos.x, newY);
+        transform.position = new Vector2(startPos.x, newY);
     }
 }
