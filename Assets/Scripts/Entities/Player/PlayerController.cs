@@ -27,7 +27,6 @@ public class PlayerController : Singleton<PlayerController>
         anim = GetComponentInChildren<SPUM_Prefabs>();
         animator = anim.GetComponentInChildren<Animator>();
         UpdateCurrentWeapon();
-        Debug.Log(currentWeapon);
     }
 
     private void Update()
@@ -40,8 +39,6 @@ public class PlayerController : Singleton<PlayerController>
 
         if (currentWeapon != null)
             currentWeapon.UpdateWeapon();
-
-        Debug.Log(moveSpeed);
     }
 
     private void HandleMovement()

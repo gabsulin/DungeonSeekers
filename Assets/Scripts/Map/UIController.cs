@@ -7,8 +7,8 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
-        musicSlider.value = 0.1f;
-        sfxSlider.value = 0.1f;
+        musicSlider.value = AudioManager.Instance.musicSource.volume;
+        sfxSlider.value = AudioManager.Instance.sfxSource.volume;
     }
 
     public void ToggleMusic()

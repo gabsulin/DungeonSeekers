@@ -37,6 +37,7 @@ public class GinBoss : MonoBehaviour
     }
     public void Attack()
     {
+        AudioManager.Instance.PlaySFX("GinAttack");
         var magic = Instantiate(magicAttack, magicSpawnPoint.position, Quaternion.identity);
         if (magic != null)
         {
@@ -51,6 +52,7 @@ public class GinBoss : MonoBehaviour
     }
     public void EnragedAttack()
     {
+        AudioManager.Instance.PlaySFX("GinAttack");
         Vector2 direction = ((Vector2)aimTarget.position - (Vector2)magicSpawnPoint.position).normalized;
 
         float distance = Vector2.Distance(aimTarget.position, enragedMagicSpawnPoint.position);

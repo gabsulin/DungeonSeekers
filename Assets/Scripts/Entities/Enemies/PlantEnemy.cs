@@ -24,7 +24,7 @@ public class PlantEnemy : Enemy
     public override void Attack()
     {
         currentState = EnemyState.Attack;
-        if (seedPrefab != null && spawnPoint != null)
+        if (seedPrefab != null && spawnPoint != null && !playerHp.isDead)
         {
             Vector2 baseDirection = (aimTarget.transform.position - spawnPoint.position).normalized;
 

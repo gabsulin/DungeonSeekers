@@ -59,33 +59,38 @@ public class EnemyDamage : MonoBehaviour
         bool isMelee = weapon is Melee;
         var state = player._playerState;
 
-        if ((collider.CompareTag("Enemy") && state == PlayerObj.PlayerState.attack) ||
-            (collider.CompareTag("MiniBoss") && state == PlayerObj.PlayerState.attack))
+        if(isMelee)
         {
-            int actualDamageDealt = damage;
-            Vector3 enemyCenterPosition = collider.bounds.center;
-
-            if (collider.CompareTag("MiniBoss"))
+            if ((collider.CompareTag("Enemy") && state == PlayerObj.PlayerState.attack) ||
+            (collider.CompareTag("MiniBoss") && state == PlayerObj.PlayerState.attack))
             {
-                var bossHp = collider.GetComponent<BossHpSystem>();
-                if (bossHp != null)
-                {
-                    hasHitEnemy = true;
-                    bossHp.TakeDamage(actualDamageDealt, isMelee);
-                    ShowDamageNumber(actualDamageDealt, enemyCenterPosition);
-                    if(gameObject.activeSelf) StartCoroutine(ResetHitFlag());
-                }
+                HandleAttack(collider, isMelee);
             }
-            else
+        } else
+        {
+            HandleAttack(collider, isMelee);
+        }
+    }
+
+    private void HandleAttack(Collider2D collider, bool isMelee)
+    {
+        int actualDamageDealt = damage;
+        Vector3 enemyCenterPosition = collider.bounds.center;
+
+        if (collider.CompareTag("MiniBoss"))
+        {
+            var bossHp = collider.GetComponent<BossHpSystem>();
+            if (bossHp != null)
             {
-                if (TryDealDamageToEnemy(collider, actualDamageDealt))
-                {
-                    Debug.Log("hit");
-                    hasHitEnemy = true;
-                    ShowDamageNumber(actualDamageDealt, enemyCenterPosition);
-                    if (gameObject.activeSelf)
-                        StartCoroutine(ResetHitFlag());
-                }
+                bossHp.TakeDamage(actualDamageDealt, isMelee);
+                ShowDamageNumber(actualDamageDealt, enemyCenterPosition);
+            }
+        }
+        else
+        {
+            if (TryDealDamageToEnemy(collider, actualDamageDealt))
+            {
+                ShowDamageNumber(actualDamageDealt, enemyCenterPosition);
             }
         }
     }
@@ -138,16 +143,5 @@ public class EnemyDamage : MonoBehaviour
                 tmpText.text = damageAmount.ToString();
             }
         }
-    }
-
-    private IEnumerator ResetHitFlag()
-    {
-        yield return new WaitForSeconds(0.1f);
-        hasHitEnemy = false;
-    }
-
-    public void ResetHit()
-    {
-        hasHitEnemy = false;
     }
 }

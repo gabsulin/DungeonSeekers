@@ -440,6 +440,9 @@ MonoBehaviour:
   maxHealth: 100
   enragedColor: {r: 1, g: 1, b: 1, a: 1}
   isSpecialBoss: 0
+  soundName: MonsterDeath
+  musicName: Battle
+  hasIntro: 0
   currentHealth: 0
   hpBar: {fileID: 3693105576019430919}
   isEnraged: 0

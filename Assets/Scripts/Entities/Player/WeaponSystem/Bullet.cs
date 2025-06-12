@@ -3,7 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
-    [SerializeField] private float lifetime = 3f;
+    [SerializeField] private float lifetime = 2.5f;
     private EnemyDamage damageScript;
 
     private Rigidbody2D rb;
@@ -18,8 +18,6 @@ public class Bullet : MonoBehaviour
     private void OnEnable()
     {
         timer = lifetime;
-        if (damageScript != null)
-            damageScript.ResetHit();
     }
 
     private void Update()

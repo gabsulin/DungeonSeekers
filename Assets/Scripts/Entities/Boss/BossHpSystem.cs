@@ -6,6 +6,11 @@ public class BossHpSystem : MonoBehaviour
     [SerializeField] float maxHealth;
     [SerializeField] Color enragedColor;
     [SerializeField] bool isSpecialBoss;
+
+    [Header("Sound Settings")]
+    [SerializeField] string soundName;
+    [SerializeField] string musicName;
+    [SerializeField] bool hasIntro;
     public float currentHealth;
 
     public Image hpBar;
@@ -58,6 +63,7 @@ public class BossHpSystem : MonoBehaviour
             }
             if (!isEnraged && currentHealth <= maxHealth / 2)
             {
+                AudioManager.Instance.PlaySFX("Phase2");
                 isEnraged = true;
                 anim.SetBool("IsEnraged", true);
                 spriteRenderer.color = enragedColor;
@@ -82,7 +88,9 @@ public class BossHpSystem : MonoBehaviour
     }
     private void Die()
     {
-        AudioManager.Instance.PlayMusic("Battle", false);
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlayMusic(musicName, hasIntro);
+        AudioManager.Instance.PlaySFX(name);
         anim.SetBool("Die", true);
         isDead = true;
     }

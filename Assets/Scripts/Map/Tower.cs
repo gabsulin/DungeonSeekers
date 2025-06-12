@@ -11,6 +11,7 @@ public class Tower : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        AudioManager.Instance.PlaySFX("Building");
     }
 
     public void SpawnTroop()

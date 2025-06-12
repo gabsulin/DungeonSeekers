@@ -8,6 +8,7 @@ public class EnemyHpSystem : MonoBehaviour
 
     EnemyObj enemy;
     SPUM_Prefabs anim;
+    Knockback knockback;
 
     public int maxHealth = 100;
     public int currentHealth;
@@ -29,13 +30,20 @@ public class EnemyHpSystem : MonoBehaviour
     {
         enemy = GetComponent<EnemyObj>();
         anim = GetComponentInChildren<SPUM_Prefabs>();
+        knockback = GetComponent<Knockback>();
 
         coinsDrop = Random.Range(0, 4);
         Debug.Log(coinsDrop);
     }
     public void TakeDamage(int damage)
     {
+        AudioManager.Instance.PlaySFX("EnemyHit");
         currentHealth -= damage;
+        Weapon weapon = PlayerController.Instance?.GetCurrentWeapon();
+        bool isMelee = weapon is Melee;
+        if (isMelee)
+            knockback.GetKnockback(PlayerController.Instance.transform, 5f);
+
         if (currentHealth <= 0)
         {
             Die();
@@ -44,6 +52,7 @@ public class EnemyHpSystem : MonoBehaviour
 
     private void Die()
     {
+        AudioManager.Instance.PlaySFX("EnemyDeath");
         if (!isAddedToGameStats)
         {
             isAddedToGameStats = true;

@@ -6,21 +6,19 @@ using UnityEngine.Tilemaps;
 public class MapFunctionality : MonoBehaviour
 {
     [Header("Scene Objects")]
-    [SerializeField] Tilemap nextScene;
-    [SerializeField] Tilemap prevScene;
     [SerializeField] GameObject chest;
     [SerializeField] GameObject areaExit;
-    [SerializeField] GameObject areaEntrance;
 
     [Header("Wave Settings")]
     [SerializeField] GameObject[] enemyPrefabs;
-    [SerializeField] int[] enemiesPerWave = { 2, 4, 6 };
+    private List<int> enemiesPerWave = new List<int>();
     private int currentWaveIndex = 0;
     private bool allWavesCompleted = false;
     private bool waveInProgress = false;
 
     [Header("Spawn Area")]
-    [SerializeField] BoxCollider2D enemySpawnArea;
+    [SerializeField] Tilemap groundTilemap;
+    private List<Vector2> validSpawnPositions = new List<Vector2>();
 
     [Header("Runtime")]
     [SerializeField] public List<EnemyHpSystem> spumEnemies;
@@ -37,14 +35,14 @@ public class MapFunctionality : MonoBehaviour
             waveTextEffect = canvasGO.transform.Find("WaveText").GetComponent<WaveTextEffect>();
         }
 
+        GenerateRandomWaves();
+
         StartCoroutine(WaitForWaveTexToSpawn());
         chest.SetActive(false);
-        nextScene.gameObject.SetActive(true);
-        prevScene.gameObject.SetActive(true);
 
         StartCoroutine(WaitForEnemiesSpawn());
-
         GameStats.Instance.OnRoomStart();
+        CacheValidSpawnTiles();
     }
 
     void Update()
@@ -53,7 +51,7 @@ public class MapFunctionality : MonoBehaviour
         {
             waveInProgress = true;
 
-            if (currentWaveIndex < enemiesPerWave.Length - 1)
+            if (currentWaveIndex < enemiesPerWave.Count - 1)
             {
                 currentWaveIndex++;
                 StartCoroutine(WaitForEnemiesSpawn());
@@ -61,15 +59,24 @@ public class MapFunctionality : MonoBehaviour
             else
             {
                 allWavesCompleted = true;
-
-                nextScene.gameObject.SetActive(false);
-                prevScene.gameObject.SetActive(false);
                 chest.SetActive(true);
                 areaExit.SetActive(true);
-                areaEntrance.SetActive(true);
 
                 GameStats.Instance.OnRoomCleared();
             }
+        }
+    }
+
+    private void GenerateRandomWaves()
+    {
+        int totalWaves = Random.Range(2, 6);
+
+        for (int i = 0; i < totalWaves; i++)
+        {
+            int minEnemies = 2 + i;
+            int maxEnemies = 4 + i * 2;
+            int enemiesInWave = Random.Range(minEnemies, maxEnemies + 1);
+            enemiesPerWave.Add(enemiesInWave);
         }
     }
 
@@ -77,8 +84,6 @@ public class MapFunctionality : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        areaEntrance.SetActive(false);
-        areaExit.SetActive(false);
         isSpawningEnemies = true;
 
         DisplayWaveStartEffects();
@@ -86,19 +91,20 @@ public class MapFunctionality : MonoBehaviour
         yield return new WaitForSeconds(2);
         SpawnEnemies();
     }
+
     private IEnumerator WaitForWaveTexToSpawn()
     {
         yield return new WaitForSeconds(1f);
         DisplayWaveStartEffects();
     }
+
     private void DisplayWaveStartEffects()
     {
         if (waveTextEffect != null)
         {
             waveTextEffect.DisplayWaveText(currentWaveIndex + 1);
         }
-
-        // Optional: play wave start sound here
+        // you can slap in a lil SFX here if you want
     }
 
     private void SpawnEnemies()
@@ -118,7 +124,7 @@ public class MapFunctionality : MonoBehaviour
                 spumEnemies.Add(spumEnemyHpSystem);
                 spumEnemyHpSystem.SetManager(this);
             }
-            if(spumEnemyHpSystem == null)
+            else
             {
                 EnemyHealth enemyHpSystem = enemy.GetComponent<EnemyHealth>();
                 if (enemyHpSystem != null)
@@ -127,14 +133,13 @@ public class MapFunctionality : MonoBehaviour
                     enemyHpSystem.SetManager(this);
                 }
             }
-            
         }
 
         isSpawningEnemies = false;
         waveInProgress = false;
     }
 
-    private Vector2 GetRandomPosition()
+    /*private Vector2 GetRandomPosition()
     {
         if (enemySpawnArea == null)
             return Vector2.zero;
@@ -160,10 +165,37 @@ public class MapFunctionality : MonoBehaviour
         }
 
         return spawnPos;
-    }
+    }*/
 
-    private bool IsValidPosition(Vector2 pos)
+    private void CacheValidSpawnTiles()
     {
-        return !Physics2D.OverlapPoint(pos, LayerMask.GetMask("Collision"));
+        validSpawnPositions.Clear();
+
+        BoundsInt bounds = groundTilemap.cellBounds;
+        TileBase[] allTiles = groundTilemap.GetTilesBlock(bounds);
+
+        for (int x = 0; x < bounds.size.x; x++)
+        {
+            for (int y = 0; y < bounds.size.y; y++)
+            {
+                TileBase tile = allTiles[x + y * bounds.size.x];
+                if (tile != null)
+                {
+                    Vector3Int cellPos = new Vector3Int(bounds.x + x, bounds.y + y, 0);
+                    Vector3 worldPos = groundTilemap.GetCellCenterWorld(cellPos);
+                    validSpawnPositions.Add(worldPos);
+                }
+            }
+        }
+    }
+    private Vector2 GetRandomPosition()
+    {
+        if (validSpawnPositions.Count == 0)
+        {
+            Debug.LogWarning("No valid spawn tiles found!");
+            return transform.position; // fallback
+        }
+
+        return validSpawnPositions[Random.Range(0, validSpawnPositions.Count)];
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyPathfinder : MonoBehaviour
 {
     [HideInInspector] public Transform player;
+    [HideInInspector] public PlayerHpSystem playerHp;
     [HideInInspector] public Animator animator;
     [HideInInspector] public GridManager grid;
     Rigidbody2D rb;
@@ -22,6 +23,7 @@ public class EnemyPathfinder : MonoBehaviour
     private void Start()
     {
         player = FindFirstObjectByType<PlayerController>().transform;
+        playerHp = FindFirstObjectByType<PlayerHpSystem>();
         animator = GetComponent<Animator>();
         grid = FindFirstObjectByType<GridManager>();
         rb = GetComponent<Rigidbody2D>();
@@ -29,6 +31,8 @@ public class EnemyPathfinder : MonoBehaviour
     }
     void Update()
     {
+        if (playerHp.isDead) return;
+
         distance = Vector2.Distance(transform.position, player.position);
         pathRecalculationTimer -= Time.deltaTime;
         attackCooldown -= Time.deltaTime;

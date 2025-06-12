@@ -115,12 +115,6 @@ public class PlayerHpSystem : MonoBehaviour
                 int overflowDmg = damage - (int)currentShields;
 
                 currentShields -= damage;
-                /*damageNumber.text = damage.ToString();
-
-                float randX = Random.Range(-0.5f, 0.5f);
-                float randY = Random.Range(-0.5f, 0.5f);
-                Vector2 offSet = new Vector2(randX, randY);
-                Instantiate(damageNumber, (Vector2)transform.position + offSet, Quaternion.identity);*/
 
                 if (currentShields <= 0) currentShields = 0;
 
@@ -160,6 +154,7 @@ public class PlayerHpSystem : MonoBehaviour
 
     private void Die()
     {
+        AudioManager.Instance.PlaySFX("PlayerDeath");
         if (player._playerState != PlayerObj.PlayerState.death)
         {
             anim._anim.ResetTrigger("Attack");

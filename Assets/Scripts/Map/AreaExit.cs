@@ -16,11 +16,12 @@ public class AreaExit : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<PlayerObj>())
+        if(collision.GetComponent<PlayerController>())
         {
             SceneManagement.Instance.SetTransitionName(sceneTransitionName);
             uiFade.FadeToBlack();
             StartCoroutine(LoadSceneRoutine());
+            Debug.Log("bleble");
         }
     }
 
