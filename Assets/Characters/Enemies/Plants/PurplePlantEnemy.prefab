@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  playerHp: {fileID: 0}
   aimTarget: {fileID: 0}
   grid: {fileID: 0}
   animator: {fileID: 131275768835225371}
@@ -369,6 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  playerHp: {fileID: 0}
   animator: {fileID: 0}
   grid: {fileID: 0}
   moveSpeed: 13
@@ -398,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4ba35793dc25d4a9c105c2dbb5680a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
   currentHealth: 0
   coinPrefab: {fileID: 179157823112342523, guid: 5c9742279d057ca46bbd5697c76645f9,
     type: 3}

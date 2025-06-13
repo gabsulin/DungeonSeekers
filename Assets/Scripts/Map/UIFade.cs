@@ -15,8 +15,7 @@ public class UIFade : MonoBehaviour
         if (fadeRoutine != null)
             StopCoroutine(fadeRoutine);
 
-        fadeRoutine = FadeRoutine(1);
-        StartCoroutine(fadeRoutine);
+        StartCoroutine(FadeRoutine(1));
     }
 
     public void FadeFromBlack()

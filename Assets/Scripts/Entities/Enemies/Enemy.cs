@@ -16,7 +16,6 @@ public abstract class Enemy : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
-    public PlayerHpSystem playerHp;
     [HideInInspector] public Transform aimTarget;
     public GridManager grid;
     public Animator animator;

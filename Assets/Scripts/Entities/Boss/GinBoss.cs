@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class GinBoss : MonoBehaviour
@@ -12,6 +13,7 @@ public class GinBoss : MonoBehaviour
     [SerializeField] Rigidbody2D enragedMagicAttack;
     [SerializeField] Transform magicSpawnPoint;
     [SerializeField] Transform enragedMagicSpawnPoint;
+    [SerializeField] TextMeshProUGUI meleeText;
     
     float cooldown;
     void Start()
@@ -52,6 +54,7 @@ public class GinBoss : MonoBehaviour
     }
     public void EnragedAttack()
     {
+        meleeText.gameObject.SetActive(true);
         AudioManager.Instance.PlaySFX("GinAttack");
         Vector2 direction = ((Vector2)aimTarget.position - (Vector2)magicSpawnPoint.position).normalized;
 

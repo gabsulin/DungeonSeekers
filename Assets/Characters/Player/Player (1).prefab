@@ -917,6 +917,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractorSource: {fileID: 795762592890144973}
   interactRange: 1
+  EButton: {fileID: 0}
 --- !u!1 &1574714312904151046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1990,6 +1991,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boomParticles: {fileID: 0}
   damage: 0
+  damageTextPrefab: {fileID: 0}
+  textSpawnRadius: 0.5
+  uiCanvasTransform: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!1 &4167846799937608626
 GameObject:
   m_ObjectHideFlags: 0
@@ -3931,9 +3936,15 @@ MonoBehaviour:
   shieldsBar: {fileID: 0}
   hpTMP: {fileID: 0}
   shieldsTMP: {fileID: 0}
+  damageNumber: {fileID: 0}
   currentHp: 0
   currentShields: 0
+  maxHp: 0
+  maxShields: 0
   isDead: 0
+  isImmune: 0
+  poisonDamagePerSecond: 1
+  poisonDuration: 5
 --- !u!114 &5884494244146473047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3947,7 +3958,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  anim: {fileID: 0}
+  canMove: 1
+  canAttack: 1
+  isAttacking: 0
+  input: {x: 0, y: 0}
 --- !u!1 &7260383432934377775
 GameObject:
   m_ObjectHideFlags: 0
@@ -4334,6 +4348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractorSource: {fileID: 6235359897041951395}
   interactRange: 1
+  EButton: {fileID: 0}
 --- !u!1 &8279227607351754500
 GameObject:
   m_ObjectHideFlags: 0

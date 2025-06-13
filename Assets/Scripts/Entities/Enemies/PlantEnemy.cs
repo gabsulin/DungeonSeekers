@@ -8,10 +8,12 @@ public class PlantEnemy : Enemy
     [SerializeField] float[] angles;
 
     CameraShake shake;
+    PlayerHpSystem playerHp;
     protected override void Start()
     {
         attackCooldown = animator.GetFloat("AttackCooldown");
         player = FindFirstObjectByType<PlayerController>().transform;
+        playerHp = FindFirstObjectByType<PlayerHpSystem>();
         Transform aimTargetParent = player.transform;
         aimTarget = aimTargetParent.Find("AimTarget");
         shake = GetComponent<CameraShake>();

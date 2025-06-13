@@ -18,14 +18,18 @@ public class BossFlip : MonoBehaviour
 
     public void LookAtPlayer()
     {
-        if (transform.position.x > player.position.x && !isFacingLeft())
+        if(player != null)
         {
-            Flip();
+            if (transform.position.x > player.position.x && !isFacingLeft())
+            {
+                Flip();
+            }
+            else if (transform.position.x < player.position.x && isFacingLeft())
+            {
+                Flip();
+            }
         }
-        else if (transform.position.x < player.position.x && isFacingLeft())
-        {
-            Flip();
-        }
+        
     }
 
     private bool isFacingLeft()

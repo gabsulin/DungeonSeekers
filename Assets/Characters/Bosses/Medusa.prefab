@@ -428,11 +428,16 @@ MonoBehaviour:
   maxHealth: 50
   enragedColor: {r: 1, g: 1, b: 1, a: 1}
   isSpecialBoss: 0
+  anim: {fileID: 8114707426038819475}
+  soundName: MedusaDeath
+  musicName: Battle
+  hasIntro: 0
   currentHealth: 0
   hpBar: {fileID: 5063681281121961646}
   isEnraged: 0
   isDamagable: 1
   isDead: 0
+  hasPhaseTwo: 0
 --- !u!114 &686144137338232766
 MonoBehaviour:
   m_ObjectHideFlags: 0

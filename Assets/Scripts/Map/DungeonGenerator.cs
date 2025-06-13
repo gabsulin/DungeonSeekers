@@ -6,7 +6,6 @@ public class DungeonGenerator : MonoBehaviour
 
     private void Awake()
     {
-        generator = FindFirstObjectByType<AbstractDungeonGenerator>();
         generator.GenerateDungeon();
     }
 }

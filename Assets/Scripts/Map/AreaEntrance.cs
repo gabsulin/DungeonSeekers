@@ -9,7 +9,7 @@ public class AreaEntrance : MonoBehaviour
     PlayerHpSystem playerHp;
     AbilityHolder abilityHolder;
     [SerializeField] private string transitionName;
-    [SerializeField] private string nextSceneToPreload;
+    //[SerializeField] private string nextSceneToPreload;
     private void Start()
     {
         uiFade = FindFirstObjectByType<UIFade>();
@@ -21,10 +21,10 @@ public class AreaEntrance : MonoBehaviour
             {
                 ProgressManager.SaveProgress(SceneManager.GetActiveScene().buildIndex);
             }
-            if (!string.IsNullOrEmpty(nextSceneToPreload) && !SceneManager.GetSceneByName(nextSceneToPreload).isLoaded)
+            /*if (!string.IsNullOrEmpty(nextSceneToPreload) && !SceneManager.GetSceneByName(nextSceneToPreload).isLoaded)
             {
                 StartCoroutine(PreloadNextRoom(nextSceneToPreload));
-            }
+            }*/
         }
 
         playerHp = FindFirstObjectByType<PlayerHpSystem>();

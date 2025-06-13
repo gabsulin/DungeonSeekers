@@ -104,6 +104,7 @@ public class CharacterSelect : MonoBehaviour
 
     public void ExitZoom()
     {
+        AudioManager.Instance.PlaySFX("UIButton");
         isZooming = true;
         //isZoomed = false;
         zoom = maxZoom;
@@ -127,6 +128,7 @@ public class CharacterSelect : MonoBehaviour
 
     private void PlayCharacter(CharacterData data)
     {
+        AudioManager.Instance.PlaySFX("UIButton");
         Debug.Log("Selected: " + data.characterName);
 
         var player = selectedCharacter.AddComponent<PlayerController>();

@@ -437,9 +437,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287073d39d0e11e4bae5f305bf3e08e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   enragedColor: {r: 1, g: 1, b: 1, a: 1}
   isSpecialBoss: 0
+  anim: {fileID: 6640589549180806085}
   soundName: MonsterDeath
   musicName: Battle
   hasIntro: 0
@@ -448,6 +449,7 @@ MonoBehaviour:
   isEnraged: 0
   isDamagable: 1
   isDead: 0
+  hasPhaseTwo: 1
 --- !u!1 &6355391277950352776
 GameObject:
   m_ObjectHideFlags: 0

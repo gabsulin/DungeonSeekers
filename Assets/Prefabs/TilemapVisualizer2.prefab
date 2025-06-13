@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7953709180144802636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8221644567768930849}
+  - component: {fileID: 9179728634275317525}
+  m_Layer: 0
+  m_Name: TilemapVisualizer2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8221644567768930849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953709180144802636}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9179728634275317525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953709180144802636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e826f282b5900145996e1609d01db81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorTilemap: {fileID: 0}
+  wallTilemap: {fileID: 0}
+  floorTile: {fileID: 11400000, guid: 1b937738569858b4489bb918b1046b0f, type: 2}
+  wallTop: {fileID: 11400000, guid: 5cd4c2f02dfa98d47b901c41a864e989, type: 2}
+  wallSideRight: {fileID: 11400000, guid: 445ef5cd9a31742469afab8e6b751446, type: 2}
+  wallSiderLeft: {fileID: 11400000, guid: 0e4d0b125e58d4e4cbc989354a4028a2, type: 2}
+  wallBottom: {fileID: 11400000, guid: 6c0699c25c3a41e438e6a8cf79ecfdda, type: 2}
+  wallFull: {fileID: 11400000, guid: 1b937738569858b4489bb918b1046b0f, type: 2}
+  wallInnerCornerDownLeft: {fileID: 11400000, guid: 93dd59bd5dfbc3d4794ebd0241bf568e,
+    type: 2}
+  wallInnerCornerDownRight: {fileID: 11400000, guid: a2f088c4a6d627b47abc022f868baab4,
+    type: 2}
+  wallDiagonalCornerDownRight: {fileID: 11400000, guid: 7843df043e8a45a4aa43a1feb443388b,
+    type: 2}
+  wallDiagonalCornerDownLeft: {fileID: 11400000, guid: 6bb0473dfb6d5a54dab5d95fc08596f4,
+    type: 2}
+  wallDiagonalCornerUpRight: {fileID: 11400000, guid: d055f956a3f579649860cd8de9b52c63,
+    type: 2}
+  wallDiagonalCornerUpLeft: {fileID: 11400000, guid: 78ad8b1c8a2b8fa4f8fbf14f367adb2c,
+    type: 2}

@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boomParticles: {fileID: 1135783283977302706, guid: 133c66311eb92e34b9e231149cdaf6b7,
     type: 3}
-  damage: 60
+  damage: 20
   damageTextPrefab: {fileID: 1137463279741286454, guid: 2f108bbd3785ef043885c86735c64d6e,
     type: 3}
   textSpawnRadius: 0.5

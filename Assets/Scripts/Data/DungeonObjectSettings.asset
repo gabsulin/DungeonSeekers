@@ -18,27 +18,14 @@ MonoBehaviour:
   objectTypes:
   - prefab: {fileID: 341433622838068289, guid: 4359848e59dcc20469d8d4e7e76eed41, type: 3}
     objectName: Torch
-    spawnChance: 0.2
+    spawnChance: 0.15
     minDistanceFromWalls: 1
     minDistanceBetweenObjects: 5
     canPlaceNearWalls: 1
     requiresFloorAccess: 1
     blockMovement: 0
     minRoomSize: 10
-    maxDensityPerRoom: 0.3
-    category: 1
-    weight: 10
-  - prefab: {fileID: 2435107665453629468, guid: fb1f730ae8fca3d45843b51d51e495e7,
-      type: 3}
-    objectName: Campnofire
-    spawnChance: 0.5
-    minDistanceFromWalls: 2
-    minDistanceBetweenObjects: 2
-    canPlaceNearWalls: 0
-    requiresFloorAccess: 1
-    blockMovement: 1
-    minRoomSize: 10
-    maxDensityPerRoom: 0.1
+    maxDensityPerRoom: 0.2
     category: 1
     weight: 10
   minPathWidth: 2

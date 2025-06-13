@@ -6,6 +6,7 @@ public class BossHpSystem : MonoBehaviour
     [SerializeField] float maxHealth;
     [SerializeField] Color enragedColor;
     [SerializeField] bool isSpecialBoss;
+    [SerializeField] Animator anim;
 
     [Header("Sound Settings")]
     [SerializeField] string soundName;
@@ -14,25 +15,25 @@ public class BossHpSystem : MonoBehaviour
     public float currentHealth;
 
     public Image hpBar;
-    Animator anim;
     SpriteRenderer spriteRenderer;
 
     public bool isEnraged = false;
     public bool isDamagable = true;
     bool isHealing = false;
     public bool isDead = false;
+    public bool hasPhaseTwo;
     private void Awake()
     {
         currentHealth = maxHealth;
     }
     void Start()
     {
-        anim = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         if (hpBar != null)
         {
             hpBar.fillAmount = maxHealth / maxHealth;
         }
+        anim.GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
@@ -61,7 +62,7 @@ public class BossHpSystem : MonoBehaviour
             {
                 Die();
             }
-            if (!isEnraged && currentHealth <= maxHealth / 2)
+            if (hasPhaseTwo && !isEnraged && currentHealth <= maxHealth / 2)
             {
                 AudioManager.Instance.PlaySFX("Phase2");
                 isEnraged = true;
@@ -88,7 +89,6 @@ public class BossHpSystem : MonoBehaviour
     }
     private void Die()
     {
-        AudioManager.Instance.musicSource.Stop();
         AudioManager.Instance.PlayMusic(musicName, hasIntro);
         AudioManager.Instance.PlaySFX(name);
         anim.SetBool("Die", true);

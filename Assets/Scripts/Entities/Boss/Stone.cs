@@ -23,11 +23,15 @@ public class Stone : MonoBehaviour
 
     public void DisableActions()
     {
-        player.canMove = false;
-        animator.SetFloat("RunState", 0);
-        player.canAttack= false;
-        animator.ResetTrigger("Attack");
-        isPetrified = true;
+        if(player !=null)
+        {
+            player.canMove = false;
+            animator.SetFloat("RunState", 0);
+            player.canAttack = false;
+            animator.ResetTrigger("Attack");
+            isPetrified = true;
+        }
+        
     }
 
     public void DestroyObject()

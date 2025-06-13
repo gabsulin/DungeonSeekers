@@ -55,7 +55,7 @@ public class BossAttack : MonoBehaviour
     public void EnragedAttack()
     {
         AudioManager.Instance.PlaySFX("MonsterAttack");
-        if (!hasSpawnedEnemies)
+        /*if (!hasSpawnedEnemies)
         {
             for (int i = 0; i < 0; i++)
             {
@@ -63,7 +63,7 @@ public class BossAttack : MonoBehaviour
             }
 
             hasSpawnedEnemies = true;
-        }
+        }*/
         StartCoroutine(EnragedShootingRoutine());
     }
 

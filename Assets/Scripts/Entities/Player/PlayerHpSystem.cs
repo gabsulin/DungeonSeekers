@@ -2,9 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System.Threading;
-using UnityEditor.SceneManagement;
 
 public class PlayerHpSystem : MonoBehaviour
 {
@@ -19,7 +16,7 @@ public class PlayerHpSystem : MonoBehaviour
     [SerializeField] TMP_Text shieldsTMP;
     [SerializeField] TMP_Text damageNumber;
     GameObject deathScreen;
-    GameObject cam;
+    Camera cam;
 
     [HideInInspector] public float currentHp;
     [HideInInspector] public float currentShields;
@@ -58,8 +55,8 @@ public class PlayerHpSystem : MonoBehaviour
 
     public void AssignUIElements()
     {
-        cam = GameObject.FindGameObjectWithTag("Camera").gameObject;
-        cam.SetActive(false);
+        cam = GameObject.Find("DeathCamera").GetComponent<Camera>();
+        cam.gameObject.SetActive(false);
         GameObject canvas = GameObject.Find("Canvas");
 
         if (canvas != null)
@@ -175,7 +172,7 @@ public class PlayerHpSystem : MonoBehaviour
 
         UpgradeManager.Instance.ResetUpgrades();
 
-        cam.SetActive(true);
+        cam.gameObject.SetActive(true);
         deathScreen.SetActive(true);
 
         Destroy(GameObject.Find("Player"));

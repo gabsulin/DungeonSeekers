@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/License.unity
-    guid: 66b4b1917be66e94088d1aaffcdcb8b1
-  - enabled: 1
     path: Assets/Scenes/BeforeMM.unity
     guid: b5225407c437e044498297594d90b71e
   - enabled: 1
@@ -18,25 +15,37 @@ EditorBuildSettings:
     path: Assets/Scenes/Shop.unity
     guid: 70808e6b1201ed7459bec74d67689f4b
   - enabled: 1
-    path: Assets/Scenes/Level1/1_1.unity
+    path: Assets/Scenes/Levels/1_1.unity
     guid: 2ece7a04a34648f4bb5faa3312bcf50c
   - enabled: 1
-    path: Assets/Scenes/Level1/1_4.unity
+    path: Assets/Scenes/Levels/1_2.unity
     guid: 64fe3a24543cf4d4e8628695edc80185
   - enabled: 1
-    path: Assets/Scenes/Level1/1_2.unity
-    guid: 637f1e92b1b7a494ab69319f93f6e02c
+    path: Assets/Scenes/Levels/1_Shop.unity
+    guid: c20ce8b91dfc9634eaa7fd582196ce57
   - enabled: 1
-    path: Assets/Scenes/Level1/1_5_Boss.unity
+    path: Assets/Scenes/Levels/1_Boss.unity
     guid: 56b21c9133a335f4aad16b2665372847
   - enabled: 1
-    path: Assets/Scenes/Level1/1_5_Boss1.unity
-    guid: f13048b89ad7b074cae15356dbc456ec
+    path: Assets/Scenes/Levels/2_1.unity
+    guid: d40fb5069fbd6fd4bbbfec129945627f
   - enabled: 1
-    path: Assets/Scenes/Level1/1_5_Boss2.unity
-    guid: a7cb84efc9cf9544f8bb84824a8f1ce0
+    path: Assets/Scenes/Levels/2_Shop.unity
+    guid: 6d9202d6c36437d4f8cfe2587b01b4de
   - enabled: 1
-    path: Assets/Scenes/Level1/1_5_Boss3.unity
-    guid: 1f78b426239013845b3db877c02860f3
+    path: Assets/Scenes/Levels/2_Boss.unity
+    guid: 6d61ad2ac3d1d11488480e10e2fcb54f
+  - enabled: 1
+    path: Assets/Scenes/Levels/3_1.unity
+    guid: 4b8887e9f1ce84e4f98f6d03c195b70c
+  - enabled: 1
+    path: Assets/Scenes/Levels/3_Shop.unity
+    guid: 9d79b1db77d39094d9169a1cb67965b3
+  - enabled: 1
+    path: Assets/Scenes/Levels/3_Boss.unity
+    guid: 4d1cca9a41021184c99f343c97b00f7c
+  - enabled: 1
+    path: Assets/Scenes/Levels/4_Boss.unity
+    guid: 6eb222468e296fc4194b9469e9abafb9
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

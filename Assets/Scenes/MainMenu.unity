@@ -14268,15 +14268,21 @@ MonoBehaviour:
   - name: MonsterAttack
     clips:
     - {fileID: 8300000, guid: 40ea6b1cfb83985458bab903bab923dc, type: 3}
-  - name: Petrification
-    clips:
-    - {fileID: 8300000, guid: 4e3dd3452eece264f811a76ab2b7c0cc, type: 3}
   - name: Building
     clips:
     - {fileID: 8300000, guid: 68c5d404c03ff294ebd660a873c3de39, type: 3}
   - name: GinAttack
     clips:
     - {fileID: 8300000, guid: 11476361ed2baf64287091d61f1b3183, type: 3}
+  - name: Petrification
+    clips:
+    - {fileID: 8300000, guid: 4e3dd3452eece264f811a76ab2b7c0cc, type: 3}
+  - name: MedusaAttack
+    clips:
+    - {fileID: 8300000, guid: d90b7c140d300d547a6136543cc7dffc, type: 3}
+  - name: MedusaDeath
+    clips:
+    - {fileID: 8300000, guid: 1b2a3c9d3a1c84a439e4426d0955a6c7, type: 3}
   musicSource: {fileID: 1424744745}
   loopSource: {fileID: 839651583}
   sfxSource: {fileID: 770294608}

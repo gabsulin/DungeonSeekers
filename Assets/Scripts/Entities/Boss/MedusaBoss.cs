@@ -43,9 +43,11 @@ public class MedusaBoss : MonoBehaviour
         if(rand < 0.8)
         {
             Attack();
+            AudioManager.Instance.PlaySFX("MedusaAttack");
         } else
         {
             Petrify();
+            AudioManager.Instance.PlaySFX("Petrification");
         }
     }
     private void Attack()
