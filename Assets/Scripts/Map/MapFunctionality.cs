@@ -70,7 +70,7 @@ public class MapFunctionality : MonoBehaviour
     private void GenerateRandomWaves()
     {
         //int totalWaves = Random.Range(2, 6);
-        int totalWaves = 1;
+        int totalWaves = 2;
 
         for (int i = 0; i < totalWaves; i++)
         {

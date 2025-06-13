@@ -5152,12 +5152,12 @@ PrefabInstance:
     - target: {fileID: 4433091775550453347, guid: db9479b1438f1d5418a22ce5a98e445f,
         type: 3}
       propertyPath: sceneToLoad
-      value: 1_Boss
+      value: 2_1
       objectReference: {fileID: 0}
     - target: {fileID: 4433091775550453347, guid: db9479b1438f1d5418a22ce5a98e445f,
         type: 3}
       propertyPath: sceneTransitionName
-      value: 1Boss
+      value: 2_1Entry
       objectReference: {fileID: 0}
     - target: {fileID: 6073793121783323722, guid: db9479b1438f1d5418a22ce5a98e445f,
         type: 3}

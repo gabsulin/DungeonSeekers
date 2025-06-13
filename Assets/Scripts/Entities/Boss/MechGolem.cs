@@ -18,6 +18,8 @@ public class MechGolem : MonoBehaviour
     [Header("Laser Settings")]
     [SerializeField] private float laserDuration = 2f;
 
+    [SerializeField] GameObject winScreen;
+
     private Rigidbody2D rb;
     private Transform player;
     private Animator animator;
@@ -84,6 +86,12 @@ public class MechGolem : MonoBehaviour
         {
             StopDash();
             StartCoroutine(StopLaserAfterDuration(laser, 0.1f));
+            /*var canvas = GameObject.Find("Canvas");
+            Instantiate(winScreen, canvas.transform);
+            Destroy(GameObject.Find("Player"));
+            var persistance = GameObject.Find("Persistence");
+            var inventory = persistance.transform.Find("InventoryCanvas(Clone)");
+            Destroy(inventory.gameObject);*/
         }
     }
 

@@ -282,6 +282,8 @@ MonoBehaviour:
     m_Bits: 129
   bounceCooldown: 0.1
   laserDuration: 4
+  winScreen: {fileID: 3768317322458496874, guid: 08575a44955526d4a8acc1d7539525c8,
+    type: 3}
 --- !u!114 &4293254451395314887
 MonoBehaviour:
   m_ObjectHideFlags: 0
