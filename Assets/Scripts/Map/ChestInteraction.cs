@@ -15,14 +15,27 @@ public class ChestInteraction : MonoBehaviour, IInteractable
     float forceMin = 1.5f;
     float forceMax = 2;
 
+
+    int rand;
+
+    private void Start()
+    {
+        rand = Random.Range(0, 15);
+    }
     public void Interact()
     {
         if (isOpen) return;
         isOpen = true;
         gameObject.tag = "Untagged";
         anim.SetBool("ChestOpen", true);
-        StartCoroutine(SpawnCoins());
-        AudioManager.Instance.PlaySFX("ChestOpening");
+        (AudioManager.Instance)?.PlaySFX("ChestOpening");
+        if(rand == 14)
+        {
+            SpawnUpgrade();
+        } else
+        {
+            StartCoroutine(SpawnCoins());
+        }
     }
 
     IEnumerator SpawnCoins()
@@ -35,7 +48,7 @@ public class ChestInteraction : MonoBehaviour, IInteractable
 
         for (int i = 0; i < coinsAmount; i++)
         {
-            AudioManager.Instance.PlaySFX("ChestCoin");
+            (AudioManager.Instance)?.PlaySFX("ChestCoin");
             GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
             Coin coinObj = coin.GetComponent<Coin>();
 
@@ -76,4 +89,8 @@ public class ChestInteraction : MonoBehaviour, IInteractable
         }
     }
 
+    IEnumerator SpawnUpgrade()
+    {
+
+    }
 }

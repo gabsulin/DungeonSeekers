@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 4846447139453798775}
   - component: {fileID: 8417226368766590237}
   - component: {fileID: 2691973931524485707}
+  - component: {fileID: 5415426593869793038}
   - component: {fileID: 723522190733091937}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Lance
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 50
   m_Sprite: {fileID: 21300000, guid: e26205813d9ee4de3aae83b2f2b7a237, type: 3}
   m_Color: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
   m_FlipX: 0
@@ -121,7 +122,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -176,8 +177,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4bd2f891028e04a97b717f6df9f427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boomParticles: {fileID: 0}
-  damage: 100
+  boomParticles: {fileID: 1135783283977302706, guid: 133c66311eb92e34b9e231149cdaf6b7,
+    type: 3}
+  damage: 15
+  damageTextPrefab: {fileID: 1137463279741286454, guid: 2f108bbd3785ef043885c86735c64d6e,
+    type: 3}
+  textSpawnRadius: 0.5
+  uiCanvasTransform: {fileID: 0}
+  mainCamera: {fileID: 0}
+--- !u!114 &5415426593869793038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3243500549786670276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef4142c2b5afbc43996f958e8aac8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: d960fb0a4c189e94cae7f24e16138d9f, type: 2}
+  allowHoldToFire: 0
 --- !u!114 &723522190733091937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,4 +211,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bea77fa61d276941b1f662ae1897731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSprite: {fileID: 4618193757141910962}

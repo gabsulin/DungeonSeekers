@@ -14,7 +14,7 @@ public class UpgradePickup : MonoBehaviour, IInteractable
         };
 
         CoinManager.instance.Buy(price);
-        AudioManager.Instance.PlaySFX("Upgrade");
+        (AudioManager.Instance)?.PlaySFX("Upgrade");
         UpgradeManager.Instance.ApplyUpgradeToCurrentWeapon(upgrade);
 
         Destroy(gameObject);

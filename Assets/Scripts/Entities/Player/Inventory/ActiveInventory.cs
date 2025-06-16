@@ -188,6 +188,10 @@ public class ActiveInventory : MonoBehaviour
         droppedWeapon.SetActive(true);
         droppedWeapon.tag = "Interactable";
         droppedWeapon.layer = 8;
+        if(droppedWeapon.GetComponent<Melee>())
+        {
+            droppedWeapon.GetComponent<EnemyDamage>().enabled = false;
+        } 
         if (droppedWeapon.GetComponent<WeaponPickup>() == null)
         {
             droppedWeapon.AddComponent<WeaponPickup>();

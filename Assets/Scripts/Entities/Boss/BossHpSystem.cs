@@ -64,7 +64,7 @@ public class BossHpSystem : MonoBehaviour
             }
             if (hasPhaseTwo && !isEnraged && currentHealth <= maxHealth / 2)
             {
-                AudioManager.Instance.PlaySFX("Phase2");
+                (AudioManager.Instance)?.PlaySFX("Phase2");
                 isEnraged = true;
                 anim.SetBool("IsEnraged", true);
                 spriteRenderer.color = enragedColor;
@@ -89,8 +89,8 @@ public class BossHpSystem : MonoBehaviour
     }
     private void Die()
     {
-        AudioManager.Instance.PlayMusic(musicName, hasIntro);
-        AudioManager.Instance.PlaySFX(name);
+        (AudioManager.Instance)?.PlayMusic(musicName, hasIntro);
+        (AudioManager.Instance)?.PlaySFX(name);
         anim.SetBool("Die", true);
         isDead = true;
     }

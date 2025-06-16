@@ -30,12 +30,12 @@ public class EnemyHealth : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         knockback = GetComponent<Knockback>();
 
-        coinsDrop = Random.Range(0, 4);
+        coinsDrop = Random.Range(0, 10);
         Debug.Log(coinsDrop);
     }
     public void TakeDamage(int damage)
     {
-        AudioManager.Instance.PlaySFX("EnemyHit");
+        (AudioManager.Instance)?.PlaySFX("EnemyHit");
         currentHealth -= damage;
         Weapon weapon = PlayerController.Instance?.GetCurrentWeapon();
         bool isMelee = weapon is Melee;
@@ -50,7 +50,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        AudioManager.Instance.PlaySFX("EnemyDeath");
+        (AudioManager.Instance)?.PlaySFX("EnemyDeath");
         if (!isAddedToGameStats)
         {
             isAddedToGameStats = true;
@@ -64,7 +64,7 @@ public class EnemyHealth : MonoBehaviour
 
         RemoveFromList();
 
-        if (!hasDroppedCoins && coinsDrop == 3)
+        if (!hasDroppedCoins && coinsDrop == 9)
         {
             hasDroppedCoins = true;
             StartCoroutine(DropCoins());

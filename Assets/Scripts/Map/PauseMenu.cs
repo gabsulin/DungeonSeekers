@@ -56,7 +56,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         //Save progress
 
-        AudioManager.Instance.PlayMusic("Menu", false);
+        (AudioManager.Instance)?.PlayMusic("Menu", false);
         SceneManager.LoadScene("MainMenu");
     }
 }

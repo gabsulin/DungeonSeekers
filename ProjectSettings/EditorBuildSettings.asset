@@ -31,19 +31,19 @@ EditorBuildSettings:
     guid: d40fb5069fbd6fd4bbbfec129945627f
   - enabled: 1
     path: Assets/Scenes/Levels/2_Shop.unity
-    guid: 6d9202d6c36437d4f8cfe2587b01b4de
+    guid: 56a148abc59a84d4099561d50834200d
   - enabled: 1
     path: Assets/Scenes/Levels/2_Boss.unity
-    guid: 6d61ad2ac3d1d11488480e10e2fcb54f
+    guid: 6982616baea7f7940a0872d2cdc19c7f
   - enabled: 1
     path: Assets/Scenes/Levels/3_1.unity
     guid: 4b8887e9f1ce84e4f98f6d03c195b70c
   - enabled: 1
     path: Assets/Scenes/Levels/3_Shop.unity
-    guid: 9d79b1db77d39094d9169a1cb67965b3
+    guid: e7b999e6ddb64c440b3f2df2073a26c9
   - enabled: 1
     path: Assets/Scenes/Levels/3_Boss.unity
-    guid: 4d1cca9a41021184c99f343c97b00f7c
+    guid: 9b52bbdd2391b4b4e8502569d8eee5d5
   - enabled: 1
     path: Assets/Scenes/Levels/4_Boss.unity
     guid: 6eb222468e296fc4194b9469e9abafb9

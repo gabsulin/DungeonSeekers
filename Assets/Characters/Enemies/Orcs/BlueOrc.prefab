@@ -286,7 +286,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  playerHp: {fileID: 0}
   aimTarget: {fileID: 0}
   grid: {fileID: 0}
   animator: {fileID: 705921775409918681}
@@ -421,4 +420,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69a5a89e2fa6fc42a4e3ad50dd2fe27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackTime: 0.2
+  knockbackTime: 0.3

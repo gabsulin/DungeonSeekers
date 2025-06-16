@@ -45,12 +45,12 @@ public class LicenseInputUI : MonoBehaviour
 
         if (licenseValidator.IsValid)
         {
-            messageText.text = "✅ Licence ověřena!";
+            messageText.text = " Licence ověřena!";
             SceneManager.LoadScene(1);
         }
         else
         {
-            messageText.text = "❌ Licence neplatná.";
+            messageText.text = " Licence neplatná.";
         }
     }
 }

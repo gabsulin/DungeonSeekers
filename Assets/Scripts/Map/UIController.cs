@@ -13,20 +13,20 @@ public class UIController : MonoBehaviour
 
     public void ToggleMusic()
     {
-        AudioManager.Instance.ToggleMusic();
-        AudioManager.Instance.PlaySFX("UIButton");
+        (AudioManager.Instance)?.ToggleMusic();
+        (AudioManager.Instance)?.PlaySFX("UIButton");
     }
     public void ToggleSFX()
     {
-        AudioManager.Instance.ToggleSFX();
-        AudioManager.Instance.PlaySFX("UIButton");
+        (AudioManager.Instance)?.ToggleSFX();
+        (AudioManager.Instance)?.PlaySFX("UIButton");
     }
     public void MusicVolume()
     {
-        AudioManager.Instance.MusicVolume(musicSlider.value);
+        (AudioManager.Instance)?.MusicVolume(musicSlider.value);
     }
     public void SFXVolume()
     {
-        AudioManager.Instance.SFXVolume(sfxSlider.value);
+        (AudioManager.Instance)?.SFXVolume(sfxSlider.value);
     }
 }

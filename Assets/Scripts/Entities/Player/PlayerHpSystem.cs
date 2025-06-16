@@ -103,7 +103,7 @@ public class PlayerHpSystem : MonoBehaviour
 
     public void TakeHit(int damage)
     {
-        AudioManager.Instance.PlaySFX("Hit");
+        (AudioManager.Instance)?.PlaySFX("Hit");
         wasntHit = 0;
         if (!isImmune)
         {
@@ -151,7 +151,7 @@ public class PlayerHpSystem : MonoBehaviour
 
     private void Die()
     {
-        AudioManager.Instance.PlaySFX("PlayerDeath");
+        (AudioManager.Instance)?.PlaySFX("PlayerDeath");
         if (player._playerState != PlayerObj.PlayerState.death)
         {
             anim._anim.ResetTrigger("Attack");

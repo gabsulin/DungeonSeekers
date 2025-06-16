@@ -17,7 +17,7 @@ public class FinalBossController : MonoBehaviour
         chest.SetActive(false);
         areaExit.SetActive(false);
         StartCoroutine(StartFinalBattle());
-        AudioManager.Instance.PlayMusic("Boss1", true);
+        (AudioManager.Instance)?.PlayMusic("Boss1", true);
     }
 
     private IEnumerator StartFinalBattle()
@@ -36,13 +36,14 @@ public class FinalBossController : MonoBehaviour
 
     void Update()
     {
-        if (!battleOver && FindAnyObjectByType<EnemyHealth>() == null &&
+        if (!battleOver && bossSpawned && FindAnyObjectByType<EnemyHealth>() == null &&
             FindAnyObjectByType<EnemyHpSystem>() == null &&
             FindAnyObjectByType<BossHpSystem>() == null)
         {
             battleOver = true;
             areaExit.SetActive(true);
             chest.SetActive(true);
+            Debug.Log("Konec");
             GameStats.Instance.OnRoomCleared();
         }
 

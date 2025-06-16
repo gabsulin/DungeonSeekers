@@ -83,7 +83,7 @@ namespace Goldmetal.UndeadSurvivor
 
             if (health > 0) {
                 anim.SetTrigger("Hit");
-                AudioManager.instance.PlaySfx(AudioManager.Sfx.Hit);
+                (AudioManager.instance)?.PlaySfx(AudioManager.Sfx.Hit);
             }
             else {
                 isLive = false;
@@ -95,7 +95,7 @@ namespace Goldmetal.UndeadSurvivor
                 GameManager.instance.GetExp();
 
                 if (GameManager.instance.isLive)
-                    AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
+                    (AudioManager.instance)?.PlaySfx(AudioManager.Sfx.Dead);
             }
         }
 

@@ -148,7 +148,7 @@ public class RangedEnemyAttack : MonoBehaviour
                 cooldown = 0.75f;
                 if (AudioManager.Instance != null && !string.IsNullOrEmpty(soundName))
                 {
-                    AudioManager.Instance.PlaySFX(soundName);
+                    (AudioManager.Instance)?.PlaySFX(soundName);
                 }
             }
         }

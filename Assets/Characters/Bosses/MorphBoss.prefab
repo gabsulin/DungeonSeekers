@@ -216,11 +216,16 @@ MonoBehaviour:
   maxHealth: 100
   enragedColor: {r: 0, g: 0, b: 0, a: 0}
   isSpecialBoss: 0
+  anim: {fileID: 0}
+  soundName: 
+  musicName: 
+  hasIntro: 0
   currentHealth: 0
   hpBar: {fileID: 0}
   isEnraged: 0
   isDamagable: 1
   isDead: 0
+  hasPhaseTwo: 0
 --- !u!114 &596146156396277285
 MonoBehaviour:
   m_ObjectHideFlags: 0

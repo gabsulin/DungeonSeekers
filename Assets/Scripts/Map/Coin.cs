@@ -23,7 +23,7 @@ public class Coin : MonoBehaviour
         {
             MoveToTarget();
             CoinManager.instance.AddCoin(1);
-            AudioManager.Instance.PlaySFX("Coin");
+            (AudioManager.Instance)?.PlaySFX("Coin");
         }
     }
 

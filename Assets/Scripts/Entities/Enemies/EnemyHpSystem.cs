@@ -37,7 +37,7 @@ public class EnemyHpSystem : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
-        AudioManager.Instance.PlaySFX("EnemyHit");
+        (AudioManager.Instance)?.PlaySFX("EnemyHit");
         currentHealth -= damage;
         Weapon weapon = PlayerController.Instance?.GetCurrentWeapon();
         bool isMelee = weapon is Melee;
@@ -52,7 +52,7 @@ public class EnemyHpSystem : MonoBehaviour
 
     private void Die()
     {
-        AudioManager.Instance.PlaySFX("EnemyDeath");
+        (AudioManager.Instance)?.PlaySFX("EnemyDeath");
         if (!isAddedToGameStats)
         {
             isAddedToGameStats = true;

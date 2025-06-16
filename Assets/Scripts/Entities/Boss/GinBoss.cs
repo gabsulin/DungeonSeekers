@@ -39,7 +39,7 @@ public class GinBoss : MonoBehaviour
     }
     public void Attack()
     {
-        AudioManager.Instance.PlaySFX("GinAttack");
+        (AudioManager.Instance)?.PlaySFX("GinAttack");
         var magic = Instantiate(magicAttack, magicSpawnPoint.position, Quaternion.identity);
         if (magic != null)
         {
@@ -55,7 +55,7 @@ public class GinBoss : MonoBehaviour
     public void EnragedAttack()
     {
         meleeText.gameObject.SetActive(true);
-        AudioManager.Instance.PlaySFX("GinAttack");
+        (AudioManager.Instance)?.PlaySFX("GinAttack");
         Vector2 direction = ((Vector2)aimTarget.position - (Vector2)magicSpawnPoint.position).normalized;
 
         float distance = Vector2.Distance(aimTarget.position, enragedMagicSpawnPoint.position);
@@ -75,9 +75,4 @@ public class GinBoss : MonoBehaviour
 
         cooldown = 0;
     }
-
-
-    /*
-    enraged attack - only damagable with a (special) melee weapon
-     */
 }

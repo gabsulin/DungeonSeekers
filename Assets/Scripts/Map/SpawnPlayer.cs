@@ -7,6 +7,6 @@ public class SpawnPlayer : MonoBehaviour
     {
         player = FindFirstObjectByType<PlayerController>();
         player.transform.position = transform.position;
-        AudioManager.Instance.PlayMusic("Battle", false);
+        (AudioManager.Instance)?.PlayMusic("Battle", false);
     }
 }

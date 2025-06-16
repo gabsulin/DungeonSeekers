@@ -215,10 +215,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8678349414213373871}
   - component: {fileID: 3154619377406886524}
-  - component: {fileID: 552645283564518223}
   m_Layer: 7
   m_Name: Shopping stand
-  m_TagString: Interactable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,15 +286,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.61997306, y: 0.4300294}
   m_EdgeRadius: 0
---- !u!114 &552645283564518223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8541085756189209475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 706e305032f08874286332d9d4ab75f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

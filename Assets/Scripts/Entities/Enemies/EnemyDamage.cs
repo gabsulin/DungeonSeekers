@@ -54,6 +54,7 @@ public class EnemyDamage : MonoBehaviour
     private void HandleCollision(Collider2D collider, Vector3 hitPosition)
     {
         if (hasHitEnemy) return;
+        if (!enabled) return;
 
         Weapon weapon = PlayerController.Instance?.GetCurrentWeapon();
         bool isMelee = weapon is Melee;

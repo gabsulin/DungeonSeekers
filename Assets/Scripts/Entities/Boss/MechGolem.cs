@@ -118,15 +118,15 @@ public class MechGolem : MonoBehaviour
             float rand = Random.value;
             animator.SetTrigger("Attack");
 
-            if (rand < 0.3f)
+            if (rand < 0.5f)
             {
                 StartLaserAttack();
-                AudioManager.Instance.PlaySFX("Laser");
+                (AudioManager.Instance)?.PlaySFX("Laser");
             }
             else
             {
                 StartDashAttack();
-                AudioManager.Instance.PlaySFX("MechCharging");
+                (AudioManager.Instance)?.PlaySFX("MechCharging");
             }
         }
     }
@@ -136,16 +136,16 @@ public class MechGolem : MonoBehaviour
         if (!bossHp.isDead)
         {
             float rand = Random.value;
-            if (rand < 0.8f)
+            if (rand < 0.45f)
             {
                 animator.SetTrigger("Attack");
                 animator.SetTrigger("MissleAttack");
             }
-            else if (rand < 0.93f)
+            else if (rand < 0.9f)
             {
                 animator.SetTrigger("Attack");
                 StartLaserAttack();
-                AudioManager.Instance.PlaySFX("Laser");
+                (AudioManager.Instance)?.PlaySFX("Laser");
             }
             else
             {
@@ -163,7 +163,7 @@ public class MechGolem : MonoBehaviour
 
     private void StopDash()
     {
-        AudioManager.Instance.sfxSource.Stop();
+        (AudioManager.Instance)?.sfxSource.Stop();
         rb.linearVelocity = Vector2.zero;
         isDashing = false;
         animator.SetFloat("DashDuration", maxDashDuration + 1f);
@@ -263,7 +263,7 @@ public class MechGolem : MonoBehaviour
 
     public void LaunchMissile()
     {
-        AudioManager.Instance.PlaySFX("MechMissle");
+       // (AudioManager.Instance)?.PlaySFX("MechMissle");
         Instantiate(missilePrefab, missileSpawnPoint.position, Quaternion.identity);
         attackCooldown = 0f;
     }

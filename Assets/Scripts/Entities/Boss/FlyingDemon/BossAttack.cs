@@ -39,7 +39,7 @@ public class BossAttack : MonoBehaviour
 
     public void Attack()
     {
-        AudioManager.Instance.PlaySFX("MonsterAttack");
+        (AudioManager.Instance)?.PlaySFX("MonsterAttack");
         var fireball = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
         if (fireball != null)
         {
@@ -54,8 +54,8 @@ public class BossAttack : MonoBehaviour
 
     public void EnragedAttack()
     {
-        AudioManager.Instance.PlaySFX("MonsterAttack");
-        /*if (!hasSpawnedEnemies)
+        (AudioManager.Instance)?.PlaySFX("MonsterAttack");
+        if (!hasSpawnedEnemies)
         {
             for (int i = 0; i < 0; i++)
             {
@@ -63,7 +63,7 @@ public class BossAttack : MonoBehaviour
             }
 
             hasSpawnedEnemies = true;
-        }*/
+        }
         StartCoroutine(EnragedShootingRoutine());
     }
 

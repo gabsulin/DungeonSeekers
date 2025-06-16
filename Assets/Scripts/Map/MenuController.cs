@@ -28,7 +28,7 @@ public class MenuController : MonoBehaviour
     public void Play()
     {
         SceneManager.LoadScene(2);
-        AudioManager.Instance.PlaySFX("UIButton");
+        (AudioManager.Instance)?.PlaySFX("UIButton");
     }
     private IEnumerator LoadSceneRoutine()
     {
@@ -56,7 +56,7 @@ public class MenuController : MonoBehaviour
 
         if (savedLevel < SceneManager.sceneCountInBuildSettings)
         {
-            AudioManager.Instance.PlaySFX("UIButton");
+            (AudioManager.Instance)?.PlaySFX("UIButton");
             SceneManager.LoadScene(savedLevel);
         }
         else
@@ -69,20 +69,20 @@ public class MenuController : MonoBehaviour
     {
         menu.SetActive(false);
         options.SetActive(true);
-        AudioManager.Instance.PlaySFX("UIButton");
+        (AudioManager.Instance)?.PlaySFX("UIButton");
     }
 
     public void Back()
     {
         options.SetActive(false);
         menu.SetActive(true);
-        AudioManager.Instance.PlaySFX("UIButton");
+        (AudioManager.Instance)?.PlaySFX("UIButton");
     }
 
     public void Quit()
     {
         Application.Quit();
         Debug.Log("Quit");
-        AudioManager.Instance.PlaySFX("UIButton");
+        (AudioManager.Instance)?.PlaySFX("UIButton");
     }
 }
